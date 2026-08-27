@@ -1,0 +1,21 @@
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+*.keystore
+*.jks
+# Exception: the hub keystore is intentionally committed so the hub APK
+# and the runtime re-signer share identical signing material.
+!keys/hub.keystore
+
+# Don't commit user-supplied APK/OBB blobs that may be added to assets/ for bundling.
+# Keep .gitkeep so the directory still exists.
+app/src/main/assets/*.apk
+app/src/main/assets/*.obb
+# Generated at build time by Gradle, not source.
+app/src/main/assets/hub.keystore
+app/src/main/assets/bootstrap/
