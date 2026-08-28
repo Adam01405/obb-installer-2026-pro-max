@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OBB Installer</string>
+
+    <!-- Bottom navigation -->
+    <string name="tab_home">Inicio</string>
+    <string name="tab_about">Acerca de</string>
+    <string name="tab_help">Ayuda</string>
+
+    <!-- Cards -->
+    <string name="card_apk">APK</string>
+    <string name="card_obb">OBB (opcional)</string>
+    <string name="card_obb_patch">OBB de parche (opcional)</string>
+    <string name="split_count">+%1$d split</string>
+    <string name="no_file_selected">Ningún archivo seleccionado</string>
+    <string name="bundled_label">Incluido · %1$s</string>
+    <string name="selected_label">Seleccionado · %1$s</string>
+    <string name="pick_file">Elegir archivo</string>
+    <string name="change_file">Cambiar</string>
+    <string name="format_apk">Compatible · .apk</string>
+    <string name="format_obb">Compatible · .obb</string>
+
+    <!-- Install button -->
+    <string name="install_apk">Instalar APK</string>
+    <string name="install_apk_obb">Instalar APK + OBB</string>
+    <string name="install_subtitle">La OBB se inyecta en el primer inicio</string>
+
+    <!-- Phases -->
+    <string name="phase_staging">Leyendo el APK…</string>
+    <string name="phase_patching">Aplicando parche + inyectando OBB…</string>
+    <string name="phase_installing">Instalando %1$s…</string>
+    <string name="phase_done_with_obb">Listo. Abre el juego desde tu pantalla de inicio; el primer inicio tardará unos segundos mientras se descomprime la OBB.</string>
+    <string name="phase_done_no_obb">APK instalado.</string>
+    <string name="phase_error">Instalación fallida: %1$s</string>
+    <string name="install_uninstall_hint">\n→ Desinstala primero cualquier versión existente del juego.</string>
+    <string name="restart">Empezar de nuevo</string>
+
+    <!-- Permissions -->
+    <string name="unknown_sources_required">Permiso necesario</string>
+    <string name="unknown_sources_subtitle">Permite instalar apps desconocidas para OBB Installer.</string>
+    <string name="open_settings">Abrir ajustes</string>
+
+    <!-- How it works -->
+    <string name="how_it_works_title">Cómo funciona</string>
+    <string name="how_it_works_body">La OBB va integrada dentro del APK. Un componente invisible inyectado junto al juego la extrae en el primer inicio — directamente desde el proceso del propio juego, donde todas las versiones de Android permiten escribir en la carpeta OBB. Sin permisos especiales, ningún fabricante puede bloquearlo.</string>
+    <string name="caveat_title">Advertencia</string>
+    <string name="caveat_body">El juego se vuelve a firmar con la clave del hub, por lo que las actualizaciones de Play Store dejan de funcionar y cualquier anti-trampas en línea lo rechazará. Los juegos de un solo jugador y sin conexión funcionan con normalidad.</string>
+
+    <!-- About -->
+    <string name="about_title">Acerca de</string>
+    <string name="about_intro">Un instalador independiente para juegos de Android que se distribuyen como APK + OBB.</string>
+    <string name="about_features_title">Qué hace</string>
+    <string name="about_feature_1">Instala el APK con un toque.</string>
+    <string name="about_feature_2">Integra la OBB dentro del APK para que el juego la encuentre solo.</string>
+    <string name="about_feature_3">Sube automáticamente targetSdk en juegos antiguos para que Android moderno los acepte.</string>
+    <string name="about_feature_4">Parchea automáticamente las librerías nativas antiguas con text relocations (libogg, libcrypto, …).</string>
+    <string name="about_feature_5">Corrige automáticamente los segmentos escribibles-y-ejecutables en librerías nativas que la seguridad W^X de Android 13+ rechaza.</string>
+    <string name="about_compat_title">Compatibilidad</string>
+    <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, etc.). El 90 %+ de los juegos clásicos de un solo jugador se instalan y funcionan.</string>
+    <string name="about_version">Versión %1$s</string>
+
+    <!-- Changelog -->
+    <string name="about_changelog_title">Historial de cambios</string>
+    <string name="about_changelog_1">Los archivos OBB se renombran al formato estándar, así los juegos reconocen ahora los archivos de datos con cualquier nombre.</string>
+    <string name="about_changelog_2">Se corrigió la carga de librerías nativas para la seguridad W^X de Android 13+.</string>
+    <string name="about_changelog_3">Traducciones al chino refinadas para mayor claridad.</string>
+
+    <!-- Fork / credits -->
+    <string name="about_dev_title">Fork y créditos</string>
+    <string name="about_dev_author">Modificado por MT·xiaoyun · 2026</string>
+    <string name="about_dev_repo_label">Proyecto original de GitHub</string>
+    <string name="about_dev_repo_url">https://github.com/aciderix/APK-OBB-HELPER/</string>
+
+    <!-- Help -->
+    <string name="help_title">Preguntas frecuentes</string>
+    <string name="help_q1">¿Dónde consigo el APK y la OBB?</string>
+    <string name="help_a1">De tu copia de seguridad existente o de un archivo de sideload. El hub no descarga nada.</string>
+    <string name="help_q2">El juego se bloquea al iniciarse.</string>
+    <string name="help_a2">Una pequeña parte de los juegos antiguos verifican su propia firma en el código y se niegan a ejecutarse tras el refirmado. La mayoría de los juegos competitivos en línea también rechazan la firma modificada. No hay solución para eso a nivel del hub.</string>
+    <string name="help_q3">El primer inicio es lento / pantalla negra.</string>
+    <string name="help_a3">Normal. El componente inyectado está descomprimiendo la OBB en la carpeta privada del juego. ~30 s por gigabyte. Los inicios posteriores son instantáneos.</string>
+    <string name="help_q4">¿Se actualizará desde Play Store?</string>
+    <string name="help_a4">No. Los paquetes refirmados no pueden actualizarse desde Play Store. Vuelve a instalarlo a través del hub cuando haya una nueva versión.</string>
+    <string name="help_q5">¿Se envía algo en línea?</string>
+    <string name="help_a5">No. Todo ocurre en el dispositivo.</string>
+</resources>

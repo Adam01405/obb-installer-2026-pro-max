@@ -49,7 +49,8 @@ allows writing to the OBB folder.
      is patched, re-signed with the same key and installed in one session.
 - 🛠️ **Auto-fixes legacy games** — bumps `targetSdkVersion` and patches old
      `.so` libraries (text relocations) so they install and load on modern Android.
-- 🌐 **Trilingual UI** — English / 简体中文 / Français, follows system locale.
+- 🌐 **Multilingual UI** — English / 简体中文 / Français / Deutsch / Español /
+     Português / 日本語, follows system locale.
 - 🔒 **Offline-first** — no telemetry, no ads.
 - 📦 **Bundled mode** — drop a `.apk` + `.obb` into `app/src/main/assets/` to
      build a one-shot installer for a specific game.

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OBB インストーラー</string>
+
+    <!-- Bottom navigation -->
+    <string name="tab_home">ホーム</string>
+    <string name="tab_about">概要</string>
+    <string name="tab_help">ヘルプ</string>
+
+    <!-- Cards -->
+    <string name="card_apk">APK</string>
+    <string name="card_obb">OBB（任意）</string>
+    <string name="card_obb_patch">パッチOBB（任意）</string>
+    <string name="split_count">+%1$d split</string>
+    <string name="no_file_selected">ファイル未選択</string>
+    <string name="bundled_label">同梱 · %1$s</string>
+    <string name="selected_label">選択中 · %1$s</string>
+    <string name="pick_file">ファイルを選択</string>
+    <string name="change_file">変更</string>
+    <string name="format_apk">対応 · .apk</string>
+    <string name="format_obb">対応 · .obb</string>
+
+    <!-- Install button -->
+    <string name="install_apk">APK をインストール</string>
+    <string name="install_apk_obb">APK + OBB をインストール</string>
+    <string name="install_subtitle">初回起動時に OBB を展開します</string>
+
+    <!-- Phases -->
+    <string name="phase_staging">APK を読み込み中…</string>
+    <string name="phase_patching">パッチ適用 + OBB 展開中…</string>
+    <string name="phase_installing">%1$s をインストール中…</string>
+    <string name="phase_done_with_obb">完了。ホーム画面からゲームを起動してください。初回起動時は OBB の展開のため数秒かかります。</string>
+    <string name="phase_done_no_obb">APK をインストールしました。</string>
+    <string name="phase_error">インストールに失敗: %1$s</string>
+    <string name="install_uninstall_hint">\n→ まず既存のゲームバージョンをアンインストールしてください。</string>
+    <string name="restart">やり直す</string>
+
+    <!-- Permissions -->
+    <string name="unknown_sources_required">権限が必要です</string>
+    <string name="unknown_sources_subtitle">OBB インストーラーで不明なアプリのインストールを許可してください。</string>
+    <string name="open_settings">設定を開く</string>
+
+    <!-- How it works -->
+    <string name="how_it_works_title">仕組み</string>
+    <string name="how_it_works_body">OBB は APK に同梱されています。ゲームに注入された目に見えない小さなコンポーネントが初回起動時にそれを展開します — ゲーム自身のプロセスから直接行われるため、すべての Android バージョンで OBB フォルダへの書き込みが許可されています。特別な権限は不要で、OEM がブロックすることもできません。</string>
+    <string name="caveat_title">注意</string>
+    <string name="caveat_body">ゲームは hub のキーで再署名されるため、Play ストアからの更新はできなくなり、オンラインのアンチチートに拒否されます。シングルプレイ・オフラインのゲームは正常に動作します。</string>
+
+    <!-- About -->
+    <string name="about_title">概要</string>
+    <string name="about_intro">APK + OBB 形式で配布される Android ゲーム向けのスタンドアロン インストーラーです。</string>
+    <string name="about_features_title">できること</string>
+    <string name="about_feature_1">ワンタップで APK をインストールします。</string>
+    <string name="about_feature_2">OBB を APK に埋め込み、ゲームが自分で見つけられるようにします。</string>
+    <string name="about_feature_3">旧式ゲームの targetSdk を自動的に引き上げ、現代の Android で受け入れられるようにします。</string>
+    <string name="about_feature_4">テキスト再配置（libogg、libcrypto など）を持つ古いネイティブライブラリを自動パッチします。</string>
+    <string name="about_feature_5">Android 13+ の W^X セキュリティに拒否される、書き込み可能かつ実行可能なセグメントをネイティブライブラリで自動修正します。</string>
+    <string name="about_compat_title">互換性</string>
+    <string name="about_compat_body">Android 11+（Xiaomi/HyperOS、OnePlus、Samsung One UI、Pixel など）。シングルプレイの旧式ゲームの 90% 以上がインストール・起動できます。</string>
+    <string name="about_version">バージョン %1$s</string>
+
+    <!-- Changelog -->
+    <string name="about_changelog_title">変更履歴</string>
+    <string name="about_changelog_1">OBB ファイルが標準形式にリネームされるため、任意のファイル名のデータファイルがゲームに認識されるようになりました。</string>
+    <string name="about_changelog_2">Android 13+ の W^X セキュリティ対応のネイティブライブラリ読み込みを修正しました。</string>
+    <string name="about_changelog_3">中国語翻訳を明確化のために改善しました。</string>
+
+    <!-- Fork / credits -->
+    <string name="about_dev_title">フォークとクレジット</string>
+    <string name="about_dev_author">MT·xiaoyun による改変 · 2026</string>
+    <string name="about_dev_repo_label">オリジナル GitHub プロジェクト</string>
+    <string name="about_dev_repo_url">https://github.com/aciderix/APK-OBB-HELPER/</string>
+
+    <!-- Help -->
+    <string name="help_title">FAQ</string>
+    <string name="help_q1">APK と OBB はどこで入手できますか?</string>
+    <string name="help_a1">既存のバックアップ、またはサイドロード アーカイブから。このアプリは何もダウンロードしません。</string>
+    <string name="help_q2">ゲームが起動時にクラッシュします。</string>
+    <string name="help_a2">一部の旧式ゲームはコード内で自分の署名を検証しており、再署名後は実行を拒否します。ほとんどのオンライン対戦ゲームも改変された署名を拒否します。これらはアプリ側では修正できません。</string>
+    <string name="help_q3">初回起動が遅い／黒画面です。</string>
+    <string name="help_a3">正常です。注入されたコンポーネントが OBB をゲームのプライベートフォルダに展開しています。約 1GB あたり 30 秒。2 回目以降は即座に起動します。</string>
+    <string name="help_q4">Play ストアから更新されますか?</string>
+    <string name="help_a4">いいえ。再署名されたパッケージは Play ストアから更新できません。新しいバージョンが出たらこのアプリから再インストールしてください。</string>
+    <string name="help_q5">オンラインに何か送信されますか?</string>
+    <string name="help_a5">いいえ。すべて端末内で完結します。</string>
+</resources>

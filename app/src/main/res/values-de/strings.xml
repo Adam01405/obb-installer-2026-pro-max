@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OBB Installer</string>
+
+    <!-- Bottom navigation -->
+    <string name="tab_home">Start</string>
+    <string name="tab_about">Info</string>
+    <string name="tab_help">Hilfe</string>
+
+    <!-- Cards -->
+    <string name="card_apk">APK</string>
+    <string name="card_obb">OBB (optional)</string>
+    <string name="card_obb_patch">Patch-OBB (optional)</string>
+    <string name="split_count">+%1$d Split</string>
+    <string name="no_file_selected">Keine Datei ausgewählt</string>
+    <string name="bundled_label">Gebündelt · %1$s</string>
+    <string name="selected_label">Ausgewählt · %1$s</string>
+    <string name="pick_file">Datei wählen</string>
+    <string name="change_file">Ändern</string>
+    <string name="format_apk">Unterstützt · .apk</string>
+    <string name="format_obb">Unterstützt · .obb</string>
+
+    <!-- Install button -->
+    <string name="install_apk">APK installieren</string>
+    <string name="install_apk_obb">APK + OBB installieren</string>
+    <string name="install_subtitle">Die OBB wird beim ersten Start eingespielt</string>
+
+    <!-- Phases -->
+    <string name="phase_staging">APK wird gelesen…</string>
+    <string name="phase_patching">Patch + OBB-Einspielung…</string>
+    <string name="phase_installing">%1$s wird installiert…</string>
+    <string name="phase_done_with_obb">Fertig. Starte das Spiel von deinem Homescreen — der erste Start dauert ein paar Sekunden, während die OBB entpackt wird.</string>
+    <string name="phase_done_no_obb">APK installiert.</string>
+    <string name="phase_error">Installation fehlgeschlagen: %1$s</string>
+    <string name="install_uninstall_hint">\n→ Deinstalliere zuerst eine vorhandene Version des Spiels.</string>
+    <string name="restart">Neu starten</string>
+
+    <!-- Permissions -->
+    <string name="unknown_sources_required">Berechtigung erforderlich</string>
+    <string name="unknown_sources_subtitle">Erlaube OBB Installer das Installieren unbekannter Apps.</string>
+    <string name="open_settings">Einstellungen öffnen</string>
+
+    <!-- How it works -->
+    <string name="how_it_works_title">So funktioniert es</string>
+    <string name="how_it_works_body">Die OBB ist in der APK gebündelt. Eine unsichtbare, neben dem Spiel eingespielte Komponente entpackt sie beim ersten Start — direkt aus dem Prozess des Spiels heraus, wo jede Android-Version das Schreiben in den OBB-Ordner erlaubt. Keine Sonderberechtigungen nötig, kein Hersteller kann das blockieren.</string>
+    <string name="caveat_title">Einschränkung</string>
+    <string name="caveat_body">Das Spiel wird mit dem Schlüssel des Hubs neu signiert. Play-Store-Updates sind danach nicht mehr möglich und jeder Online-Anti-Cheat lehnt es ab. Einzelspieler- und Offline-Spiele laufen normal.</string>
+
+    <!-- About -->
+    <string name="about_title">Über</string>
+    <string name="about_intro">Ein eigenständiger Installer für Android-Spiele, die als APK + OBB geliefert werden.</string>
+    <string name="about_features_title">Was es tut</string>
+    <string name="about_feature_1">Installiert die APK mit einem Tipp.</string>
+    <string name="about_feature_2">Bettet die OBB in die APK ein, sodass das Spiel sie selbst findet.</string>
+    <string name="about_feature_3">Erhöht targetSdk bei alten Spielen automatisch, damit modernes Android sie akzeptiert.</string>
+    <string name="about_feature_4">Patcht alte native Bibliotheken mit Text-Relocationen (libogg, libcrypto, …) automatisch.</string>
+    <string name="about_feature_5">Behebt automatisch beschreibbare-und-ausführbare Segmente in nativen Bibliotheken, die die W^X-Sicherheit von Android 13+ ablehnt.</string>
+    <string name="about_compat_title">Kompatibilität</string>
+    <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel usw.). 90 %+ der Singleplayer-Klassiker installieren und laufen.</string>
+    <string name="about_version">Version %1$s</string>
+
+    <!-- Changelog -->
+    <string name="about_changelog_title">Änderungsprotokoll</string>
+    <string name="about_changelog_1">OBB-Dateien werden in das Standardformat umbenannt, sodass Datendateien mit beliebigem Namen jetzt von Spielen erkannt werden.</string>
+    <string name="about_changelog_2">Laden nativer Bibliotheken für die W^X-Sicherheit von Android 13+ behoben.</string>
+    <string name="about_changelog_3">Chinesische Übersetzungen für mehr Klarheit überarbeitet.</string>
+
+    <!-- Fork / credits -->
+    <string name="about_dev_title">Fork &amp; Danksagungen</string>
+    <string name="about_dev_author">Modifiziert von MT·xiaoyun · 2026</string>
+    <string name="about_dev_repo_label">Originales GitHub-Projekt</string>
+    <string name="about_dev_repo_url">https://github.com/aciderix/APK-OBB-HELPER/</string>
+
+    <!-- Help -->
+    <string name="help_title">FAQ</string>
+    <string name="help_q1">Woher bekomme ich APK und OBB?</string>
+    <string name="help_a1">Aus deinem vorhandenen Backup oder aus einem Sideload-Archiv. Der Hub lädt nichts herunter.</string>
+    <string name="help_q2">Das Spiel stürzt beim Start ab.</string>
+    <string name="help_a2">Ein kleiner Teil alter Spiele prüft die eigene Signatur im Code und weigert sich nach dem Neu-Signieren zu laufen. Die meisten Online-Wettkampfspiele lehnen die gepatchte Signatur ebenfalls ab. Dafür gibt es auf Hub-Ebene keine Lösung.</string>
+    <string name="help_q3">Der erste Start ist langsam / schwarzer Bildschirm.</string>
+    <string name="help_a3">Normal. Die injizierte Komponente entpackt die OBB in den privaten Ordner des Spiels. ~30 s pro Gigabyte. Spätere Starts sind sofort.</string>
+    <string name="help_q4">Wird es über den Play Store aktualisiert?</string>
+    <string name="help_a4">Nein. Neu signierte Pakete können nicht über den Play Store aktualisiert werden. Installiere bei einer neuen Version neu über den Hub.</string>
+    <string name="help_q5">Wird etwas online gesendet?</string>
+    <string name="help_a5">Nein. Alles passiert lokal auf dem Gerät.</string>
+</resources>
