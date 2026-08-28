@@ -130,7 +130,7 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
                     )
                 }
                 val obbFilename = s.obb?.displayName?.takeIf { it.isNotBlank() }
-                    ?.let { normalizeObbName(it, meta.versionCode, meta.packageName) }
+                    ?.let { normalizeObbName(it, meta.versionCode, meta.packageName, forceMain = true) }
                     ?: ("main.${meta.versionCode}.${meta.packageName}.obb".takeIf { s.obb != null })
                 val obbPatchFilename = s.obbPatch?.displayName?.takeIf { it.isNotBlank() }
                     ?.let { normalizeObbName(it, meta.versionCode, meta.packageName, forcePatch = true) }
@@ -200,20 +200,23 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
     /**
      * Games look up their data file by the exact well-known name
      * `main.<versionCode>.<packageName>.obb` (or `patch.<...>`). Downloaded
-     * files rarely match, so force the canonical name: keep a `patch.` prefix
-     * if the user picked one (or it is explicitly a patch file), otherwise
-     * emit `main.`, and always stamp the real versionCode/package so the game
-     * finds the file regardless of the original filename.
+     * files rarely match, so force the canonical name: the main-OBB slot
+     * always emits `main.`, the patch-OBB slot always emits `patch.`, and both
+     * stamp the real versionCode/package so the game finds the file regardless
+     * of the original filename.
      */
     private fun normalizeObbName(
         name: String,
         versionCode: Long,
         packageName: String,
-        forcePatch: Boolean = false
+        forcePatch: Boolean = false,
+        forceMain: Boolean = false
     ): String {
-        val prefix = if (forcePatch) "patch"
-        else Regex("^patch\\b", RegexOption.IGNORE_CASE).find(name)
-            ?.value?.lowercase() ?: "main"
+        val prefix = when {
+            forceMain -> "main"
+            forcePatch -> "patch"
+            else -> "main"
+        }
         return "$prefix.$versionCode.$packageName.obb"
     }
 }

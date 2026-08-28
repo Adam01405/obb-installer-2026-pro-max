@@ -77,7 +77,7 @@ object ApkResigner {
                         output.write(buf, 0, n)
                         written += n
                         obbBytes = written
-                        onProgress(0.30f * (written.toFloat() / total).coerceIn(0f, 1f))
+                        onProgress(0.20f * (written.toFloat() / total).coerceIn(0f, 1f))
                     }
                     output.flush()
                 }
@@ -100,7 +100,7 @@ object ApkResigner {
                         output.write(buf, 0, n)
                         written += n
                         patchBytes = written
-                        onProgress(0.30f * (written.toFloat() / total).coerceIn(0f, 1f))
+                        onProgress(0.20f + 0.10f * (written.toFloat() / total).coerceIn(0f, 1f))
                     }
                     output.flush()
                 }
@@ -138,7 +138,8 @@ object ApkResigner {
                     if (e.isDirectory) continue
                     val name = e.name
                     if (isSignatureEntry(name)) continue
-                    if (name == "assets/$obbFilename" || name == "assets/$obbPatchFilename") continue  // we re-add fresh copies
+                    if (obbFilename != null && name == "assets/$obbFilename") continue  // we re-add fresh copies
+                    if (obbPatchFilename != null && name == "assets/$obbPatchFilename") continue
                     if (name in injectedDexNames) continue  // safety
                     if (name == "AndroidManifest.xml") {
                         val original = zip.getInputStream(e).use { it.readBytes() }
@@ -159,8 +160,10 @@ object ApkResigner {
                         // DT_TEXTREL, strips PF_W from executable segments) and
                         // opportunistically bump p_align for 16 KB page devices.
                         val data = zip.getInputStream(e).use { it.readBytes() }
-                        ElfTextrelPatcher.patch(data)
-                        ElfAlignPatcher.patch16k(data)
+                        // Malformed ELF must never abort the whole install: if a
+                        // patch fails, ship the original bytes untouched.
+                        runCatching { ElfTextrelPatcher.patch(data) }
+                        runCatching { ElfAlignPatcher.patch16k(data) }
                         val newEntry = ZipEntry(name).apply {
                             method = e.method
                             if (method == ZipEntry.STORED) {
@@ -246,8 +249,10 @@ object ApkResigner {
                     if (isSignatureEntry(name)) continue
                     if (name.startsWith("lib/") && name.endsWith(".so")) {
                         val data = zip.getInputStream(e).use { it.readBytes() }
-                        ElfTextrelPatcher.patch(data)
-                        ElfAlignPatcher.patch16k(data)
+                        // Malformed ELF must never abort the whole install: if a
+                        // patch fails, ship the original bytes untouched.
+                        runCatching { ElfTextrelPatcher.patch(data) }
+                        runCatching { ElfAlignPatcher.patch16k(data) }
                         val newEntry = ZipEntry(name).apply {
                             method = e.method
                             if (method == ZipEntry.STORED) {
