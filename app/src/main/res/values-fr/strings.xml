@@ -73,4 +73,37 @@
     <string name="help_a4">Non. Les packages re-signés ne peuvent pas être mis à jour via le Play Store. Réinstalle via le hub quand une nouvelle version sort.</string>
     <string name="help_q5">Est-ce que quelque chose part en ligne ?</string>
     <string name="help_a5">Non. Tout se passe sur l\'appareil.</string>
+
+    <!-- Installed game check -->
+    <string name="installed_check_title">Déjà installé</string>
+    <string name="installed_same_version">La version %1$s est déjà installée. Désinstallez-la d\'abord, sinon la réinstallation peut échouer.</string>
+    <string name="installed_newer_version">Une version plus récente (%1$s) est déjà installée. Désinstallez-la d\'abord.</string>
+    <string name="installed_upgrade">Cette mise à jour remplacera la version installée (%1$s).</string>
+    <string name="installed_signature_diff">La signature diffère de l\'application installée. Désinstallez l\'ancienne version d\'abord.</string>
+    <string name="installed_confirm_title">Confirmer l\'installation</string>
+    <string name="installed_confirm_body">%1$s est déjà installé. Installer quand même ?</string>
+    <string name="installed_continue">Continuer</string>
+    <string name="installed_cancel">Annuler</string>
+
+    <!-- Post-install actions -->
+    <string name="export_apk">Exporter l\'APK modifié</string>
+    <string name="export_done">Enregistré dans %1$s</string>
+    <string name="export_fail">Échec de l\'exportation : %1$s</string>
+    <string name="open_obb_dir">Ouvrir le dossier OBB</string>
+    <string name="obb_dir_unavailable">Aucune application ne peut ouvrir ce dossier</string>
+    <string name="uninstall_game">Désinstaller le jeu</string>
+
+    <!-- Log tools -->
+    <string name="copy_log">Copier le journal</string>
+    <string name="log_copied">Journal copié</string>
+    <string name="share_log">Partager le journal</string>
+    <string name="share_log_title">Journal OBB Installer</string>
+
+    <!-- History -->
+    <string name="history_title">Historique d\'installation</string>
+    <string name="history_empty">Aucune installation</string>
+    <string name="history_clear">Effacer</string>
+    <string name="history_with_patch">APK + OBB + patch</string>
+    <string name="history_with_obb">APK + OBB</string>
+    <string name="history_apk_only">APK uniquement</string>
 </resources>

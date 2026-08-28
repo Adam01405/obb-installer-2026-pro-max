@@ -83,4 +83,37 @@
     <string name="help_a4">Nein. Neu signierte Pakete können nicht über den Play Store aktualisiert werden. Installiere bei einer neuen Version neu über den Hub.</string>
     <string name="help_q5">Wird etwas online gesendet?</string>
     <string name="help_a5">Nein. Alles passiert lokal auf dem Gerät.</string>
+
+    <!-- Installed game check -->
+    <string name="installed_check_title">Bereits installiert</string>
+    <string name="installed_same_version">Version %1$s ist bereits installiert. Deinstallieren Sie sie zuerst, sonst schlägt die Neuinstallation fehl.</string>
+    <string name="installed_newer_version">Eine neuere Version (%1$s) ist bereits installiert. Deinstallieren Sie sie zuerst.</string>
+    <string name="installed_upgrade">Dieses Update ersetzt die installierte Version (%1$s).</string>
+    <string name="installed_signature_diff">Die Signatur weicht von der installierten App ab. Deinstallieren Sie die alte Version zuerst.</string>
+    <string name="installed_confirm_title">Installation bestätigen</string>
+    <string name="installed_confirm_body">%1$s ist bereits installiert. Trotzdem installieren?</string>
+    <string name="installed_continue">Fortfahren</string>
+    <string name="installed_cancel">Abbrechen</string>
+
+    <!-- Post-install actions -->
+    <string name="export_apk">Modifizierte APK exportieren</string>
+    <string name="export_done">Gespeichert unter %1$s</string>
+    <string name="export_fail">Export fehlgeschlagen: %1$s</string>
+    <string name="open_obb_dir">OBB-Ordner öffnen</string>
+    <string name="obb_dir_unavailable">Keine App kann diesen Ordner öffnen</string>
+    <string name="uninstall_game">Spiel deinstallieren</string>
+
+    <!-- Log tools -->
+    <string name="copy_log">Protokoll kopieren</string>
+    <string name="log_copied">Protokoll kopiert</string>
+    <string name="share_log">Protokoll teilen</string>
+    <string name="share_log_title">OBB-Installer-Protokoll</string>
+
+    <!-- History -->
+    <string name="history_title">Installationsverlauf</string>
+    <string name="history_empty">Noch keine Installationen</string>
+    <string name="history_clear">Leeren</string>
+    <string name="history_with_patch">APK + OBB + Patch</string>
+    <string name="history_with_obb">APK + OBB</string>
+    <string name="history_apk_only">Nur APK</string>
 </resources>

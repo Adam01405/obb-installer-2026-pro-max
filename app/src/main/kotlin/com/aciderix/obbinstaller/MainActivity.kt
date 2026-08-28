@@ -124,7 +124,11 @@ private fun HubApp(vm: InstallerViewModel = viewModel()) {
                         onReset = vm::reset,
                         onOpenUnknownSources = {
                             unknownSourcesLauncher.launch(vm.unknownSourcesIntent())
-                        }
+                        },
+                        onConfirmInstall = vm::confirmInstall,
+                        onCancelInstall = vm::cancelInstall,
+                        onExportApk = vm::exportApk,
+                        onClearHistory = vm::clearHistory
                     )
                     Tab.About -> AboutScreen()
                     Tab.Help -> HelpScreen()

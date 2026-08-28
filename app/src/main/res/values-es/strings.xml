@@ -83,4 +83,37 @@
     <string name="help_a4">No. Los paquetes refirmados no pueden actualizarse desde Play Store. Vuelve a instalarlo a través del hub cuando haya una nueva versión.</string>
     <string name="help_q5">¿Se envía algo en línea?</string>
     <string name="help_a5">No. Todo ocurre en el dispositivo.</string>
+
+    <!-- Installed game check -->
+    <string name="installed_check_title">Ya instalado</string>
+    <string name="installed_same_version">La versión %1$s ya está instalada. Desinstálala primero, o la reinstalación puede fallar.</string>
+    <string name="installed_newer_version">Ya está instalada una versión más reciente (%1$s). Desinstálala primero.</string>
+    <string name="installed_upgrade">Esta actualización reemplazará la versión instalada (%1$s).</string>
+    <string name="installed_signature_diff">La firma difiere de la app instalada. Desinstala la versión anterior primero.</string>
+    <string name="installed_confirm_title">Confirmar instalación</string>
+    <string name="installed_confirm_body">%1$s ya está instalado. ¿Instalar de todos modos?</string>
+    <string name="installed_continue">Continuar</string>
+    <string name="installed_cancel">Cancelar</string>
+
+    <!-- Post-install actions -->
+    <string name="export_apk">Exportar APK modificado</string>
+    <string name="export_done">Guardado en %1$s</string>
+    <string name="export_fail">Error de exportación: %1$s</string>
+    <string name="open_obb_dir">Abrir carpeta OBB</string>
+    <string name="obb_dir_unavailable">Ninguna app puede abrir esta carpeta</string>
+    <string name="uninstall_game">Desinstalar juego</string>
+
+    <!-- Log tools -->
+    <string name="copy_log">Copiar registro</string>
+    <string name="log_copied">Registro copiado</string>
+    <string name="share_log">Compartir registro</string>
+    <string name="share_log_title">Registro de OBB Installer</string>
+
+    <!-- History -->
+    <string name="history_title">Historial de instalaciones</string>
+    <string name="history_empty">Aún no hay instalaciones</string>
+    <string name="history_clear">Borrar</string>
+    <string name="history_with_patch">APK + OBB + parche</string>
+    <string name="history_with_obb">APK + OBB</string>
+    <string name="history_apk_only">Solo APK</string>
 </resources>

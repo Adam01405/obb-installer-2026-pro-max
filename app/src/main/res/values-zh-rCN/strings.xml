@@ -83,4 +83,37 @@
     <string name="help_a4">不能。重新签名过的安装包无法通过 Play Store 更新，新版本需要重新通过安装器安装。</string>
     <string name="help_q5">会联网发送任何数据吗？</string>
     <string name="help_a5">不会，所有操作都在设备本地完成。</string>
+
+    <!-- Installed game check -->
+    <string name="installed_check_title">已安装检测</string>
+    <string name="installed_same_version">设备已安装相同版本（v%1$s）。请先卸载，否则可能安装失败。</string>
+    <string name="installed_newer_version">设备已安装更高版本（v%1$s）。请先卸载。</string>
+    <string name="installed_upgrade">本次为升级安装，将覆盖已安装的 v%1$s。</string>
+    <string name="installed_signature_diff">已安装应用的签名与本工具不同，需先卸载旧版本。</string>
+    <string name="installed_confirm_title">确认安装</string>
+    <string name="installed_confirm_body">%1$s 已安装。仍要安装吗？</string>
+    <string name="installed_continue">继续</string>
+    <string name="installed_cancel">取消</string>
+
+    <!-- Post-install actions -->
+    <string name="export_apk">导出修补后 APK</string>
+    <string name="export_done">已保存到 %1$s</string>
+    <string name="export_fail">导出失败：%1$s</string>
+    <string name="open_obb_dir">打开 OBB 目录</string>
+    <string name="obb_dir_unavailable">没有应用可以打开该目录</string>
+    <string name="uninstall_game">卸载游戏</string>
+
+    <!-- Log tools -->
+    <string name="copy_log">复制日志</string>
+    <string name="log_copied">日志已复制</string>
+    <string name="share_log">分享日志</string>
+    <string name="share_log_title">OBB Installer 日志</string>
+
+    <!-- History -->
+    <string name="history_title">安装历史</string>
+    <string name="history_empty">暂无安装记录</string>
+    <string name="history_clear">清空</string>
+    <string name="history_with_patch">APK + OBB + patch</string>
+    <string name="history_with_obb">APK + OBB</string>
+    <string name="history_apk_only">仅 APK</string>
 </resources>

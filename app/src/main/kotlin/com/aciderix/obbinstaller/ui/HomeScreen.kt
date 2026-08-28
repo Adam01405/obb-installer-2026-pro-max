@@ -1,5 +1,10 @@
 package com.aciderix.obbinstaller.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.animation.expandVertically
@@ -21,12 +26,15 @@ import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Inventory
 import androidx.compose.material.icons.outlined.WarningAmber
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -43,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import com.aciderix.obbinstaller.Phase
 import com.aciderix.obbinstaller.R
 import com.aciderix.obbinstaller.UiState
+import com.aciderix.obbinstaller.GameTools
 
 @Composable
 fun HomeScreen(
@@ -52,7 +61,11 @@ fun HomeScreen(
     onPickObbPatch: () -> Unit,
     onStart: () -> Unit,
     onReset: () -> Unit,
-    onOpenUnknownSources: () -> Unit
+    onOpenUnknownSources: () -> Unit,
+    onConfirmInstall: () -> Unit,
+    onCancelInstall: () -> Unit,
+    onExportApk: () -> Unit,
+    onClearHistory: () -> Unit
 ) {
     val ctx = LocalContext.current
     val canStart = state.apk != null && state.canInstallUnknown &&
@@ -62,6 +75,22 @@ fun HomeScreen(
 
     var visible by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { visible = true }
+
+    state.installedInfo?.let { inst ->
+        val currentVersion = state.apkMeta?.versionCode ?: return@let
+        val msg = when {
+            inst.signatureMatches == false -> stringResource(R.string.installed_signature_diff)
+            inst.versionCode > currentVersion -> stringResource(R.string.installed_newer_version, inst.versionName)
+            inst.versionCode == currentVersion -> stringResource(R.string.installed_same_version, inst.versionName)
+            else -> stringResource(R.string.installed_upgrade, inst.versionName)
+        }
+        InfoCard(
+            title = stringResource(R.string.installed_check_title),
+            body = msg,
+            icon = Icons.Outlined.WarningAmber,
+            accent = HubColors.Warn
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -153,10 +182,39 @@ fun HomeScreen(
         }
 
         AnimatedVisibility(visible = state.phase == Phase.Done) {
-            androidx.compose.material3.OutlinedButton(
-                onClick = onReset,
-                modifier = Modifier.fillMaxWidth()
-            ) { Text(stringResource(R.string.restart)) }
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                state.exportText?.let { t ->
+                    Text(t, style = MaterialTheme.typography.bodySmall, color = HubColors.TextSecondary)
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    androidx.compose.material3.OutlinedButton(
+                        onClick = {
+                            runCatching {
+                                ctx.startActivity(GameTools.openObbDirIntent(ctx, state.apkMeta?.packageName.orEmpty()))
+                            }.onFailure {
+                                Toast.makeText(ctx, ctx.getString(R.string.obb_dir_unavailable), Toast.LENGTH_SHORT).show()
+                            }
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) { Text(stringResource(R.string.open_obb_dir)) }
+                    androidx.compose.material3.OutlinedButton(
+                        onClick = {
+                            ctx.startActivity(GameTools.uninstallIntent(state.apkMeta?.packageName.orEmpty()))
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) { Text(stringResource(R.string.uninstall_game)) }
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    androidx.compose.material3.OutlinedButton(
+                        onClick = onExportApk,
+                        modifier = Modifier.weight(1f)
+                    ) { Text(stringResource(R.string.export_apk)) }
+                    androidx.compose.material3.OutlinedButton(
+                        onClick = onReset,
+                        modifier = Modifier.weight(1f)
+                    ) { Text(stringResource(R.string.restart)) }
+                }
+            }
         }
 
         Stagger(visible = visible, index = 4) {
@@ -174,7 +232,86 @@ fun HomeScreen(
                 accent = HubColors.Warn
             )
         }
+
+        Stagger(visible = visible, index = 6) {
+            HistoryCard(records = state.history, onClear = onClearHistory)
+        }
         Spacer(Modifier.height(12.dp))
+    }
+
+    if (state.pendingConflict && state.installedInfo != null) {
+        AlertDialog(
+            onDismissRequest = onCancelInstall,
+            title = { Text(stringResource(R.string.installed_confirm_title)) },
+            text = { Text(stringResource(R.string.installed_confirm_body, state.installedInfo.packageName)) },
+            confirmButton = {
+                TextButton(onClick = onConfirmInstall) { Text(stringResource(R.string.installed_continue)) }
+            },
+            dismissButton = {
+                TextButton(onClick = onCancelInstall) { Text(stringResource(R.string.installed_cancel)) }
+            }
+        )
+    }
+}
+
+@Composable
+private fun HistoryCard(records: List<com.aciderix.obbinstaller.InstallRecord>, onClear: () -> Unit) {
+    val ctx = LocalContext.current
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(18.dp))
+            .background(HubColors.Surface)
+            .border(BorderStroke(1.dp, HubColors.Border), RoundedCornerShape(18.dp))
+            .padding(14.dp)
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                androidx.compose.material3.Icon(
+                    imageVector = Icons.Outlined.History,
+                    contentDescription = null,
+                    tint = HubColors.Primary,
+                    modifier = Modifier.size(18.dp)
+                )
+                Text(
+                    stringResource(R.string.history_title),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = HubColors.Primary,
+                    modifier = Modifier.weight(1f)
+                )
+                if (records.isNotEmpty()) {
+                    TextButton(onClick = onClear) { Text(stringResource(R.string.history_clear)) }
+                }
+            }
+            if (records.isEmpty()) {
+                Text(
+                    stringResource(R.string.history_empty),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = HubColors.TextSecondary
+                )
+            } else {
+                records.forEach { r ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Text(
+                                "${r.apkName} · v${r.versionName}",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            Text(
+                                "${GameTools.formatTime(ctx, r.timestamp)} · " +
+                                    when {
+                                        r.hasPatch -> stringResource(R.string.history_with_patch)
+                                        r.hasObb -> stringResource(R.string.history_with_obb)
+                                        else -> stringResource(R.string.history_apk_only)
+                                    },
+                                style = MaterialTheme.typography.bodySmall,
+                                color = HubColors.TextMuted
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -315,6 +452,7 @@ private fun phaseButtonLabel(phase: Phase, isWithObb: Boolean): String = when (p
 
 @Composable
 private fun StatusBlock(state: UiState) {
+    val ctx = LocalContext.current
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         if (state.statusText.isNotEmpty() && state.errorText == null) {
             Text(
@@ -334,6 +472,39 @@ private fun StatusBlock(state: UiState) {
             ) {
                 Text(err, style = MaterialTheme.typography.bodyMedium, color = HubColors.Danger)
             }
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                TextButton(onClick = { copyLog(ctx, state) }) { Text(stringResource(R.string.copy_log)) }
+                TextButton(onClick = { shareLog(ctx, state) }) { Text(stringResource(R.string.share_log)) }
+            }
         }
     }
+}
+
+private fun buildLog(ctx: Context, state: UiState): String {
+    val version = runCatching {
+        ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionName
+    }.getOrNull().orEmpty()
+    return buildString {
+        appendLine("OBB Installer v$version")
+        appendLine("Time: ${GameTools.formatTime(ctx, System.currentTimeMillis())}")
+        state.apkMeta?.let {
+            appendLine("Package: ${it.packageName}")
+            appendLine("APK version: ${it.versionName} (${it.versionCode})")
+        }
+        appendLine("Error: ${state.errorText ?: state.statusText}")
+    }
+}
+
+private fun copyLog(ctx: Context, state: UiState) {
+    val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+    cm?.setPrimaryClip(ClipData.newPlainText("obb-installer-log", buildLog(ctx, state)))
+    Toast.makeText(ctx, ctx.getString(R.string.log_copied), Toast.LENGTH_SHORT).show()
+}
+
+private fun shareLog(ctx: Context, state: UiState) {
+    val send = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, buildLog(ctx, state))
+    }
+    ctx.startActivity(Intent.createChooser(send, ctx.getString(R.string.share_log_title)))
 }

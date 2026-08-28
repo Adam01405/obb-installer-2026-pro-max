@@ -83,4 +83,37 @@
     <string name="help_a4">いいえ。再署名されたパッケージは Play ストアから更新できません。新しいバージョンが出たらこのアプリから再インストールしてください。</string>
     <string name="help_q5">オンラインに何か送信されますか?</string>
     <string name="help_a5">いいえ。すべて端末内で完結します。</string>
+
+    <!-- Installed game check -->
+    <string name="installed_check_title">インストール済み</string>
+    <string name="installed_same_version">バージョン %1$s がすでにインストールされています。先にアンインストールしないと再インストールに失敗する場合があります。</string>
+    <string name="installed_newer_version">より新しいバージョン（%1$s）がすでにインストールされています。先にアンインストールしてください。</string>
+    <string name="installed_upgrade">このアップグレードはインストール済みバージョン（%1$s）を置き換えます。</string>
+    <string name="installed_signature_diff">インストール済みアプリと署名が異なります。先に旧バージョンをアンインストールしてください。</string>
+    <string name="installed_confirm_title">インストールの確認</string>
+    <string name="installed_confirm_body">%1$s はすでにインストールされています。それでもインストールしますか？</string>
+    <string name="installed_continue">続行</string>
+    <string name="installed_cancel">キャンセル</string>
+
+    <!-- Post-install actions -->
+    <string name="export_apk">パッチ済み APK をエクスポート</string>
+    <string name="export_done">%1$s に保存しました</string>
+    <string name="export_fail">エクスポートに失敗: %1$s</string>
+    <string name="open_obb_dir">OBB フォルダを開く</string>
+    <string name="obb_dir_unavailable">このフォルダを開けるアプリがありません</string>
+    <string name="uninstall_game">ゲームをアンインストール</string>
+
+    <!-- Log tools -->
+    <string name="copy_log">ログをコピー</string>
+    <string name="log_copied">ログをコピーしました</string>
+    <string name="share_log">ログを共有</string>
+    <string name="share_log_title">OBB Installer のログ</string>
+
+    <!-- History -->
+    <string name="history_title">インストール履歴</string>
+    <string name="history_empty">インストール履歴はありません</string>
+    <string name="history_clear">クリア</string>
+    <string name="history_with_patch">APK + OBB + パッチ</string>
+    <string name="history_with_obb">APK + OBB</string>
+    <string name="history_apk_only">APK のみ</string>
 </resources>

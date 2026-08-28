@@ -83,4 +83,37 @@
     <string name="help_a4">아니요. 다시 서명된 패키지는 Play 스토어에서 업데이트할 수 없습니다. 새 버전이 나오면 허브에서 다시 설치하세요.</string>
     <string name="help_q5">온라인으로 전송되는 것이 있나요?</string>
     <string name="help_a5">없습니다. 모든 작업이 기기에서 이루어집니다.</string>
+
+    <!-- Installed game check -->
+    <string name="installed_check_title">이미 설치됨</string>
+    <string name="installed_same_version">버전 %1$s이(가) 이미 설치되어 있습니다. 먼저 제거하지 않으면 재설치가 실패할 수 있습니다.</string>
+    <string name="installed_newer_version">더 최신 버전(%1$s)이 이미 설치되어 있습니다. 먼저 제거하세요.</string>
+    <string name="installed_upgrade">이 업그레이드는 설치된 버전(%1$s)을 대체합니다.</string>
+    <string name="installed_signature_diff">설치된 앱과 서명이 다릅니다. 먼저 이전 버전을 제거하세요.</string>
+    <string name="installed_confirm_title">설치 확인</string>
+    <string name="installed_confirm_body">%1$s이(가) 이미 설치되어 있습니다. 그래도 설치할까요?</string>
+    <string name="installed_continue">계속</string>
+    <string name="installed_cancel">취소</string>
+
+    <!-- Post-install actions -->
+    <string name="export_apk">패치된 APK 내보내기</string>
+    <string name="export_done">%1$s에 저장됨</string>
+    <string name="export_fail">내보내기 실패: %1$s</string>
+    <string name="open_obb_dir">OBB 폴더 열기</string>
+    <string name="obb_dir_unavailable">이 폴더를 열 수 있는 앱이 없습니다</string>
+    <string name="uninstall_game">게임 제거</string>
+
+    <!-- Log tools -->
+    <string name="copy_log">로그 복사</string>
+    <string name="log_copied">로그가 복사되었습니다</string>
+    <string name="share_log">로그 공유</string>
+    <string name="share_log_title">OBB Installer 로그</string>
+
+    <!-- History -->
+    <string name="history_title">설치 기록</string>
+    <string name="history_empty">설치 기록이 없습니다</string>
+    <string name="history_clear">지우기</string>
+    <string name="history_with_patch">APK + OBB + 패치</string>
+    <string name="history_with_obb">APK + OBB</string>
+    <string name="history_apk_only">APK만</string>
 </resources>

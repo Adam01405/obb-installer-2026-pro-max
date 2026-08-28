@@ -83,4 +83,37 @@
     <string name="help_a4">No. I pacchetti ri-firmati non possono essere aggiornati dal Play Store. Reinstalla tramite l\'hub quando c\'è una nuova versione.</string>
     <string name="help_q5">Viene inviato qualcosa online?</string>
     <string name="help_a5">No. Tutto avviene sul dispositivo.</string>
+
+    <!-- Installed game check -->
+    <string name="installed_check_title">Già installato</string>
+    <string name="installed_same_version">La versione %1$s è già installata. Disinstallala prima, altrimenti la reinstallazione può fallire.</string>
+    <string name="installed_newer_version">È già installata una versione più recente (%1$s). Disinstallala prima.</string>
+    <string name="installed_upgrade">Questo aggiornamento sostituirà la versione installata (%1$s).</string>
+    <string name="installed_signature_diff">La firma differisce dall\'app installata. Disinstalla prima la vecchia versione.</string>
+    <string name="installed_confirm_title">Conferma installazione</string>
+    <string name="installed_confirm_body">%1$s è già installato. Installare comunque?</string>
+    <string name="installed_continue">Continua</string>
+    <string name="installed_cancel">Annulla</string>
+
+    <!-- Post-install actions -->
+    <string name="export_apk">Esporta APK modificato</string>
+    <string name="export_done">Salvato in %1$s</string>
+    <string name="export_fail">Esportazione fallita: %1$s</string>
+    <string name="open_obb_dir">Apri cartella OBB</string>
+    <string name="obb_dir_unavailable">Nessuna app può aprire questa cartella</string>
+    <string name="uninstall_game">Disinstalla gioco</string>
+
+    <!-- Log tools -->
+    <string name="copy_log">Copia registro</string>
+    <string name="log_copied">Registro copiato</string>
+    <string name="share_log">Condividi registro</string>
+    <string name="share_log_title">Registro OBB Installer</string>
+
+    <!-- History -->
+    <string name="history_title">Cronologia installazioni</string>
+    <string name="history_empty">Nessuna installazione</string>
+    <string name="history_clear">Svuota</string>
+    <string name="history_with_patch">APK + OBB + patch</string>
+    <string name="history_with_obb">APK + OBB</string>
+    <string name="history_apk_only">Solo APK</string>
 </resources>

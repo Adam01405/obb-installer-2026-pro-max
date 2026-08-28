@@ -6,11 +6,14 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 
 enum class Phase {
     Idle,
@@ -33,7 +36,11 @@ data class UiState(
     val errorText: String? = null,
     val canInstallUnknown: Boolean = true,
     val bundledApk: String? = null,
-    val bundledObb: String? = null
+    val bundledObb: String? = null,
+    val installedInfo: InstalledGame? = null,
+    val pendingConflict: Boolean = false,
+    val history: List<InstallRecord> = emptyList(),
+    val exportText: String? = null
 )
 
 class InstallerViewModel(app: Application) : AndroidViewModel(app) {
@@ -41,9 +48,12 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
+    private var patchedApk: File? = null
+
     init {
         detectBundledAssets()
         refreshUnknownSourcesPermission()
+        _state.update { it.copy(history = InstallHistory.load(getApplication())) }
     }
 
     private fun detectBundledAssets() {
@@ -114,7 +124,8 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
                         phase = Phase.Staging,
                         progress = 0f,
                         statusText = ctx.getString(R.string.phase_staging),
-                        errorText = null
+                        errorText = null,
+                        exportText = null
                     )
                 }
                 val meta = ApkInstaller.stageAndReadMeta(ctx, apk) { p ->
@@ -122,79 +133,152 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
                 }
                 _state.update { it.copy(apkMeta = meta) }
 
-                _state.update {
-                    it.copy(
-                        phase = Phase.Patching,
-                        progress = 0f,
-                        statusText = ctx.getString(R.string.phase_patching)
-                    )
+                val installed = GameTools.detectInstalled(ctx, meta)
+                _state.update { it.copy(installedInfo = installed) }
+                if (installed != null && GameTools.needsConfirmation(installed, meta)) {
+                    _state.update { it.copy(phase = Phase.Idle, pendingConflict = true) }
+                    return@launch
                 }
-                val obbFilename = s.obb?.displayName?.takeIf { it.isNotBlank() }
-                    ?.let { normalizeObbName(it, meta.versionCode, meta.packageName, forceMain = true) }
-                    ?: ("main.${meta.versionCode}.${meta.packageName}.obb".takeIf { s.obb != null })
-                val obbPatchFilename = s.obbPatch?.displayName?.takeIf { it.isNotBlank() }
-                    ?.let { normalizeObbName(it, meta.versionCode, meta.packageName, forcePatch = true) }
-                val patched = ApkResigner.patchAndResign(
-                    context = ctx,
-                    inputApk = meta.cacheFile,
-                    gamePackage = meta.packageName,
-                    obbSource = s.obb,
-                    obbFilename = obbFilename,
-                    obbPatchSource = s.obbPatch,
-                    obbPatchFilename = obbPatchFilename
-                ) { p ->
-                    _state.update { it.copy(progress = p) }
-                }
-                val patchedMeta = meta.copy(cacheFile = patched)
-
-                val splitMetas = mutableListOf<SplitMeta>()
-                for ((i, splitSource) in s.splits.withIndex()) {
-                    val split = ApkInstaller.stageSplit(ctx, splitSource, i)
-                    val patchedSplit = ApkResigner.patchSplitApk(ctx, split.cacheFile)
-                    splitMetas.add(split.copy(cacheFile = patchedSplit))
-                }
-
-                _state.update {
-                    it.copy(
-                        phase = Phase.InstallingApk,
-                        progress = 0f,
-                        statusText = ctx.getString(R.string.phase_installing, meta.packageName)
-                    )
-                }
-                val result = ApkInstaller.install(ctx, patchedMeta, splitMetas) { p ->
-                    _state.update { it.copy(progress = p) }
-                }
-                when (result) {
-                    is InstallResult.Success -> {
-                        val msg = if (s.obb != null || s.obbPatch != null)
-                            ctx.getString(R.string.phase_done_with_obb)
-                        else
-                            ctx.getString(R.string.phase_done_no_obb)
-                        _state.update { it.copy(phase = Phase.Done, statusText = msg) }
-                    }
-                    is InstallResult.Failure -> {
-                        val hint = if (result.message.contains("INCOMPATIBLE", ignoreCase = true) ||
-                                       result.message.contains("conflict", ignoreCase = true)) {
-                            ctx.getString(R.string.install_uninstall_hint)
-                        } else ""
-                        _state.update {
-                            it.copy(
-                                phase = Phase.Error,
-                                errorText = ctx.getString(R.string.phase_error, result.message) + hint
-                            )
-                        }
-                    }
-                }
+                runInstall(meta)
             } catch (t: Throwable) {
                 _state.update { it.copy(phase = Phase.Error, errorText = t.message ?: "unknown error") }
             }
         }
     }
 
+    fun confirmInstall() {
+        val meta = _state.value.apkMeta ?: return
+        _state.update { it.copy(pendingConflict = false) }
+        viewModelScope.launch { runInstall(meta) }
+    }
+
+    fun cancelInstall() {
+        _state.update { it.copy(pendingConflict = false, installedInfo = null) }
+    }
+
+    private suspend fun runInstall(meta: ApkMeta) {
+        try {
+            val s = _state.value
+            val ctx = getApplication<Application>()
+
+            _state.update {
+                it.copy(
+                    phase = Phase.Patching,
+                    progress = 0f,
+                    statusText = ctx.getString(R.string.phase_patching)
+                )
+            }
+            val obbFilename = s.obb?.displayName?.takeIf { it.isNotBlank() }
+                ?.let { normalizeObbName(it, meta.versionCode, meta.packageName, forceMain = true) }
+                ?: ("main.${meta.versionCode}.${meta.packageName}.obb".takeIf { s.obb != null })
+            val obbPatchFilename = s.obbPatch?.displayName?.takeIf { it.isNotBlank() }
+                ?.let { normalizeObbName(it, meta.versionCode, meta.packageName, forcePatch = true) }
+            val patched = ApkResigner.patchAndResign(
+                context = ctx,
+                inputApk = meta.cacheFile,
+                gamePackage = meta.packageName,
+                obbSource = s.obb,
+                obbFilename = obbFilename,
+                obbPatchSource = s.obbPatch,
+                obbPatchFilename = obbPatchFilename
+            ) { p ->
+                _state.update { it.copy(progress = p) }
+            }
+            patchedApk = patched
+            val patchedMeta = meta.copy(cacheFile = patched)
+
+            val splitMetas = mutableListOf<SplitMeta>()
+            for ((i, splitSource) in s.splits.withIndex()) {
+                val split = ApkInstaller.stageSplit(ctx, splitSource, i)
+                val patchedSplit = ApkResigner.patchSplitApk(ctx, split.cacheFile)
+                splitMetas.add(split.copy(cacheFile = patchedSplit))
+            }
+
+            _state.update {
+                it.copy(
+                    phase = Phase.InstallingApk,
+                    progress = 0f,
+                    statusText = ctx.getString(R.string.phase_installing, meta.packageName)
+                )
+            }
+            val result = ApkInstaller.install(ctx, patchedMeta, splitMetas) { p ->
+                _state.update { it.copy(progress = p) }
+            }
+            when (result) {
+                is InstallResult.Success -> {
+                    val hasObb = s.obb != null
+                    val hasPatch = s.obbPatch != null
+                    recordInstall(meta, hasObb, hasPatch)
+                    val msg = if (hasObb || hasPatch)
+                        ctx.getString(R.string.phase_done_with_obb)
+                    else
+                        ctx.getString(R.string.phase_done_no_obb)
+                    _state.update { it.copy(phase = Phase.Done, statusText = msg) }
+                }
+                is InstallResult.Failure -> {
+                    val hint = if (result.message.contains("INCOMPATIBLE", ignoreCase = true) ||
+                                   result.message.contains("conflict", ignoreCase = true)) {
+                        ctx.getString(R.string.install_uninstall_hint)
+                    } else ""
+                    _state.update {
+                        it.copy(
+                            phase = Phase.Error,
+                            errorText = ctx.getString(R.string.phase_error, result.message) + hint
+                        )
+                    }
+                }
+            }
+        } catch (t: Throwable) {
+            _state.update { it.copy(phase = Phase.Error, errorText = t.message ?: "unknown error") }
+        }
+    }
+
+    fun clearHistory() {
+        val ctx = getApplication<Application>()
+        InstallHistory.clear(ctx)
+        _state.update { it.copy(history = emptyList()) }
+    }
+
+    fun exportApk() {
+        val src = patchedApk ?: return
+        val meta = _state.value.apkMeta ?: return
+        viewModelScope.launch {
+            try {
+                val path = withContext(Dispatchers.IO) {
+                    GameTools.exportApk(getApplication(), src, meta.packageName, meta.versionName)
+                }
+                _state.update {
+                    it.copy(exportText = getApplication<Application>().getString(R.string.export_done, path))
+                }
+            } catch (t: Throwable) {
+                _state.update {
+                    it.copy(exportText = getApplication<Application>().getString(R.string.export_fail, t.message ?: "unknown error"))
+                }
+            }
+        }
+    }
+
+    private fun recordInstall(meta: ApkMeta, hasObb: Boolean, hasPatch: Boolean) {
+        val ctx = getApplication<Application>()
+        val record = InstallRecord(
+            packageName = meta.packageName,
+            versionName = meta.versionName,
+            versionCode = meta.versionCode,
+            apkName = _state.value.apk?.displayName ?: meta.packageName,
+            hasObb = hasObb,
+            hasPatch = hasPatch,
+            timestamp = System.currentTimeMillis()
+        )
+        InstallHistory.add(ctx, record)
+        _state.update { it.copy(history = InstallHistory.load(ctx)) }
+    }
+
     fun reset() {
         _state.update { UiState() }
+        patchedApk = null
         detectBundledAssets()
         refreshUnknownSourcesPermission()
+        _state.update { it.copy(history = InstallHistory.load(getApplication())) }
     }
 
     /**

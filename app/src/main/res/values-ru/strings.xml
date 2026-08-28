@@ -83,4 +83,37 @@
     <string name="help_a4">Нет. Переподписанные пакеты нельзя обновлять из Play Store. Переустановите через хаб, когда выйдет новая версия.</string>
     <string name="help_q5">Отправляется ли что-то онлайн?</string>
     <string name="help_a5">Нет. Всё происходит на устройстве.</string>
+
+    <!-- Installed game check -->
+    <string name="installed_check_title">Уже установлено</string>
+    <string name="installed_same_version">Версия %1$s уже установлена. Сначала удалите её, иначе повторная установка может не удаться.</string>
+    <string name="installed_newer_version">Уже установлена более новая версия (%1$s). Сначала удалите её.</string>
+    <string name="installed_upgrade">Это обновление заменит установленную версию (%1$s).</string>
+    <string name="installed_signature_diff">Подпись отличается от установленного приложения. Сначала удалите старую версию.</string>
+    <string name="installed_confirm_title">Подтвердить установку</string>
+    <string name="installed_confirm_body">%1$s уже установлен. Всё равно установить?</string>
+    <string name="installed_continue">Продолжить</string>
+    <string name="installed_cancel">Отмена</string>
+
+    <!-- Post-install actions -->
+    <string name="export_apk">Экспорт изменённого APK</string>
+    <string name="export_done">Сохранено в %1$s</string>
+    <string name="export_fail">Ошибка экспорта: %1$s</string>
+    <string name="open_obb_dir">Открыть папку OBB</string>
+    <string name="obb_dir_unavailable">Ни одно приложение не может открыть эту папку</string>
+    <string name="uninstall_game">Удалить игру</string>
+
+    <!-- Log tools -->
+    <string name="copy_log">Копировать журнал</string>
+    <string name="log_copied">Журнал скопирован</string>
+    <string name="share_log">Поделиться журналом</string>
+    <string name="share_log_title">Журнал OBB Installer</string>
+
+    <!-- History -->
+    <string name="history_title">История установок</string>
+    <string name="history_empty">Установок пока нет</string>
+    <string name="history_clear">Очистить</string>
+    <string name="history_with_patch">APK + OBB + патч</string>
+    <string name="history_with_obb">APK + OBB</string>
+    <string name="history_apk_only">Только APK</string>
 </resources>
