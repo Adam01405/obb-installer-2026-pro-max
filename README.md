@@ -31,42 +31,21 @@ redistribute this project, please keep this notice.
 
 ### v2.1 · 2026-08-28 — 34 languages & stability fixes
 
-**New**
-- UI translations expanded from 10 to **34 languages**, following the system locale.
-
-**Bug fixes** — what was broken, and what the fix means:
-
-1. **Signature check silently never worked.** The bundled `hub.keystore` is a
-   PKCS12 file, but the installed-game signature comparison tried to load it as
-   *JKS*, so it always returned *"signature unknown"*.
-   - *Before:* re-installing a game never warned you when the installed APK had
-     a different signature — a same/newer-version reinstall could fail halfway
-     through, or silently overwrite a differently-signed app you wanted to keep.
-   - *After:* the app correctly compares signatures, shows a clear
-     "signature differs" warning, and asks you to uninstall the old version
-     first.
-2. **Bundled-mode install could crash on startup.** Reading the size of a
-   *compressed* bundled `.apk` / `.obb` asset threw an `IOException`, aborting
-   the whole install.
-   - *Before:* a one-shot installer built with bundled assets could fail at the
-     very first step with no usable error.
-   - *After:* size lookup degrades gracefully and the install proceeds.
-3. **Install could hang forever.** If the `PackageInstaller` result broadcast
-   was lost, the UI stayed stuck on *"Installing…"* with no way out.
-   - *Before:* a lost system broadcast left the app frozen indefinitely; users
-     had to force-close it.
-   - *After:* a 10-minute timeout surfaces a clear *"install timed out"* error
-     instead of hanging.
-4. **Export path message could be wrong.** MediaStore auto-renames duplicate
-   files, but *"Saved to…"* always showed the intended filename.
-   - *Before:* you might not find the exported APK because the on-screen path
-     didn't match the actual (renamed) file.
-   - *After:* the message shows the real file name on disk.
+- **34 UI languages** (was 10), following the system locale.
+- **Fixed signature check** — the hub keystore was loaded as JKS instead of
+  PKCS12, so signature mismatches were never detected; now same/newer-version
+  reinstalls warn you to uninstall the old app first.
+- **Fixed bundled-mode crash** — reading a compressed bundled APK/OBB threw an
+  `IOException`; now it degrades gracefully and installs.
+- **Fixed install hang** — a lost `PackageInstaller` broadcast left the UI
+  stuck on "Installing…"; now a 10-minute timeout returns a clear error.
+- **Fixed export path message** — MediaStore renames duplicate files, so
+  "Saved to…" now shows the real file name on disk.
 
 ### v2.0 · 2026-08-28 — split APKs, dual OBB, installed-game detection
 
-- **Split APK support** — base + split APKs patched, re-signed and installed in
-  one `PackageInstaller` session.
+- **Split APK support** — base + splits patched, re-signed and installed in one
+  `PackageInstaller` session.
 - **Dual OBB** — bundles both `main.*.obb` and an optional `patch.*.obb`.
 - **16 KB page alignment** — bumps `p_align` on already-aligned ELF64 libs for
   Android 15+ devices.
