@@ -27,6 +27,69 @@ redistribute this project, please keep this notice.
 
 ---
 
+## 📜 Changelog
+
+### v2.1 · 2026-08-28 — 34 languages & stability fixes
+
+**New**
+- UI translations expanded from 10 to **34 languages**, following the system locale.
+
+**Bug fixes** — what was broken, and what the fix means:
+
+1. **Signature check silently never worked.** The bundled `hub.keystore` is a
+   PKCS12 file, but the installed-game signature comparison tried to load it as
+   *JKS*, so it always returned *"signature unknown"*.
+   - *Before:* re-installing a game never warned you when the installed APK had
+     a different signature — a same/newer-version reinstall could fail halfway
+     through, or silently overwrite a differently-signed app you wanted to keep.
+   - *After:* the app correctly compares signatures, shows a clear
+     "signature differs" warning, and asks you to uninstall the old version
+     first.
+2. **Bundled-mode install could crash on startup.** Reading the size of a
+   *compressed* bundled `.apk` / `.obb` asset threw an `IOException`, aborting
+   the whole install.
+   - *Before:* a one-shot installer built with bundled assets could fail at the
+     very first step with no usable error.
+   - *After:* size lookup degrades gracefully and the install proceeds.
+3. **Install could hang forever.** If the `PackageInstaller` result broadcast
+   was lost, the UI stayed stuck on *"Installing…"* with no way out.
+   - *Before:* a lost system broadcast left the app frozen indefinitely; users
+     had to force-close it.
+   - *After:* a 10-minute timeout surfaces a clear *"install timed out"* error
+     instead of hanging.
+4. **Export path message could be wrong.** MediaStore auto-renames duplicate
+   files, but *"Saved to…"* always showed the intended filename.
+   - *Before:* you might not find the exported APK because the on-screen path
+     didn't match the actual (renamed) file.
+   - *After:* the message shows the real file name on disk.
+
+### v2.0 · 2026-08-28 — split APKs, dual OBB, installed-game detection
+
+- **Split APK support** — base + split APKs patched, re-signed and installed in
+  one `PackageInstaller` session.
+- **Dual OBB** — bundles both `main.*.obb` and an optional `patch.*.obb`.
+- **16 KB page alignment** — bumps `p_align` on already-aligned ELF64 libs for
+  Android 15+ devices.
+- **Installed-game detection** — warns on same/newer installed version and on
+  signature mismatch before installing.
+- **Export patched APK** — saves the re-signed APK to `Download/OBBInstaller/`.
+- **Open OBB folder / uninstall** buttons on the Done screen.
+- **Error log copy & share**.
+- **Install history** — last 20 installs, per-package deduplicated.
+- **7 new UI languages.**
+
+### v1.1 · 2026-08-28
+
+- OBB files renamed to the standard `main.*.obb` / `patch.*.obb` format so any
+  filename is recognized by the game.
+- Native library loading fixed for Android 13+ W^X enforcement.
+
+### v1.0 · 2026-08-27
+
+- Initial release: single-tap APK + OBB install.
+
+---
+
 ## 🤔 What is this?
 
 **OBB Installer** is a tiny Android app that installs games shipped as
@@ -49,8 +112,9 @@ allows writing to the OBB folder.
      is patched, re-signed with the same key and installed in one session.
 - 🛠️ **Auto-fixes legacy games** — bumps `targetSdkVersion` and patches old
      `.so` libraries (text relocations) so they install and load on modern Android.
-- 🌐 **Multilingual UI** — English / 简体中文 / Français / Deutsch / Español /
-     Português / 日本語 / Italiano / 한국어 / Русский, follows system locale.
+- 🌐 **Multilingual UI** — 34 languages (English / 简体中文 / Français /
+     Deutsch / Español / Português / 日本語 / Italiano / 한국어 / Русский /
+     العربية / हिन्दी / עברית / …), follows system locale.
 - 🔒 **Offline-first** — no telemetry, no ads.
 - 📦 **Bundled mode** — drop a `.apk` + `.obb` into `app/src/main/assets/` to
      build a one-shot installer for a specific game.
