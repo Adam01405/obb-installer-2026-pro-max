@@ -55,7 +55,7 @@ object GameTools {
     }
 
     private fun hubCertSha256(context: Context): String? = runCatching {
-        val ks = java.security.KeyStore.getInstance("JKS")
+        val ks = java.security.KeyStore.getInstance("PKCS12")
         context.assets.open("hub.keystore").use { ks.load(it, "obbinstaller".toCharArray()) }
         val cert = ks.getCertificate("hub") as X509Certificate
         sha256Hex(cert.encoded)
@@ -81,7 +81,12 @@ object GameTools {
         resolver.openOutputStream(uri)?.use { out ->
             src.inputStream().use { it.copyTo(out) }
         } ?: error("cannot open output stream")
-        return "Download/OBBInstaller/$fileName"
+        val actualName = resolver.query(
+            uri, arrayOf(MediaStore.Downloads.DISPLAY_NAME), null, null, null
+        )?.use { c ->
+            if (c.moveToFirst() && !c.isNull(0)) c.getString(0) else null
+        }
+        return "Download/OBBInstaller/${actualName ?: fileName}"
     }
 
     fun obbDir(packageName: String): File =

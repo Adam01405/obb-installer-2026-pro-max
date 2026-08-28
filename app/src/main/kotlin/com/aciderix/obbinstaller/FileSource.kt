@@ -13,7 +13,9 @@ sealed class FileSource {
     data class Asset(val name: String) : FileSource() {
         override val displayName: String get() = name
         override fun openStream(context: Context): InputStream = context.assets.open(name)
-        override fun length(context: Context): Long = context.assets.openFd(name).use { it.length }
+        override fun length(context: Context): Long = runCatching {
+            context.assets.openFd(name).use { it.length }
+        }.getOrDefault(-1L)
     }
 
     data class UriSource(val uri: Uri, override val displayName: String) : FileSource() {

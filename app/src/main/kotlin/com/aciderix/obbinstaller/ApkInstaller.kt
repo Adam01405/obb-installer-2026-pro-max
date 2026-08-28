@@ -8,7 +8,9 @@ import android.os.Build
 import com.aciderix.obbinstaller.axml.AxmlNode
 import com.aciderix.obbinstaller.axml.AxmlReader
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import java.io.File
 import java.util.zip.ZipFile
 
@@ -144,8 +146,15 @@ object ApkInstaller {
             InstallSessionManager.deliver(sessionId, InstallResult.Failure(t.message ?: "unknown error"))
         }
 
-        deferred.await()
+        try {
+            withTimeout(INSTALL_RESULT_TIMEOUT_MS) { deferred.await() }
+        } catch (t: TimeoutCancellationException) {
+            InstallSessionManager.deliver(sessionId, InstallResult.Failure("install timed out"))
+            deferred.await()
+        }
     }
+
+    private const val INSTALL_RESULT_TIMEOUT_MS = 10 * 60 * 1000L
 
     private fun readSplitNameFromApk(apk: File): String? = runCatching {
         ZipFile(apk).use { zip ->
