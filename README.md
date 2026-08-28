@@ -1,4 +1,4 @@
-# 📦 OBB Installer
+# 📦 OBB Installer 2026 PRO MAX
 
 ### Sideload Android games (APK + OBB) without root, without a PC, without Shizuku — the OBB rides inside the APK and slips into the right folder on first launch.
 
@@ -8,7 +8,18 @@
 [![Jetpack Compose](https://img.shields.io/badge/Jetpack-Compose-4285F4?logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
 [![No Root](https://img.shields.io/badge/Root-Not%20Required-brightgreen)](#)
 [![No Shizuku](https://img.shields.io/badge/Shizuku-Not%20Required-brightgreen)](#)
-[![Latest Release](https://img.shields.io/github/v/release/aciderix/Claude-code-com?label=Latest&color=ff6600)](https://github.com/aciderix/Claude-code-com/releases/latest)
+
+---
+
+## 🔄 Secondary development notice
+
+This repository is a **secondary development (fork) of**
+[`aciderix/APK-OBB-HELPER`](https://github.com/aciderix/APK-OBB-HELPER/),
+with the original architecture, concept and MIT license preserved. Original
+author and all credits below remain fully acknowledged.
+
+All source code in this repo (unless explicitly noted) builds on top of that
+upstream project. If you redistribute this project, please keep this notice.
 
 ---
 
@@ -70,7 +81,15 @@ them, by making the game its own delivery mechanism.
 - 🛠️ **Auto-fixes legacy games** — bumps `targetSdkVersion` so the install
      passes on modern Android, patches old `.so` libraries with text
      relocations (`libogg`, `libcrypto`, etc.) so they load on Android 7+.
-- 🌐 **Bilingual UI** — English / French, follows the system locale.
+- 📐 **16 KB page alignment** — native libraries that are already 16 KB
+     aligned get their `p_align` bumped to `0x4000`, so games also run on
+     Android 15+ devices that enforce 16 KB memory pages.
+- 🗂️ **Dual OBB support** — select a `main.*.obb` *and* an optional
+     `patch.*.obb`; both are bundled and unpacked on first launch.
+- 🧩 **Split APK support** — pick the base APK plus its split APKs
+     (e.g. `config.arm64_v8a.apk`) in one go; every split is patched and
+     re-signed with the same key and installed in a single session.
+- 🌐 **Trilingual UI** — English / 简体中文 / Français, follows the system locale.
 - 🔒 **Offline-first** — nothing is sent online, no telemetry, no ads.
 - 📱 **Modern Compose UI** — dark/neon-teal theme, stagger animations,
      bottom navigation with three sections (Home / About / Help).
@@ -84,8 +103,8 @@ them, by making the game its own delivery mechanism.
 
 ### 📥 1. Get the APK
 
-Download the latest **`ObbInstaller-vX.Y.Z.apk`** from the
-[**Releases page**](https://github.com/aciderix/Claude-code-com/releases/latest).
+Download the latest **`app-release.apk`** from the
+[**Releases page**](https://github.com/Adam01405/obb-installer-2026-pro-max/releases/latest).
 
 ### 🔓 2. Allow installs from unknown sources
 
@@ -96,13 +115,14 @@ in two taps.
 
 | | |
 |---|---|
-| 1 | Pick the game's `.apk` |
-| 2 | Pick the matching `.obb` (filename should be `main.<versionCode>.<package>.obb` already) |
-| 3 | Tap **Install APK + OBB** |
-| 4 | Confirm Android's install prompt |
-| 5 | Launch the game from your home screen — **first launch unpacks the OBB** (~30 s per gigabyte), then it runs normally on every subsequent launch |
+| 1 | Pick the game's `.apk` (if the game ships split APKs, select the base APK **and** all `config.*.apk` / `*.split.*` files together) |
+| 2 | Pick the matching `main.<versionCode>.<package>.obb` (optional) |
+| 3 | Pick the matching `patch.<versionCode>.<package>.obb` if the game uses one (optional) |
+| 4 | Tap **Install APK + OBB** |
+| 5 | Confirm Android's install prompt |
+| 6 | Launch the game from your home screen — **first launch unpacks the OBB** (~30 s per gigabyte), then it runs normally on every subsequent launch |
 
-That's it. There's no step 6.
+That's it. There's no step 7.
 
 ---
 
@@ -151,11 +171,14 @@ That's it. There's no step 6.
 │   │     • bump targetSdkVersion to ≥ 24          │              │
 │   │     • inject <provider ObbBootstrapProvider> │              │
 │   │  2. Inject classesN.dex (bootstrap provider) │              │
-│   │  3. Inject the OBB as STORED asset entry     │              │
+│   │  3. Inject OBB(s) as STORED asset entries    │              │
+│   │     • main.<vc>.<pkg>.obb  (+ patch, if any) │              │
 │   │  4. Patch every lib/**/*.so :                │              │
 │   │     • mark text segments PF_W                │              │
 │   │     • clear DT_TEXTREL / DF_TEXTREL          │              │
-│   │  5. Re-sign with apksig (v1 + v2 + v3)       │              │
+│   │     • bump p_align to 0x4000 if 16 KB-aligned│              │
+│   │  5. Patch each split APK the same way        │              │
+│   │  6. Re-sign with apksig (v1 + v2 + v3)       │              │
 │   └──────────────────────────────────────────────┘              │
 │         │                                                       │
 │         ▼                                                       │
@@ -193,8 +216,8 @@ java --version    # JDK 17+
 ### Build
 
 ```bash
-git clone https://github.com/aciderix/Claude-code-com.git
-cd Claude-code-com
+git clone https://github.com/Adam01405/obb-installer-2026-pro-max.git
+cd obb-installer-2026-pro-max
 
 # Use any Gradle 8.9+ on PATH (Android Studio bundles one), or:
 gradle :app:assembleDebug
@@ -208,8 +231,9 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`
 .
 ├── app/                       # Main hub app (Compose UI + APK rewriter)
 │   └── src/main/kotlin/com/aciderix/obbinstaller/
-│       ├── ApkInstaller.kt    # PackageInstaller session wrapper
-│       ├── ApkResigner.kt     # APK rewrite + apksig signing
+│       ├── ApkInstaller.kt    # PackageInstaller session wrapper (base + splits)
+│       ├── ApkResigner.kt     # APK rewrite + apksig signing (dual OBB, split patch)
+│       ├── ElfAlignPatcher.kt  # 16 KB page-alignment fix for ELF64 libs
 │       ├── ElfTextrelPatcher.kt  # ELF surgery for legacy .so files
 │       ├── InstallerViewModel.kt
 │       ├── MainActivity.kt    # Compose entry + bottom navigation
@@ -230,7 +254,7 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`
 This app cannot be published on Google Play (Play policy forbids re-signing
 third-party packages). It is distributed via:
 
-- 🐙 **[GitHub Releases](https://github.com/aciderix/Claude-code-com/releases)** — primary channel
+- 🐙 **[GitHub Releases](https://github.com/Adam01405/obb-installer-2026-pro-max/releases)** — primary channel
 - 📦 **F-Droid** — *coming soon (open source, MIT)*
 - 📦 **Aptoide / APKPure** — *coming soon*
 
@@ -304,6 +328,7 @@ Areas where help is appreciated:
 
 ## 🙏 Credits
 
+- **Original project**: [`aciderix/APK-OBB-HELPER`](https://github.com/aciderix/APK-OBB-HELPER/) — this repository is a secondary development based on it.
 - [`apksig`](https://android.googlesource.com/platform/tools/apksig/) by Google — APK signing library, runs on-device.
 - The Android open-source community for documenting the binary AXML and ELF formats.
 
@@ -347,7 +372,15 @@ où Android autorise toujours l'écriture dans le dossier OBB.
      passer la vérif d'install d'Android moderne, patch des vieilles libs
      natives à text relocations (`libogg`, `libcrypto`, …) pour qu'elles
      chargent sur Android 7+.
-- 🌐 **Interface bilingue** — anglais / français, suit la locale système.
+- 📐 **Alignement 16 Ko** — les libs natives déjà alignées sur 16 Ko voient
+     leur `p_align` passé à `0x4000`, pour tourner aussi sur les devices
+     Android 15+ qui imposent les pages mémoire 16 Ko.
+- 🗂️ **Double OBB** — choisis un `main.*.obb` *et* un `patch.*.obb`
+     optionnel ; les deux sont embarqués et déballés au premier lancement.
+- 🧩 **Split APK** — sélectionne l'APK de base plus ses split APK
+     (ex. `config.arm64_v8a.apk`) en une fois ; chaque split est patché,
+     re-signé avec la même clé et installé dans une seule session.
+- 🌐 **Interface trilingue** — anglais / 简体中文 / français, suit la locale système.
 - 🔒 **Hors-ligne** — rien ne part en ligne, pas de télémétrie, pas de pub.
 - 📱 **Compose moderne** — thème sombre/néon turquoise, animations en
      cascade, navigation à trois onglets (Accueil / À propos / Aide).
@@ -358,12 +391,13 @@ où Android autorise toujours l'écriture dans le dossier OBB.
 
 ## ⚡ Démarrage rapide
 
-1. Télécharge le dernier **`ObbInstaller-vX.Y.Z.apk`** depuis la
-   [**page Releases**](https://github.com/aciderix/Claude-code-com/releases/latest).
+1. Télécharge le dernier **`app-release.apk`** depuis la
+   [**page Releases**](https://github.com/Adam01405/obb-installer-2026-pro-max/releases/latest).
 2. Autorise l'install d'apps inconnues (l'app te guide en deux taps).
-3. Choisis l'APK du jeu, choisis l'OBB, tape **Installer APK + OBB**, valide
-   le prompt système. Le premier lancement du jeu déballe l'OBB
-   (~30 s par gigaoctet), les suivants sont instantanés.
+3. Choisis l'APK du jeu (sélectionne aussi les split APK s'il y en a),
+   choisis le `main.*.obb` puis éventuellement le `patch.*.obb`, tape
+   **Installer APK + OBB**, valide le prompt système. Le premier lancement du
+   jeu déballe l'OBB (~30 s par gigaoctet), les suivants sont instantanés.
 
 ## 📱 Compatibilité
 
@@ -401,7 +435,7 @@ OBB là où il l'attend, c'est plié.
 Cette app ne peut pas être sur le Play Store (la politique Google interdit
 le re-signing de packages tiers). Elle est distribuée via :
 
-- 🐙 **[GitHub Releases](https://github.com/aciderix/Claude-code-com/releases)** — canal principal
+- 🐙 **[GitHub Releases](https://github.com/Adam01405/obb-installer-2026-pro-max/releases)** — canal principal
 - 📦 **F-Droid** — *bientôt (open source, MIT)*
 - 📦 **Aptoide / APKPure** — *bientôt*
 
