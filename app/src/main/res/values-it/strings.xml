@@ -61,9 +61,10 @@
 
     <!-- Changelog -->
     <string name="about_changelog_title">Registro modifiche</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nSupporto split APK, doppia OBB (main + patch), allineamento 16 KB e 7 nuove traduzioni.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nGli OBB vengono rinominati nel formato standard per riconoscere qualsiasi nome; corretto il caricamento delle librerie native per la sicurezza W^X di Android 13+.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nVersione iniziale con installazione APK + OBB in un tocco.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nOra con 34 traduzioni di lingue; corrette la rilevazione della firma, il timeout di installazione e i nomi dei file di esportazione APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nSupporto split APK, doppia OBB (main + patch), allineamento 16 KB e 7 nuove traduzioni.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nGli OBB vengono rinominati nel formato standard per riconoscere qualsiasi nome; corretto il caricamento delle librerie native per la sicurezza W^X di Android 13+.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nVersione iniziale con installazione APK + OBB in un tocco.</string>
 
     <!-- Fork / credits -->
     <string name="about_dev_title">Fork e crediti</string>

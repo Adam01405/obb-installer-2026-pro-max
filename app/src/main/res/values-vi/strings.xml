@@ -45,9 +45,10 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, v.v.). 90%+ game cũ chơi đơn cài và chạy được.</string>
     <string name="about_version">Phiên bản %1$s</string>
     <string name="about_changelog_title">Nhật ký thay đổi</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nHỗ trợ split APK, OBB kép (main + patch), căn chỉnh trang 16 KB và 7 bản dịch ngôn ngữ mới.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nCác tệp OBB được đổi tên sang định dạng chuẩn để nhận diện mọi tên tệp; sửa việc tải thư viện native cho W^X trên Android 13+.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nBản phát hành đầu tiên với cài đặt APK + OBB chỉ một chạm.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nGiờ có 34 bản dịch ngôn ngữ; sửa tính năng phát hiện chữ ký, thời gian chờ cài đặt và tên tệp xuất APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nHỗ trợ split APK, OBB kép (main + patch), căn chỉnh trang 16 KB và 7 bản dịch ngôn ngữ mới.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nCác tệp OBB được đổi tên sang định dạng chuẩn để nhận diện mọi tên tệp; sửa việc tải thư viện native cho W^X trên Android 13+.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nBản phát hành đầu tiên với cài đặt APK + OBB chỉ một chạm.</string>
     <string name="about_dev_title">Fork &amp; Ghi công</string>
     <string name="about_dev_author">Được chỉnh sửa bởi MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">Dự án GitHub gốc</string>

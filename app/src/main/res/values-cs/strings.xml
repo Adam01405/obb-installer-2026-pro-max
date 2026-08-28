@@ -45,9 +45,10 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel atd.). 90 %+ starších her pro jednoho hráče se nainstaluje a funguje.</string>
     <string name="about_version">Verze %1$s</string>
     <string name="about_changelog_title">Historie verzí</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nPodpora split APK, dvojitý OBB (main + patch), zarovnání stránek na 16 KB a 7 nových jazykových překladů.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nSoubory OBB se přejmenují na standardní formát, takže je rozpoznán libovolný název souboru; opraveno načítání nativních knihoven pro Android 13+ W^X.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nPrvní vydání s instalací APK + OBB jedním klepnutím.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nNyní s 34 překlady; opravena detekce podpisu, časový limit instalace a názvy souborů exportu APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nPodpora split APK, dvojitý OBB (main + patch), zarovnání stránek na 16 KB a 7 nových jazykových překladů.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nSoubory OBB se přejmenují na standardní formát, takže je rozpoznán libovolný název souboru; opraveno načítání nativních knihoven pro Android 13+ W^X.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nPrvní vydání s instalací APK + OBB jedním klepnutím.</string>
     <string name="about_dev_title">Fork &amp; poděkování</string>
     <string name="about_dev_author">Upravil MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">Původní projekt na GitHubu</string>

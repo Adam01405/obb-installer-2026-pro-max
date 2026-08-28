@@ -45,9 +45,10 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel ועוד). 90%+ ממשחקי השחקן היחיד הישנים מותקנים ופועלים.</string>
     <string name="about_version">גרסה %1$s</string>
     <string name="about_changelog_title">יומן שינויים</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nתמיכה ב-split APK, OBB כפול (main + patch), יישור עמודים של 16 KB, ו-7 תרגומים חדשים.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nקבצי OBB משתנים לשם התקני כדי שכל שם קובץ יזוהה; טעינת ספריות native תוקנה עבור Android 13+ W^X.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nשחרור ראשוני עם התקנת APK + OBB בלחיצה אחת.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nעכשיו עם 34 תרגומים לשפות; תוקנו זיהוי החתימה, פסק הזמן של ההתקנה ושמות קבצי הייצוא של APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nתמיכה ב-split APK, OBB כפול (main + patch), יישור עמודים של 16 KB, ו-7 תרגומים חדשים.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nקבצי OBB משתנים לשם התקני כדי שכל שם קובץ יזוהה; טעינת ספריות native תוקנה עבור Android 13+ W^X.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nשחרור ראשוני עם התקנת APK + OBB בלחיצה אחת.</string>
     <string name="about_dev_title">Fork &amp; קרדיטים</string>
     <string name="about_dev_author">שונה על ידי MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">הפרויקט המקורי ב-GitHub</string>

@@ -45,9 +45,10 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel osv.). 90 %+ av eldre enspillerspill installeres og kjører.</string>
     <string name="about_version">Versjon %1$s</string>
     <string name="about_changelog_title">Endringslogg</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nStøtte for split-APK, dobbel OBB (main + patch), 16 KB-sidejustering og 7 nye språkoversettelser.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nOBB-filer omdøpes til standardformatet slik at alle filnavn gjenkjennes; lasting av native biblioteker rettet for Android 13+ W^X.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nFørste utgivelse med installering av APK + OBB med ett trykk.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nNå med 34 oversettelser; fikset signaturgjenkjenning, installasjonstimeout og APK-eksportfilnavn.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nStøtte for split-APK, dobbel OBB (main + patch), 16 KB-sidejustering og 7 nye språkoversettelser.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB-filer omdøpes til standardformatet slik at alle filnavn gjenkjennes; lasting av native biblioteker rettet for Android 13+ W^X.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nFørste utgivelse med installering av APK + OBB med ett trykk.</string>
     <string name="about_dev_title">Fork &amp; Kreditter</string>
     <string name="about_dev_author">Endret av MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">Originalt GitHub-prosjekt</string>

@@ -45,9 +45,10 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, etc.). 90 %+ dos jogos antigos single-player instalam e funcionam.</string>
     <string name="about_version">Versão %1$s</string>
     <string name="about_changelog_title">Histórico de mudanças</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nSuporte a split APK, OBB duplo (main + patch), alinhamento de página de 16 KB e 7 novas traduções de idiomas.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nArquivos OBB são renomeados para o formato padrão para que qualquer nome seja reconhecido; carregamento de bibliotecas nativas corrigido para Android 13+ W^X.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nVersão inicial com instalação de APK + OBB em um único toque.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nAgora com 34 traduções de idiomas; corrigidas a detecção de assinatura, o tempo limite de instalação e os nomes dos arquivos de exportação APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nSuporte a split APK, OBB duplo (main + patch), alinhamento de página de 16 KB e 7 novas traduções de idiomas.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nArquivos OBB são renomeados para o formato padrão para que qualquer nome seja reconhecido; carregamento de bibliotecas nativas corrigido para Android 13+ W^X.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nVersão inicial com instalação de APK + OBB em um único toque.</string>
     <string name="about_dev_title">Fork &amp; Créditos</string>
     <string name="about_dev_author">Modificado por MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">Projeto original no GitHub</string>

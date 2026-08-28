@@ -45,9 +45,10 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, etc.). Peste 90 % dintre jocurile single-player vechi se instalează și funcționează.</string>
     <string name="about_version">Versiunea %1$s</string>
     <string name="about_changelog_title">Jurnal de modificări</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nSuport split APK, OBB dublu (main + patch), aliniere pe pagini de 16 KB și 7 traduceri noi de limbă.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nFișierele OBB sunt redenumite în formatul standard, astfel încât orice nume de fișier este recunoscut; încărcarea bibliotecilor native reparată pentru Android 13+ W^X.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nVersiunea inițială cu instalare APK + OBB printr-o singură atingere.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nAcum cu 34 de traduceri de limbă; corectate detecția semnăturii, timpul de instalare și numele fișierelor de export APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nSuport split APK, OBB dublu (main + patch), aliniere pe pagini de 16 KB și 7 traduceri noi de limbă.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nFișierele OBB sunt redenumite în formatul standard, astfel încât orice nume de fișier este recunoscut; încărcarea bibliotecilor native reparată pentru Android 13+ W^X.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nVersiunea inițială cu instalare APK + OBB printr-o singură atingere.</string>
     <string name="about_dev_title">Fork și credite</string>
     <string name="about_dev_author">Modificat de MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">Proiect GitHub original</string>

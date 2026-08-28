@@ -45,9 +45,10 @@
     <string name="about_compat_body">أندرويد 11+ (Xiaomi/HyperOS، OnePlus، Samsung One UI، Pixel، إلخ). 90%+ من ألعاب اللاعب الفردي القديمة تُثبّت وتعمل.</string>
     <string name="about_version">الإصدار %1$s</string>
     <string name="about_changelog_title">سجل التغييرات</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nدعم Split APK، OBB مزدوج (main + patch)، محاذاة صفحات 16 كيلوبايت، و7 ترجمات لغات جديدة.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nيتم إعادة تسمية ملفات OBB إلى الصيغة القياسية بحيث يُعرَف أي اسم ملف؛ إصلاح تحميل المكتبات الأصلية لحماية W^X في أندرويد 13+.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nإصدار أولي مع تثبيت APK + OBB بنقرة واحدة.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nالآن مع 34 ترجمة للغات؛ تم إصلاح اكتشاف التوقيع، ومهلة التثبيت، وأسماء ملفات تصدير APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nدعم Split APK، OBB مزدوج (main + patch)، محاذاة صفحات 16 كيلوبايت، و7 ترجمات لغات جديدة.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nيتم إعادة تسمية ملفات OBB إلى الصيغة القياسية بحيث يُعرَف أي اسم ملف؛ إصلاح تحميل المكتبات الأصلية لحماية W^X في أندرويد 13+.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nإصدار أولي مع تثبيت APK + OBB بنقرة واحدة.</string>
     <string name="about_dev_title">نسخة مشتقة &amp; إشادات</string>
     <string name="about_dev_author">عدّله MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">مشروع GitHub الأصلي</string>

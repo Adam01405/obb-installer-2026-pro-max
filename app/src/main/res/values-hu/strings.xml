@@ -45,9 +45,10 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, stb.). A régi szóló játékok 90 %+ telepíthető és fut.</string>
     <string name="about_version">Verzió %1$s</string>
     <string name="about_changelog_title">Változásnapló</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nSplit APK támogatás, kettős OBB (main + patch), 16 KB-os oldaligazítás és 7 új nyelvi fordítás.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nAz OBB-fájlok átnevezése a szabványos formátumra történik, így bármely fájlnév felismerhető; a natív könyvtárbetöltés javítva az Android 13+ W^X rendszeren.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nKezdeti kiadás egyérintéses APK + OBB telepítéssel.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nMost már 34 nyelvi fordítással; javítva az aláírás-érzékelés, a telepítési időtúllépés és az APK-export fájlnevek.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nSplit APK támogatás, kettős OBB (main + patch), 16 KB-os oldaligazítás és 7 új nyelvi fordítás.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nAz OBB-fájlok átnevezése a szabványos formátumra történik, így bármely fájlnév felismerhető; a natív könyvtárbetöltés javítva az Android 13+ W^X rendszeren.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nKezdeti kiadás egyérintéses APK + OBB telepítéssel.</string>
     <string name="about_dev_title">Fork és közreműködők</string>
     <string name="about_dev_author">Módosította: MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">Eredeti GitHub-projekt</string>

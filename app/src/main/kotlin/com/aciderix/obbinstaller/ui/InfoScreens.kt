@@ -106,6 +106,7 @@ fun AboutScreen() {
             BulletItem(stringResource(R.string.about_changelog_1))
             BulletItem(stringResource(R.string.about_changelog_2))
             BulletItem(stringResource(R.string.about_changelog_3))
+            BulletItem(stringResource(R.string.about_changelog_4))
         }
 
         SectionCard(title = stringResource(R.string.about_dev_title), icon = androidx.compose.material.icons.Icons.Outlined.Code) {

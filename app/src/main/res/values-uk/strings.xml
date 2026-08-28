@@ -45,9 +45,10 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel тощо). Понад 90 % застарілих одноосібних ігор встановлюються й працюють.</string>
     <string name="about_version">Версія %1$s</string>
     <string name="about_changelog_title">Журнал змін</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nПідтримка split APK, подвійний OBB (основний + patch), вирівнювання сторінок 16 КБ та 7 нових мов перекладу.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nФайли OBB перейменовуються у стандартний формат, тому розпізнається будь-яка назва файлу; виправлено завантаження нативних бібліотек для Android 13+ W^X.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nПочатковий випуск із встановленням APK + OBB одним дотиком.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nТепер 34 переклади; виправлено визначення підпису, тайм-аут встановлення та назви файлів при експорті APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nПідтримка split APK, подвійний OBB (основний + patch), вирівнювання сторінок 16 КБ та 7 нових мов перекладу.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nФайли OBB перейменовуються у стандартний формат, тому розпізнається будь-яка назва файлу; виправлено завантаження нативних бібліотек для Android 13+ W^X.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nПочатковий випуск із встановленням APK + OBB одним дотиком.</string>
     <string name="about_dev_title">Форк та авторство</string>
     <string name="about_dev_author">Змінено MT·xiaoyun · 2026</string>
     <string name="about_dev_repo_label">Оригінальний проєкт GitHub</string>

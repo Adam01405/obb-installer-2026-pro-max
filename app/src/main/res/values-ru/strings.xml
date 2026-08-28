@@ -61,9 +61,10 @@
 
     <!-- Changelog -->
     <string name="about_changelog_title">Журнал изменений</string>
-    <string name="about_changelog_1">v2.0 · 2026-08-28\nПоддержка split APK, двойной OBB (main + patch), выравнивание 16 КБ и 7 новых переводов.</string>
-    <string name="about_changelog_2">v1.1 · 2026-08-28\nФайлы OBB переименовываются в стандартный формат для распознавания любого имени; исправлена загрузка нативных библиотек для W^X в Android 13+.</string>
-    <string name="about_changelog_3">v1.0 · 2026-08-27\nНачальная версия с установкой APK + OBB в одно касание.</string>
+    <string name="about_changelog_1">v2.1 · 2026-08-28\nТеперь 34 языковых перевода; исправлены определение подписи, тайм-аут установки и имена файлов при экспорте APK.</string>
+    <string name="about_changelog_2">v2.0 · 2026-08-28\nПоддержка split APK, двойной OBB (main + patch), выравнивание 16 КБ и 7 новых переводов.</string>
+    <string name="about_changelog_3">v1.1 · 2026-08-28\nФайлы OBB переименовываются в стандартный формат для распознавания любого имени; исправлена загрузка нативных библиотек для W^X в Android 13+.</string>
+    <string name="about_changelog_4">v1.0 · 2026-08-27\nНачальная версия с установкой APK + OBB в одно касание.</string>
 
     <!-- Fork / credits -->
     <string name="about_dev_title">Форк и благодарности</string>
