@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OBB 설치기</string>
+
+    <!-- Bottom navigation -->
+    <string name="tab_home">홈</string>
+    <string name="tab_about">정보</string>
+    <string name="tab_help">도움말</string>
+
+    <!-- Cards -->
+    <string name="card_apk">APK</string>
+    <string name="card_obb">OBB (선택)</string>
+    <string name="card_obb_patch">패치 OBB (선택)</string>
+    <string name="split_count">+%1$d split</string>
+    <string name="no_file_selected">선택된 파일 없음</string>
+    <string name="bundled_label">포함됨 · %1$s</string>
+    <string name="selected_label">선택됨 · %1$s</string>
+    <string name="pick_file">파일 선택</string>
+    <string name="change_file">변경</string>
+    <string name="format_apk">지원 · .apk</string>
+    <string name="format_obb">지원 · .obb</string>
+
+    <!-- Install button -->
+    <string name="install_apk">APK 설치</string>
+    <string name="install_apk_obb">APK + OBB 설치</string>
+    <string name="install_subtitle">첫 실행 시 OBB가 주입됩니다</string>
+
+    <!-- Phases -->
+    <string name="phase_staging">APK 읽는 중…</string>
+    <string name="phase_patching">패치 적용 + OBB 주입 중…</string>
+    <string name="phase_installing">%1$s 설치 중…</string>
+    <string name="phase_done_with_obb">완료. 홈 화면에서 게임을 실행하세요. 첫 실행 시 OBB를 푸는 동안 몇 초가 걸립니다.</string>
+    <string name="phase_done_no_obb">APK가 설치되었습니다.</string>
+    <string name="phase_error">설치 실패: %1$s</string>
+    <string name="install_uninstall_hint">\n→ 먼저 기존 게임 버전을 제거하세요.</string>
+    <string name="restart">다시 시작</string>
+
+    <!-- Permissions -->
+    <string name="unknown_sources_required">권한 필요</string>
+    <string name="unknown_sources_subtitle">OBB 설치기에 알 수 없는 앱 설치를 허용하세요.</string>
+    <string name="open_settings">설정 열기</string>
+
+    <!-- How it works -->
+    <string name="how_it_works_title">작동 방식</string>
+    <string name="how_it_works_body">OBB는 APK 안에 포함됩니다. 게임 옆에 주입된 보이지 않는 작은 구성 요소가 첫 실행 시 이를 풀어냅니다 — 게임 자체의 프로세스 안에서 직접 이루어지므로 모든 Android 버전이 OBB 폴더 쓰기를 허용합니다. 특별한 권한이 필요 없고 제조사도 차단할 수 없습니다.</string>
+    <string name="caveat_title">주의사항</string>
+    <string name="caveat_body">게임이 허브 키로 다시 서명되므로 Play 스토어 업데이트가 더 이상 불가능하며 온라인 안티치트가 거부합니다. 싱글 플레이 및 오프라인 게임은 정상적으로 실행됩니다.</string>
+
+    <!-- About -->
+    <string name="about_title">정보</string>
+    <string name="about_intro">APK + OBB 형식으로 배포되는 Android 게임용 독립 설치기입니다.</string>
+    <string name="about_features_title">기능</string>
+    <string name="about_feature_1">한 번의 탭으로 APK를 설치합니다.</string>
+    <string name="about_feature_2">OBB를 APK 안에 넣어 게임이 스스로 찾도록 합니다.</string>
+    <string name="about_feature_3">오래된 게임의 targetSdk를 자동으로 높여 최신 Android에서 허용되게 합니다.</string>
+    <string name="about_feature_4">텍스트 재배치(libogg, libcrypto 등)가 있는 오래된 네이티브 라이브러리를 자동으로 패치합니다.</string>
+    <string name="about_feature_5">Android 13+ W^X 보안에 거부되는, 네이티브 라이브러리의 쓰기-및-실행 가능 세그먼트를 자동으로 수정합니다.</string>
+    <string name="about_compat_title">호환성</string>
+    <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel 등). 싱글 플레이 고전 게임의 90% 이상이 설치되어 실행됩니다.</string>
+    <string name="about_version">버전 %1$s</string>
+
+    <!-- Changelog -->
+    <string name="about_changelog_title">변경 기록</string>
+    <string name="about_changelog_1">OBB 파일이 표준 형식으로 이름이 바뀌어, 어떤 파일 이름의 데이터 파일도 이제 게임에서 인식됩니다.</string>
+    <string name="about_changelog_2">Android 13+ W^X 보안을 위한 네이티브 라이브러리 로딩이 수정되었습니다.</string>
+    <string name="about_changelog_3">명확성을 위해 중국어 번역이 개선되었습니다.</string>
+
+    <!-- Fork / credits -->
+    <string name="about_dev_title">포크 및 크레딧</string>
+    <string name="about_dev_author">MT·xiaoyun 수정 · 2026</string>
+    <string name="about_dev_repo_label">원본 GitHub 프로젝트</string>
+    <string name="about_dev_repo_url">https://github.com/aciderix/APK-OBB-HELPER/</string>
+
+    <!-- Help -->
+    <string name="help_title">FAQ</string>
+    <string name="help_q1">APK와 OBB는 어디서 구하나요?</string>
+    <string name="help_a1">기존 백업 또는 사이드로드 아카이브에서. 허브는 아무것도 다운로드하지 않습니다.</string>
+    <string name="help_q2">게임이 실행 시 멈춥니다.</string>
+    <string name="help_a2">일부 오래된 게임은 코드에서 자체 서명을 확인하여 다시 서명된 후 실행을 거부합니다. 대부분의 온라인 경쟁 게임도 수정된 서명을 거부합니다. 허브 수준에서는 해결책이 없습니다.</string>
+    <string name="help_q3">첫 실행이 느립니다 / 검은 화면입니다.</string>
+    <string name="help_a3">정상입니다. 주입된 구성 요소가 OBB를 게임의 개인 폴더에 풀고 있습니다. 약 1GB당 30초. 이후 실행은 즉시입니다.</string>
+    <string name="help_q4">Play 스토어에서 업데이트되나요?</string>
+    <string name="help_a4">아니요. 다시 서명된 패키지는 Play 스토어에서 업데이트할 수 없습니다. 새 버전이 나오면 허브에서 다시 설치하세요.</string>
+    <string name="help_q5">온라인으로 전송되는 것이 있나요?</string>
+    <string name="help_a5">없습니다. 모든 작업이 기기에서 이루어집니다.</string>
+</resources>

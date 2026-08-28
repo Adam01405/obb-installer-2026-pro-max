@@ -46,7 +46,7 @@ Android 11 以上，第三方应用无法再向 `Android/obb/<package>/` 目录�
 - 🛠️ **自动修复老游戏** — 自动提升 `targetSdkVersion`、修补旧版 `.so` 库
   （text relocations），让老游戏在现代化安卓上也能安装运行。
 - 🌐 **多语言界面** — 简体中文 / English / Français / Deutsch / Español /
-  Português / 日本語，跟随系统语言。
+  Português / 日本語 / Italiano / 한국어 / Русский，跟随系统语言。
 - 🔒 **完全离线** — 无遥测、无广告。
 - 📦 **内置模式** — 把 `.apk` 和 `.obb` 放进 `app/src/main/assets/`，即可构建出
   针对特定游戏的一次性安装包。

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OBB Installer</string>
+
+    <!-- Bottom navigation -->
+    <string name="tab_home">Главная</string>
+    <string name="tab_about">О приложении</string>
+    <string name="tab_help">Справка</string>
+
+    <!-- Cards -->
+    <string name="card_apk">APK</string>
+    <string name="card_obb">OBB (необязательно)</string>
+    <string name="card_obb_patch">Патч OBB (необязательно)</string>
+    <string name="split_count">+%1$d split</string>
+    <string name="no_file_selected">Файл не выбран</string>
+    <string name="bundled_label">В комплекте · %1$s</string>
+    <string name="selected_label">Выбрано · %1$s</string>
+    <string name="pick_file">Выбрать файл</string>
+    <string name="change_file">Изменить</string>
+    <string name="format_apk">Поддерживается · .apk</string>
+    <string name="format_obb">Поддерживается · .obb</string>
+
+    <!-- Install button -->
+    <string name="install_apk">Установить APK</string>
+    <string name="install_apk_obb">Установить APK + OBB</string>
+    <string name="install_subtitle">OBB внедряется при первом запуске</string>
+
+    <!-- Phases -->
+    <string name="phase_staging">Чтение APK…</string>
+    <string name="phase_patching">Патч + внедрение OBB…</string>
+    <string name="phase_installing">Установка %1$s…</string>
+    <string name="phase_done_with_obb">Готово. Запустите игру с главного экрана — первый запуск займёт несколько секунд, пока распакуется OBB.</string>
+    <string name="phase_done_no_obb">APK установлен.</string>
+    <string name="phase_error">Ошибка установки: %1$s</string>
+    <string name="install_uninstall_hint">\n→ Сначала удалите существующую версию игры.</string>
+    <string name="restart">Начать заново</string>
+
+    <!-- Permissions -->
+    <string name="unknown_sources_required">Требуется разрешение</string>
+    <string name="unknown_sources_subtitle">Разрешите OBB Installer устанавливать неизвестные приложения.</string>
+    <string name="open_settings">Открыть настройки</string>
+
+    <!-- How it works -->
+    <string name="how_it_works_title">Как это работает</string>
+    <string name="how_it_works_body">OBB встроена внутрь APK. Невидимый компонент, внедрённый рядом с игрой, распаковывает её при первом запуске — прямо из процесса самой игры, где любая версия Android разрешает запись в папку OBB. Специальных разрешений не нужно, ни один производитель не сможет это заблокировать.</string>
+    <string name="caveat_title">Предупреждение</string>
+    <string name="caveat_body">Игра переподписывается ключом хаба, поэтому обновления из Play Store становятся невозможны, а любой онлайн-античит отклонит её. Одиночные и офлайн-игры работают нормально.</string>
+
+    <!-- About -->
+    <string name="about_title">О приложении</string>
+    <string name="about_intro">Автономный установщик для игр Android, распространяемых в формате APK + OBB.</string>
+    <string name="about_features_title">Что делает</string>
+    <string name="about_feature_1">Устанавливает APK одним касанием.</string>
+    <string name="about_feature_2">Встраивает OBB внутрь APK, чтобы игра находила её сама.</string>
+    <string name="about_feature_3">Автоматически повышает targetSdk у старых игр, чтобы современный Android их принимал.</string>
+    <string name="about_feature_4">Автоматически патчит старые нативные библиотеки с текстовыми перемещениями (libogg, libcrypto, …).</string>
+    <string name="about_feature_5">Автоматически исправляет сегменты запись-и-исполнение в нативных библиотеках, которые отвергает защита W^X в Android 13+.</string>
+    <string name="about_compat_title">Совместимость</string>
+    <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel и др.). 90 %+ классических одиночных игр устанавливаются и работают.</string>
+    <string name="about_version">Версия %1$s</string>
+
+    <!-- Changelog -->
+    <string name="about_changelog_title">Журнал изменений</string>
+    <string name="about_changelog_1">Файлы OBB переименовываются в стандартный формат, поэтому файлы данных с любым именем теперь распознаются играми.</string>
+    <string name="about_changelog_2">Исправлена загрузка нативных библиотек для защиты W^X в Android 13+.</string>
+    <string name="about_changelog_3">Уточнён китайский перевод для ясности.</string>
+
+    <!-- Fork / credits -->
+    <string name="about_dev_title">Форк и благодарности</string>
+    <string name="about_dev_author">Изменено MT·xiaoyun · 2026</string>
+    <string name="about_dev_repo_label">Оригинальный проект на GitHub</string>
+    <string name="about_dev_repo_url">https://github.com/aciderix/APK-OBB-HELPER/</string>
+
+    <!-- Help -->
+    <string name="help_title">Вопросы и ответы</string>
+    <string name="help_q1">Где взять APK и OBB?</string>
+    <string name="help_a1">Из существующей резервной копии или sideload-архива. Хаб ничего не скачивает.</string>
+    <string name="help_q2">Игра вылетает при запуске.</string>
+    <string name="help_a2">Небольшая часть старых игр проверяет собственную подпись в коде и отказывается работать после переподписи. Большинство онлайн-соревновательных игр также отклоняют изменённую подпись. На уровне хаба решения нет.</string>
+    <string name="help_q3">Первый запуск медленный / чёрный экран.</string>
+    <string name="help_a3">Это нормально. Внедрённый компонент распаковывает OBB в приватную папку игры. ~30 с за гигабайт. Последующие запуски мгновенные.</string>
+    <string name="help_q4">Будет ли обновляться из Play Store?</string>
+    <string name="help_a4">Нет. Переподписанные пакеты нельзя обновлять из Play Store. Переустановите через хаб, когда выйдет новая версия.</string>
+    <string name="help_q5">Отправляется ли что-то онлайн?</string>
+    <string name="help_a5">Нет. Всё происходит на устройстве.</string>
+</resources>

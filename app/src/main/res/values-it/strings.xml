@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OBB Installer</string>
+
+    <!-- Bottom navigation -->
+    <string name="tab_home">Home</string>
+    <string name="tab_about">Informazioni</string>
+    <string name="tab_help">Aiuto</string>
+
+    <!-- Cards -->
+    <string name="card_apk">APK</string>
+    <string name="card_obb">OBB (opzionale)</string>
+    <string name="card_obb_patch">OBB patch (opzionale)</string>
+    <string name="split_count">+%1$d split</string>
+    <string name="no_file_selected">Nessun file selezionato</string>
+    <string name="bundled_label">Incluso · %1$s</string>
+    <string name="selected_label">Selezionato · %1$s</string>
+    <string name="pick_file">Scegli un file</string>
+    <string name="change_file">Cambia</string>
+    <string name="format_apk">Supportato · .apk</string>
+    <string name="format_obb">Supportato · .obb</string>
+
+    <!-- Install button -->
+    <string name="install_apk">Installa APK</string>
+    <string name="install_apk_obb">Installa APK + OBB</string>
+    <string name="install_subtitle">L\'OBB viene iniettata al primo avvio</string>
+
+    <!-- Phases -->
+    <string name="phase_staging">Lettura APK…</string>
+    <string name="phase_patching">Patch + iniezione OBB…</string>
+    <string name="phase_installing">Installazione di %1$s…</string>
+    <string name="phase_done_with_obb">Fatto. Avvia il gioco dalla schermata Home: il primo avvio richiederà qualche secondo mentre l\'OBB viene decompressa.</string>
+    <string name="phase_done_no_obb">APK installato.</string>
+    <string name="phase_error">Installazione fallita: %1$s</string>
+    <string name="install_uninstall_hint">\n→ Disinstalla prima qualsiasi versione esistente del gioco.</string>
+    <string name="restart">Ricomincia</string>
+
+    <!-- Permissions -->
+    <string name="unknown_sources_required">Autorizzazione necessaria</string>
+    <string name="unknown_sources_subtitle">Consenti a OBB Installer di installare app sconosciute.</string>
+    <string name="open_settings">Apri impostazioni</string>
+
+    <!-- How it works -->
+    <string name="how_it_works_title">Come funziona</string>
+    <string name="how_it_works_body">L\'OBB è inclusa dentro l\'APK. Un componente invisibile iniettato accanto al gioco la estrae al primo avvio — direttamente dal processo del gioco stesso, dove ogni versione di Android consente la scrittura nella cartella OBB. Nessuna autorizzazione speciale, nessun produttore può bloccarlo.</string>
+    <string name="caveat_title">Avvertenza</string>
+    <string name="caveat_body">Il gioco viene ri-firmato con la chiave dell\'hub, quindi gli aggiornamenti da Play Store non sono più possibili e qualsiasi anti-cheat online lo rifiuterà. I giochi single-player e offline funzionano normalmente.</string>
+
+    <!-- About -->
+    <string name="about_title">Informazioni</string>
+    <string name="about_intro">Un installatore autonomo per giochi Android distribuiti come APK + OBB.</string>
+    <string name="about_features_title">Cosa fa</string>
+    <string name="about_feature_1">Installa l\'APK con un tocco.</string>
+    <string name="about_feature_2">Include l\'OBB dentro l\'APK così il gioco la trova da solo.</string>
+    <string name="about_feature_3">Alza automaticamente targetSdk sui giochi vecchi per farli accettare ad Android moderno.</string>
+    <string name="about_feature_4">Corregge automaticamente le vecchie librerie native con text relocations (libogg, libcrypto, …).</string>
+    <string name="about_feature_5">Corregge automaticamente i segmenti scrivibili-ed-eseguibili nelle librerie native che la sicurezza W^X di Android 13+ rifiuta.</string>
+    <string name="about_compat_title">Compatibilità</string>
+    <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, ecc.). 90 %+ dei giochi classici single-player si installano e funzionano.</string>
+    <string name="about_version">Versione %1$s</string>
+
+    <!-- Changelog -->
+    <string name="about_changelog_title">Registro modifiche</string>
+    <string name="about_changelog_1">I file OBB vengono rinominati nel formato standard, quindi i file dati con qualsiasi nome vengono ora riconosciuti dai giochi.</string>
+    <string name="about_changelog_2">Corretto il caricamento delle librerie native per la sicurezza W^X di Android 13+.</string>
+    <string name="about_changelog_3">Traduzioni cinesi perfezionate per chiarezza.</string>
+
+    <!-- Fork / credits -->
+    <string name="about_dev_title">Fork e crediti</string>
+    <string name="about_dev_author">Modificato da MT·xiaoyun · 2026</string>
+    <string name="about_dev_repo_label">Progetto GitHub originale</string>
+    <string name="about_dev_repo_url">https://github.com/aciderix/APK-OBB-HELPER/</string>
+
+    <!-- Help -->
+    <string name="help_title">FAQ</string>
+    <string name="help_q1">Dove trovo APK e OBB?</string>
+    <string name="help_a1">Dal tuo backup esistente o da un archivio sideload. L\'hub non scarica nulla.</string>
+    <string name="help_q2">Il gioco si blocca all\'avvio.</string>
+    <string name="help_a2">Una piccola parte dei giochi vecchi verifica la propria firma nel codice e si rifiuta di funzionare dopo la ri-firma. La maggior parte dei giochi competitivi online rifiuta anche la firma modificata. Non c\'è soluzione a livello di hub.</string>
+    <string name="help_q3">Il primo avvio è lento / schermo nero.</string>
+    <string name="help_a3">Normale. Il componente iniettato sta decomprimendo l\'OBB nella cartella privata del gioco. ~30 s per gigabyte. Gli avvii successivi sono immediati.</string>
+    <string name="help_q4">Verrà aggiornato dal Play Store?</string>
+    <string name="help_a4">No. I pacchetti ri-firmati non possono essere aggiornati dal Play Store. Reinstalla tramite l\'hub quando c\'è una nuova versione.</string>
+    <string name="help_q5">Viene inviato qualcosa online?</string>
+    <string name="help_a5">No. Tutto avviene sul dispositivo.</string>
+</resources>

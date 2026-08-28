@@ -50,7 +50,7 @@ allows writing to the OBB folder.
 - 🛠️ **Auto-fixes legacy games** — bumps `targetSdkVersion` and patches old
      `.so` libraries (text relocations) so they install and load on modern Android.
 - 🌐 **Multilingual UI** — English / 简体中文 / Français / Deutsch / Español /
-     Português / 日本語, follows system locale.
+     Português / 日本語 / Italiano / 한국어 / Русский, follows system locale.
 - 🔒 **Offline-first** — no telemetry, no ads.
 - 📦 **Bundled mode** — drop a `.apk` + `.obb` into `app/src/main/assets/` to
      build a one-shot installer for a specific game.
