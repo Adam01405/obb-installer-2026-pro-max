@@ -61,9 +61,9 @@
 
     <!-- Changelog -->
     <string name="about_changelog_title">変更履歴</string>
-    <string name="about_changelog_1">OBB ファイルが標準形式にリネームされるため、任意のファイル名のデータファイルがゲームに認識されるようになりました。</string>
-    <string name="about_changelog_2">Android 13+ の W^X セキュリティ対応のネイティブライブラリ読み込みを修正しました。</string>
-    <string name="about_changelog_3">中国語翻訳を明確化のために改善しました。</string>
+    <string name="about_changelog_1">v2.0 · 2026-08-28\nSplit APK、デュアル OBB（main + patch）、16KB ページアラインメント、7 言語の翻訳を追加。</string>
+    <string name="about_changelog_2">v1.1 · 2026-08-28\nOBB ファイルを標準形式にリネームし、任意のファイル名を認識；Android 13+ の W^X 対応のネイティブライブラリ読み込みを修正。</string>
+    <string name="about_changelog_3">v1.0 · 2026-08-27\nワンタップでの APK + OBB インストールを備えた初期バージョン。</string>
 
     <!-- Fork / credits -->
     <string name="about_dev_title">フォークとクレジット</string>

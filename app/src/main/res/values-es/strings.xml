@@ -61,9 +61,9 @@
 
     <!-- Changelog -->
     <string name="about_changelog_title">Historial de cambios</string>
-    <string name="about_changelog_1">Los archivos OBB se renombran al formato estándar, así los juegos reconocen ahora los archivos de datos con cualquier nombre.</string>
-    <string name="about_changelog_2">Se corrigió la carga de librerías nativas para la seguridad W^X de Android 13+.</string>
-    <string name="about_changelog_3">Traducciones al chino refinadas para mayor claridad.</string>
+    <string name="about_changelog_1">v2.0 · 2026-08-28\nSoporte de split APK, doble OBB (main + patch), alineación de 16 KB y 7 nuevas traducciones.</string>
+    <string name="about_changelog_2">v1.1 · 2026-08-28\nLos OBB se renombran al formato estándar para reconocer cualquier nombre; corregida la carga de librerías nativas para la seguridad W^X de Android 13+.</string>
+    <string name="about_changelog_3">v1.0 · 2026-08-27\nVersión inicial con instalación de APK + OBB en un toque.</string>
 
     <!-- Fork / credits -->
     <string name="about_dev_title">Fork y créditos</string>

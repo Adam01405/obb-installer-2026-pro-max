@@ -61,9 +61,9 @@
 
     <!-- Changelog -->
     <string name="about_changelog_title">Änderungsprotokoll</string>
-    <string name="about_changelog_1">OBB-Dateien werden in das Standardformat umbenannt, sodass Datendateien mit beliebigem Namen jetzt von Spielen erkannt werden.</string>
-    <string name="about_changelog_2">Laden nativer Bibliotheken für die W^X-Sicherheit von Android 13+ behoben.</string>
-    <string name="about_changelog_3">Chinesische Übersetzungen für mehr Klarheit überarbeitet.</string>
+    <string name="about_changelog_1">v2.0 · 2026-08-28\nSplit-APK-Unterstützung, Dual-OBB (main + patch), 16-KB-Seitenausrichtung und 7 neue Sprachübersetzungen.</string>
+    <string name="about_changelog_2">v1.1 · 2026-08-28\nOBB-Dateien werden in das Standardformat umbenannt, damit jeder Dateiname erkannt wird; Laden nativer Bibliotheken für Android 13+ W^X behoben.</string>
+    <string name="about_changelog_3">v1.0 · 2026-08-27\nErstveröffentlichung mit Ein-Tipp-APK-+OBB-Installation.</string>
 
     <!-- Fork / credits -->
     <string name="about_dev_title">Fork &amp; Danksagungen</string>
