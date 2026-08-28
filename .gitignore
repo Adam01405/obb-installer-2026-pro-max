@@ -19,3 +19,9 @@ app/src/main/assets/*.obb
 # Generated at build time by Gradle, not source.
 app/src/main/assets/hub.keystore
 app/src/main/assets/bootstrap/
+
+# IDE / tooling caches
+.kotlin/
+
+# Build artifacts served by the preview download server
+release/

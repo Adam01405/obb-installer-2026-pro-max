@@ -49,6 +49,7 @@ fun HomeScreen(
     state: UiState,
     onPickApk: () -> Unit,
     onPickObb: () -> Unit,
+    onPickObbPatch: () -> Unit,
     onStart: () -> Unit,
     onReset: () -> Unit,
     onOpenUnknownSources: () -> Unit
@@ -57,6 +58,7 @@ fun HomeScreen(
     val canStart = state.apk != null && state.canInstallUnknown &&
         state.phase in setOf(Phase.Idle, Phase.Done, Phase.Error)
     val isRunning = state.phase in setOf(Phase.Staging, Phase.Patching, Phase.InstallingApk)
+    val isWithObb = state.obb != null || state.obbPatch != null
 
     var visible by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { visible = true }
@@ -82,6 +84,8 @@ fun HomeScreen(
                 statusLabel = state.apk?.let {
                     when {
                         state.bundledApk != null -> stringResource(R.string.bundled_label, it.displayName)
+                        state.splits.isNotEmpty() ->
+                            "${it.displayName}  ·  ${stringResource(R.string.split_count, state.splits.size)}"
                         else -> stringResource(R.string.selected_label, it.displayName)
                     }
                 } ?: stringResource(R.string.no_file_selected),
@@ -115,8 +119,24 @@ fun HomeScreen(
         }
 
         Stagger(visible = visible, index = 2) {
+            FileSourceCard(
+                title = stringResource(R.string.card_obb_patch),
+                statusLabel = state.obbPatch?.let {
+                    stringResource(R.string.selected_label, it.displayName)
+                } ?: stringResource(R.string.no_file_selected),
+                isSelected = state.obbPatch != null,
+                icon = Icons.Outlined.Inventory,
+                pickHint = stringResource(R.string.pick_file),
+                formatHint = stringResource(R.string.format_obb),
+                onPick = onPickObbPatch,
+                enabled = !isRunning,
+                canChange = true
+            )
+        }
+
+        Stagger(visible = visible, index = 3) {
             InstallButton(
-                isWithObb = state.obb != null,
+                isWithObb = isWithObb,
                 phase = state.phase,
                 progress = state.progress,
                 enabled = canStart,
@@ -139,14 +159,14 @@ fun HomeScreen(
             ) { Text(stringResource(R.string.restart)) }
         }
 
-        Stagger(visible = visible, index = 3) {
+        Stagger(visible = visible, index = 4) {
             InfoCard(
                 title = stringResource(R.string.how_it_works_title),
                 body = stringResource(R.string.how_it_works_body),
                 icon = Icons.Outlined.Info
             )
         }
-        Stagger(visible = visible, index = 4) {
+        Stagger(visible = visible, index = 5) {
             InfoCard(
                 title = stringResource(R.string.caveat_title),
                 body = stringResource(R.string.caveat_body),

@@ -24,7 +24,9 @@ enum class Phase {
 data class UiState(
     val phase: Phase = Phase.Idle,
     val apk: FileSource? = null,
+    val splits: List<FileSource> = emptyList(),
     val obb: FileSource? = null,
+    val obbPatch: FileSource? = null,
     val apkMeta: ApkMeta? = null,
     val progress: Float = 0f,
     val statusText: String = "",
@@ -70,11 +72,20 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
             data = Uri.parse("package:${getApplication<Application>().packageName}")
         }
 
-    fun setApkUri(uri: Uri) {
+    /**
+     * Accepts one or more APKs picked together. The first file is the base
+     * APK; the rest are treated as split APKs (config.arm64_v8a.apk etc.) and
+     * patched + installed alongside the base in a single session.
+     */
+    fun setApkUris(uris: List<Uri>) {
+        if (uris.isEmpty()) return
         val ctx = getApplication<Application>()
-        runCatching { ctx.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
-        val name = resolveDisplayName(ctx, uri)
-        _state.update { it.copy(apk = FileSource.UriSource(uri, name), errorText = null) }
+        val all = uris.map { uri ->
+            runCatching { ctx.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
+            val name = resolveDisplayName(ctx, uri)
+            FileSource.UriSource(uri, name)
+        }
+        _state.update { it.copy(apk = all.first(), splits = all.drop(1), errorText = null) }
     }
 
     fun setObbUri(uri: Uri) {
@@ -82,6 +93,13 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
         runCatching { ctx.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
         val name = resolveDisplayName(ctx, uri)
         _state.update { it.copy(obb = FileSource.UriSource(uri, name), errorText = null) }
+    }
+
+    fun setObbPatchUri(uri: Uri) {
+        val ctx = getApplication<Application>()
+        runCatching { ctx.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
+        val name = resolveDisplayName(ctx, uri)
+        _state.update { it.copy(obbPatch = FileSource.UriSource(uri, name), errorText = null) }
     }
 
     fun start() {
@@ -112,17 +130,29 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
                     )
                 }
                 val obbFilename = s.obb?.displayName?.takeIf { it.isNotBlank() }
+                    ?.let { normalizeObbName(it, meta.versionCode, meta.packageName) }
                     ?: ("main.${meta.versionCode}.${meta.packageName}.obb".takeIf { s.obb != null })
+                val obbPatchFilename = s.obbPatch?.displayName?.takeIf { it.isNotBlank() }
+                    ?.let { normalizeObbName(it, meta.versionCode, meta.packageName, forcePatch = true) }
                 val patched = ApkResigner.patchAndResign(
                     context = ctx,
                     inputApk = meta.cacheFile,
                     gamePackage = meta.packageName,
                     obbSource = s.obb,
-                    obbFilename = obbFilename
+                    obbFilename = obbFilename,
+                    obbPatchSource = s.obbPatch,
+                    obbPatchFilename = obbPatchFilename
                 ) { p ->
                     _state.update { it.copy(progress = p) }
                 }
                 val patchedMeta = meta.copy(cacheFile = patched)
+
+                val splitMetas = mutableListOf<SplitMeta>()
+                for ((i, splitSource) in s.splits.withIndex()) {
+                    val split = ApkInstaller.stageSplit(ctx, splitSource, i)
+                    val patchedSplit = ApkResigner.patchSplitApk(ctx, split.cacheFile)
+                    splitMetas.add(split.copy(cacheFile = patchedSplit))
+                }
 
                 _state.update {
                     it.copy(
@@ -131,12 +161,12 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
                         statusText = ctx.getString(R.string.phase_installing, meta.packageName)
                     )
                 }
-                val result = ApkInstaller.install(ctx, patchedMeta) { p ->
+                val result = ApkInstaller.install(ctx, patchedMeta, splitMetas) { p ->
                     _state.update { it.copy(progress = p) }
                 }
                 when (result) {
                     is InstallResult.Success -> {
-                        val msg = if (s.obb != null)
+                        val msg = if (s.obb != null || s.obbPatch != null)
                             ctx.getString(R.string.phase_done_with_obb)
                         else
                             ctx.getString(R.string.phase_done_no_obb)
@@ -165,5 +195,25 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
         _state.update { UiState() }
         detectBundledAssets()
         refreshUnknownSourcesPermission()
+    }
+
+    /**
+     * Games look up their data file by the exact well-known name
+     * `main.<versionCode>.<packageName>.obb` (or `patch.<...>`). Downloaded
+     * files rarely match, so force the canonical name: keep a `patch.` prefix
+     * if the user picked one (or it is explicitly a patch file), otherwise
+     * emit `main.`, and always stamp the real versionCode/package so the game
+     * finds the file regardless of the original filename.
+     */
+    private fun normalizeObbName(
+        name: String,
+        versionCode: Long,
+        packageName: String,
+        forcePatch: Boolean = false
+    ): String {
+        val prefix = if (forcePatch) "patch"
+        else Regex("^patch\\b", RegexOption.IGNORE_CASE).find(name)
+            ?.value?.lowercase() ?: "main"
+        return "$prefix.$versionCode.$packageName.obb"
     }
 }

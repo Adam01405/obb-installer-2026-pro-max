@@ -10,8 +10,12 @@ import java.nio.ByteOrder
  * app targets SDK >= 24.
  *
  * This patcher:
- * 1. Marks any executable LOAD segment as writable (adds PF_W). Without this,
- *    the runtime relocations against the .text page would SIGSEGV.
+ * 1. Strips PF_W from any executable LOAD segment. Old games frequently ship
+ *    segments that are both writable AND executable; Android 13+ enforces W^X
+ *    and rejects any such library with `dlopen failed: ... has a segment that
+ *    is writable and executable`. Removing the writable bit keeps the segment
+ *    executable while staying W^X compliant (the text-relocation handling the
+ *    writable bit used to allow is no longer tolerated by the linker anyway).
  * 2. Clears DT_TEXTREL and the DF_TEXTREL bit in DT_FLAGS in the dynamic
  *    section. Without this, the dynamic linker bails out before mapping.
  *
@@ -68,8 +72,8 @@ object ElfTextrelPatcher {
             val pFlags = buf.getInt(off + 24)
             val pOffset = buf.getInt(off + 4).toLong() and 0xFFFFFFFFL
             val pFilesz = buf.getInt(off + 16).toLong() and 0xFFFFFFFFL
-            if (pType == PT_LOAD && (pFlags and PF_X) != 0 && (pFlags and PF_W) == 0) {
-                buf.putInt(off + 24, pFlags or PF_W)
+            if (pType == PT_LOAD && (pFlags and PF_X) != 0 && (pFlags and PF_W) != 0) {
+                buf.putInt(off + 24, pFlags and PF_W.inv())
                 changed = true
             }
             if (pType == PT_DYNAMIC) {
@@ -113,8 +117,8 @@ object ElfTextrelPatcher {
             val pFlags = buf.getInt(off + 4)  // ELF64 puts flags right after type
             val pOffset = buf.getLong(off + 8)
             val pFilesz = buf.getLong(off + 32)
-            if (pType == PT_LOAD && (pFlags and PF_X) != 0 && (pFlags and PF_W) == 0) {
-                buf.putInt(off + 4, pFlags or PF_W)
+            if (pType == PT_LOAD && (pFlags and PF_X) != 0 && (pFlags and PF_W) != 0) {
+                buf.putInt(off + 4, pFlags and PF_W.inv())
                 changed = true
             }
             if (pType == PT_DYNAMIC) {

@@ -13,7 +13,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.AutoAwesome
+import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Devices
+import androidx.compose.material.icons.outlined.Update
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -92,10 +95,44 @@ fun AboutScreen() {
             BulletItem(stringResource(R.string.about_feature_2))
             BulletItem(stringResource(R.string.about_feature_3))
             BulletItem(stringResource(R.string.about_feature_4))
+            BulletItem(stringResource(R.string.about_feature_5))
         }
 
         SectionCard(title = stringResource(R.string.about_compat_title), icon = androidx.compose.material.icons.Icons.Outlined.Devices) {
             Text(stringResource(R.string.about_compat_body), style = MaterialTheme.typography.bodyMedium)
+        }
+
+        SectionCard(title = stringResource(R.string.about_changelog_title), icon = androidx.compose.material.icons.Icons.Outlined.Update) {
+            BulletItem(stringResource(R.string.about_changelog_1))
+            BulletItem(stringResource(R.string.about_changelog_2))
+            BulletItem(stringResource(R.string.about_changelog_3))
+        }
+
+        SectionCard(title = stringResource(R.string.about_dev_title), icon = androidx.compose.material.icons.Icons.Outlined.Code) {
+            BulletItem(stringResource(R.string.about_dev_author))
+            val uriHandler = LocalUriHandler.current
+            val repoUrl = stringResource(R.string.about_dev_repo_url)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(HubColors.SurfaceMuted)
+                    .clickable { uriHandler.openUri(repoUrl) }
+                    .padding(horizontal = 12.dp, vertical = 10.dp)
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(
+                        stringResource(R.string.about_dev_repo_label),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = HubColors.TextMuted
+                    )
+                    Text(
+                        repoUrl,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = HubColors.Primary
+                    )
+                }
+            }
         }
         Spacer(Modifier.height(20.dp))
     }

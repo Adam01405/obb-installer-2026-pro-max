@@ -38,7 +38,8 @@ object ApkResigner {
      * - inject a `<provider>` element for [BOOTSTRAP_PROVIDER_CLASS],
      * - inject our compiled bootstrap dex as the next available `classesN.dex`,
      * - bundle the OBB (if any) inside `assets/<obbFilename>` so the bootstrap
-     *   provider can copy it into the game's own obb dir on first launch.
+     *   provider can copy it into the game's own obb dir on first launch,
+     * - optionally bundle a second `patch` OBB alongside the main one.
      *
      * Then re-signs the result with the hub keystore.
      */
@@ -48,15 +49,19 @@ object ApkResigner {
         gamePackage: String,
         obbSource: FileSource?,
         obbFilename: String?,
+        obbPatchSource: FileSource?,
+        obbPatchFilename: String?,
         onProgress: (Float) -> Unit
     ): File = withContext(Dispatchers.IO) {
         val unsigned = File(context.cacheDir, "patched-unsigned.apk")
         val signed = File(context.cacheDir, "patched-signed.apk")
         val stagedObb = File(context.cacheDir, "staged.obb")
-        listOf(unsigned, signed, stagedObb).forEach { if (it.exists()) it.delete() }
+        val stagedPatch = File(context.cacheDir, "staged-patch.obb")
+        listOf(unsigned, signed, stagedObb, stagedPatch).forEach { if (it.exists()) it.delete() }
 
-        // Stage OBB once to cache, computing CRC and length so we can write it
-        // as a STORED zip entry (mmap-friendly inside the patched APK, single pass).
+        // Stage OBB(s) once to cache, computing CRC and length so we can write
+        // them as STORED zip entries (mmap-friendly inside the patched APK,
+        // single pass).
         var obbBytes = 0L
         var obbCrc = 0L
         if (obbSource != null) {
@@ -78,6 +83,29 @@ object ApkResigner {
                 }
             }
             obbCrc = crc.value
+        }
+
+        var patchBytes = 0L
+        var patchCrc = 0L
+        if (obbPatchSource != null) {
+            val total = obbPatchSource.length(context).coerceAtLeast(1L)
+            val crc = CRC32()
+            obbPatchSource.openStream(context).use { input ->
+                stagedPatch.outputStream().buffered().use { output ->
+                    val buf = ByteArray(512 * 1024)
+                    var n: Int
+                    var written = 0L
+                    while (input.read(buf).also { n = it } > 0) {
+                        crc.update(buf, 0, n)
+                        output.write(buf, 0, n)
+                        written += n
+                        patchBytes = written
+                        onProgress(0.30f * (written.toFloat() / total).coerceIn(0f, 1f))
+                    }
+                    output.flush()
+                }
+            }
+            patchCrc = crc.value
         }
 
         // List the bootstrap dex files bundled in our assets. AGP debug builds
@@ -109,12 +137,8 @@ object ApkResigner {
                     onProgress(0.30f + 0.30f * i / total)
                     if (e.isDirectory) continue
                     val name = e.name
-                    if (name.startsWith("META-INF/") && (
-                        name == "META-INF/MANIFEST.MF" ||
-                        name.endsWith(".SF") || name.endsWith(".RSA") ||
-                        name.endsWith(".DSA") || name.endsWith(".EC")
-                    )) continue
-                    if (name == "assets/$obbFilename") continue  // we re-add a fresh copy
+                    if (isSignatureEntry(name)) continue
+                    if (name == "assets/$obbFilename" || name == "assets/$obbPatchFilename") continue  // we re-add fresh copies
                     if (name in injectedDexNames) continue  // safety
                     if (name == "AndroidManifest.xml") {
                         val original = zip.getInputStream(e).use { it.readBytes() }
@@ -129,12 +153,14 @@ object ApkResigner {
                         )
                         writeDeflate(out, "AndroidManifest.xml", patched)
                     } else if (name.startsWith("lib/") && name.endsWith(".so")) {
-                        // Old games ship .so files with text relocations that
-                        // are rejected by the linker once targetSdk >= 24.
-                        // Patch the ELF in place (clears DT_TEXTREL, marks
-                        // executable LOAD segments as writable).
+                        // Old games ship .so files with text relocations rejected
+                        // once targetSdk >= 24, and with RWX segments rejected by
+                        // Android 13+ W^X. Patch the ELF in place (clears
+                        // DT_TEXTREL, strips PF_W from executable segments) and
+                        // opportunistically bump p_align for 16 KB page devices.
                         val data = zip.getInputStream(e).use { it.readBytes() }
                         ElfTextrelPatcher.patch(data)
+                        ElfAlignPatcher.patch16k(data)
                         val newEntry = ZipEntry(name).apply {
                             method = e.method
                             if (method == ZipEntry.STORED) {
@@ -161,7 +187,7 @@ object ApkResigner {
                     writeDeflate(out, outName, dexBytes)
                 }
 
-                // Inject the OBB (STORED for mmap-friendly access in the game)
+                // Inject the main OBB (STORED for mmap-friendly access in the game)
                 if (obbSource != null && obbFilename != null) {
                     val obbEntry = ZipEntry("assets/$obbFilename")
                     obbEntry.method = ZipEntry.STORED
@@ -172,13 +198,80 @@ object ApkResigner {
                     stagedObb.inputStream().buffered().use { it.copyTo(out) }
                     out.closeEntry()
                 }
+
+                // Inject the optional patch OBB (some games need a second file)
+                if (obbPatchSource != null && obbPatchFilename != null) {
+                    val patchEntry = ZipEntry("assets/$obbPatchFilename")
+                    patchEntry.method = ZipEntry.STORED
+                    patchEntry.size = patchBytes
+                    patchEntry.compressedSize = patchBytes
+                    patchEntry.crc = patchCrc
+                    out.putNextEntry(patchEntry)
+                    stagedPatch.inputStream().buffered().use { it.copyTo(out) }
+                    out.closeEntry()
+                }
             }
         }
         if (stagedObb.exists()) stagedObb.delete()
+        if (stagedPatch.exists()) stagedPatch.delete()
 
         onProgress(0.65f)
 
         // Phase 2: sign with apksig (v1 + v2 + v3).
+        signApk(context, unsigned, signed)
+        onProgress(1f)
+        signed
+    }
+
+    /**
+     * Patches a split APK for install alongside a patched base: strips old
+     * signature entries, fixes up native libraries (text relocations, RWX
+     * segments, 16 KB alignment), and re-signs with the hub key. Split
+     * manifests are left untouched — the bootstrap provider only lives in the
+     * base APK.
+     */
+    suspend fun patchSplitApk(
+        context: Context,
+        inputApk: File
+    ): File = withContext(Dispatchers.IO) {
+        val unsigned = File(context.cacheDir, "split-unsigned.apk")
+        val signed = File(context.cacheDir, "split-signed.apk")
+        listOf(unsigned, signed).forEach { if (it.exists()) it.delete() }
+
+        ZipFile(inputApk).use { zip ->
+            ZipOutputStream(unsigned.outputStream().buffered()).use { out ->
+                for (e in zip.entries()) {
+                    if (e.isDirectory) continue
+                    val name = e.name
+                    if (isSignatureEntry(name)) continue
+                    if (name.startsWith("lib/") && name.endsWith(".so")) {
+                        val data = zip.getInputStream(e).use { it.readBytes() }
+                        ElfTextrelPatcher.patch(data)
+                        ElfAlignPatcher.patch16k(data)
+                        val newEntry = ZipEntry(name).apply {
+                            method = e.method
+                            if (method == ZipEntry.STORED) {
+                                size = data.size.toLong()
+                                compressedSize = data.size.toLong()
+                                crc = java.util.zip.CRC32().apply { update(data) }.value
+                            }
+                        }
+                        out.putNextEntry(newEntry)
+                        out.write(data)
+                        out.closeEntry()
+                    } else {
+                        copyEntry(zip, e, out)
+                    }
+                }
+            }
+        }
+
+        signApk(context, unsigned, signed)
+        unsigned.delete()
+        signed
+    }
+
+    private fun signApk(context: Context, unsigned: File, signed: File) {
         val (key, cert) = loadKeyMaterial(context)
         val signerConfig = ApkSigner.SignerConfig.Builder(KEY_ALIAS, key, listOf(cert)).build()
         ApkSigner.Builder(listOf(signerConfig))
@@ -191,11 +284,14 @@ object ApkResigner {
             .setOtherSignersSignaturesPreserved(false)
             .build()
             .sign()
-
-        unsigned.delete()
-        onProgress(1f)
-        signed
     }
+
+    private fun isSignatureEntry(name: String): Boolean =
+        name.startsWith("META-INF/") && (
+            name == "META-INF/MANIFEST.MF" ||
+            name.endsWith(".SF") || name.endsWith(".RSA") ||
+            name.endsWith(".DSA") || name.endsWith(".EC")
+        )
 
     private fun copyEntry(zip: ZipFile, source: ZipEntry, out: ZipOutputStream) {
         val newEntry = ZipEntry(source.name).apply {

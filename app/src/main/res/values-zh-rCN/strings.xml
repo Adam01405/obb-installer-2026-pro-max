@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OBB Installer</string>
+
+    <!-- 底部导航栏 -->
+    <string name="tab_home">首页</string>
+    <string name="tab_about">关于</string>
+    <string name="tab_help">帮助</string>
+
+    <!-- 卡片 -->
+    <string name="card_apk">APK</string>
+    <string name="card_obb">OBB（可选）</string>
+    <string name="card_obb_patch">补丁 OBB（可选）</string>
+    <string name="split_count">+%1$d 个分包</string>
+    <string name="no_file_selected">未选择文件</string>
+    <string name="bundled_label">已内置 · %1$s</string>
+    <string name="selected_label">已选择 · %1$s</string>
+    <string name="pick_file">选择文件</string>
+    <string name="change_file">更换</string>
+    <string name="format_apk">支持格式 · .apk</string>
+    <string name="format_obb">支持格式 · .obb</string>
+
+    <!-- 安装按钮 -->
+    <string name="install_apk">安装 APK</string>
+    <string name="install_apk_obb">安装 APK + OBB</string>
+    <string name="install_subtitle">OBB 将在游戏首次启动时注入</string>
+
+    <!-- 阶段 -->
+    <string name="phase_staging">正在读取 APK…</string>
+    <string name="phase_patching">正在处理并注入 OBB…</string>
+    <string name="phase_installing">正在安装 %1$s…</string>
+    <string name="phase_done_with_obb">完成。请从主屏幕启动游戏，首次启动需要几秒时间解压 OBB。</string>
+    <string name="phase_done_no_obb">APK 安装完成。</string>
+    <string name="phase_error">安装失败：%1$s</string>
+    <string name="install_uninstall_hint">\n→ 安装前请先卸载游戏原有的任何版本。</string>
+    <string name="restart">重新开始</string>
+
+    <!-- 权限 -->
+    <string name="unknown_sources_required">需要权限</string>
+    <string name="unknown_sources_subtitle">允许 OBB Installer 安装未知应用。</string>
+    <string name="open_settings">打开设置</string>
+
+    <!-- 工作原理 -->
+    <string name="how_it_works_title">工作原理</string>
+    <string name="how_it_works_body">OBB 被打包在 APK 内部。安装器会向游戏旁注入一个极小的隐形组件，首次启动时它会直接在游戏进程内解压 OBB——Android 的所有版本都允许游戏进程写入 OBB 文件夹。无需特殊权限，任何手机厂商都无法阻止。</string>
+    <string name="caveat_title">注意事项</string>
+    <string name="caveat_body">游戏会被重新签名，因此无法再通过 Play Store 更新，在线反作弊系统也会拒绝运行它。单机与离线游戏不受影响，可正常运行。</string>
+
+    <!-- 关于 -->
+    <string name="about_title">关于</string>
+    <string name="about_intro">面向以 APK + OBB 形式发布的 Android 游戏的独立安装工具。</string>
+    <string name="about_features_title">功能特性</string>
+    <string name="about_feature_1">一键安装 APK。</string>
+    <string name="about_feature_2">将 OBB 嵌入 APK，游戏启动后即可自动识别。</string>
+    <string name="about_feature_3">自动调整旧版游戏的系统兼容级别，让新版 Android 不再拒绝安装。</string>
+    <string name="about_feature_4">自动修复旧游戏内置的过时原生库（libogg、libcrypto 等）的加载问题。</string>
+    <string name="about_feature_5">自动清除旧游戏原生库中的可写可执行段，适配 Android 13+ 的安全限制。</string>
+    <string name="about_compat_title">兼容性</string>
+    <string name="about_compat_body">Android 11 及以上（小米/HyperOS、一加、三星 One UI、Pixel 等）。90% 以上的单机老游戏可正常安装运行。</string>
+    <string name="about_version">版本 %1$s</string>
+
+    <!-- 更新日志 -->
+    <string name="about_changelog_title">更新日志</string>
+    <string name="about_changelog_1">自动规范 OBB 文件命名，任意命名的数据文件都能被游戏识别。</string>
+    <string name="about_changelog_2">适配 Android 13+ 安全限制，修复旧游戏原生库无法加载的问题。</string>
+    <string name="about_changelog_3">全面优化中文文案，表述更清晰易懂。</string>
+
+    <!-- 二次开发 / 致谢 -->
+    <string name="about_dev_title">二次开发</string>
+    <string name="about_dev_author">二次开发作者：MT·xiaoyun 2026</string>
+    <string name="about_dev_repo_label">原 GitHub 项目地址</string>
+    <string name="about_dev_repo_url">https://github.com/aciderix/APK-OBB-HELPER/</string>
+
+    <!-- 帮助 -->
+    <string name="help_title">常见问题</string>
+    <string name="help_q1">APK 和 OBB 从哪里获取？</string>
+    <string name="help_a1">从你已有的备份中获取，或从自行下载的游戏文件中获取。安装器不会下载任何内容。</string>
+    <string name="help_q2">游戏启动时崩溃。</string>
+    <string name="help_a2">极少数旧游戏会在代码中自行校验签名，重签后拒绝运行；多数在线多人游戏同样会拒绝经过修改的签名。这类游戏在安装器层面无法修复。</string>
+    <string name="help_q3">首次启动很慢或黑屏。</string>
+    <string name="help_a3">这是正常现象。注入的组件正在把 OBB 解压到游戏的私有目录中，大约每 1GB 需要 30 秒，之后启动都是瞬间完成。</string>
+    <string name="help_q4">游戏还能通过 Play Store 更新吗？</string>
+    <string name="help_a4">不能。重新签名过的安装包无法通过 Play Store 更新，新版本需要重新通过安装器安装。</string>
+    <string name="help_q5">会联网发送任何数据吗？</string>
+    <string name="help_a5">不会，所有操作都在设备本地完成。</string>
+</resources>
