@@ -20,15 +20,25 @@
     <string name="format_apk">Supported · .apk</string>
     <string name="format_obb">Supported · .obb</string>
 
+    <!-- Output options -->
+    <string name="output_options_title">Output options</string>
+    <string name="output_save_to">Save location</string>
+    <string name="save_folder_default">Download/OBBInstaller</string>
+    <string name="output_auto_install">Auto-install after processing</string>
+    <string name="output_auto_install_hint">When off, the patched APK is only saved to the chosen folder.</string>
+
     <!-- Install button -->
     <string name="install_apk">Install APK</string>
     <string name="install_apk_obb">Install APK + OBB</string>
+    <string name="save_apk">Process &amp; save APK</string>
+    <string name="save_apk_obb">Process &amp; save APK + OBB</string>
     <string name="install_subtitle">The OBB is injected at first launch</string>
 
     <!-- Phases -->
     <string name="phase_staging">Reading the APK…</string>
     <string name="phase_patching">Patching + injecting OBB…</string>
     <string name="phase_installing">Installing %1$s…</string>
+    <string name="phase_saved">Patched APK saved to %1$s</string>
     <string name="phase_done_with_obb">Done. Launch the game from your home screen — the first launch will take a few seconds while the OBB unpacks.</string>
     <string name="phase_done_no_obb">APK installed.</string>
     <string name="phase_error">Install failed: %1$s</string>

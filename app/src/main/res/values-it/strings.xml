@@ -19,16 +19,24 @@
     <string name="change_file">Cambia</string>
     <string name="format_apk">Supportato · .apk</string>
     <string name="format_obb">Supportato · .obb</string>
+    <string name="output_options_title">Opzioni di output</string>
+    <string name="output_save_to">Posizione di salvataggio</string>
+    <string name="save_folder_default">Download/OBBInstaller</string>
+    <string name="output_auto_install">Installa automaticamente dopo l\'elaborazione</string>
+    <string name="output_auto_install_hint">Quando è disattivato, l\'APK modificata viene salvata solo nella cartella scelta.</string>
 
     <!-- Install button -->
     <string name="install_apk">Installa APK</string>
     <string name="install_apk_obb">Installa APK + OBB</string>
+    <string name="save_apk">Elabora e salva APK</string>
+    <string name="save_apk_obb">Elabora e salva APK + OBB</string>
     <string name="install_subtitle">L\'OBB viene iniettata al primo avvio</string>
 
     <!-- Phases -->
     <string name="phase_staging">Lettura APK…</string>
     <string name="phase_patching">Patch + iniezione OBB…</string>
     <string name="phase_installing">Installazione di %1$s…</string>
+    <string name="phase_saved">APK modificata salvata in %1$s</string>
     <string name="phase_done_with_obb">Fatto. Avvia il gioco dalla schermata Home: il primo avvio richiederà qualche secondo mentre l\'OBB viene decompressa.</string>
     <string name="phase_done_no_obb">APK installato.</string>
     <string name="phase_error">Installazione fallita: %1$s</string>

@@ -36,3 +36,8 @@ fun resolveDisplayName(context: Context, uri: Uri): String {
     }
     return uri.lastPathSegment ?: "file"
 }
+
+fun resolveFolderName(context: Context, uri: Uri): String {
+    val doc = androidx.documentfile.provider.DocumentFile.fromTreeUri(context, uri)
+    return doc?.name?.takeIf { it.isNotBlank() } ?: uri.lastPathSegment ?: "Folder"
+}

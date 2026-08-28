@@ -89,6 +89,9 @@ private fun HubApp(vm: InstallerViewModel = viewModel()) {
     val pickObbPatch = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let { vm.setObbPatchUri(it) }
     }
+    val pickFolder = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+        uri?.let { vm.setSaveFolder(it) }
+    }
     val unknownSourcesLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         vm.refreshUnknownSourcesPermission()
     }
@@ -120,6 +123,8 @@ private fun HubApp(vm: InstallerViewModel = viewModel()) {
                         onPickObbPatch = {
                             pickObbPatch.launch(arrayOf("application/octet-stream", "*/*"))
                         },
+                        onPickFolder = { pickFolder.launch(null) },
+                        onSetAutoInstall = vm::setAutoInstall,
                         onStart = vm::start,
                         onReset = vm::reset,
                         onOpenUnknownSources = {

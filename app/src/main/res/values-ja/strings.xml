@@ -19,16 +19,24 @@
     <string name="change_file">変更</string>
     <string name="format_apk">対応 · .apk</string>
     <string name="format_obb">対応 · .obb</string>
+    <string name="output_options_title">出力オプション</string>
+    <string name="output_save_to">保存先</string>
+    <string name="save_folder_default">Download/OBBInstaller</string>
+    <string name="output_auto_install">処理後に自動インストール</string>
+    <string name="output_auto_install_hint">オフの場合、パッチ済みAPKは選択したフォルダにのみ保存されます。</string>
 
     <!-- Install button -->
     <string name="install_apk">APK をインストール</string>
     <string name="install_apk_obb">APK + OBB をインストール</string>
+    <string name="save_apk">処理して保存（APK）</string>
+    <string name="save_apk_obb">処理して保存（APK + OBB）</string>
     <string name="install_subtitle">初回起動時に OBB を展開します</string>
 
     <!-- Phases -->
     <string name="phase_staging">APK を読み込み中…</string>
     <string name="phase_patching">パッチ適用 + OBB 展開中…</string>
     <string name="phase_installing">%1$s をインストール中…</string>
+    <string name="phase_saved">パッチ済みAPKを %1$s に保存しました</string>
     <string name="phase_done_with_obb">完了。ホーム画面からゲームを起動してください。初回起動時は OBB の展開のため数秒かかります。</string>
     <string name="phase_done_no_obb">APK をインストールしました。</string>
     <string name="phase_error">インストールに失敗: %1$s</string>

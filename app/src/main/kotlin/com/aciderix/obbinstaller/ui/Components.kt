@@ -130,8 +130,7 @@ fun InfoCard(
     body: String,
     icon: ImageVector,
     accent: Color = HubColors.Primary
-) {
-    Box(
+) {    Box(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(18.dp))
@@ -157,6 +156,94 @@ fun InfoCard(
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(title, style = MaterialTheme.typography.titleSmall, color = accent)
                 Text(body, style = MaterialTheme.typography.bodyMedium)
+            }
+        }
+    }
+}
+
+@Composable
+fun OutputOptionsCard(
+    title: String,
+    saveToLabel: String,
+    folderName: String,
+    autoInstallLabel: String,
+    autoInstallHint: String,
+    changeLabel: String,
+    autoInstall: Boolean,
+    enabled: Boolean,
+    onPickFolder: () -> Unit,
+    onSetAutoInstall: (Boolean) -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(22.dp))
+            .background(HubColors.Surface)
+            .border(BorderStroke(1.dp, HubColors.Border), RoundedCornerShape(22.dp))
+            .padding(16.dp)
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(HubColors.Primary.copy(alpha = 0.15f))
+                        .border(BorderStroke(1.dp, HubColors.Primary.copy(alpha = 0.4f)), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    androidx.compose.material3.Icon(
+                        imageVector = Icons.Filled.Folder,
+                        contentDescription = null,
+                        tint = HubColors.Primary,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Text(title, style = MaterialTheme.typography.titleMedium)
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(HubColors.SurfaceMuted)
+                    .border(BorderStroke(1.dp, HubColors.Border), RoundedCornerShape(16.dp))
+                    .clickable(enabled = enabled, onClick = onPickFolder)
+                    .padding(vertical = 14.dp, horizontal = 14.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(saveToLabel, style = MaterialTheme.typography.labelSmall, color = HubColors.TextMuted)
+                    Text(
+                        folderName,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = HubColors.Primary,
+                        maxLines = 1,
+                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                    )
+                }
+                Text(
+                    changeLabel,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = HubColors.Primary
+                )
+            }
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(autoInstallLabel, style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        autoInstallHint,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = HubColors.TextMuted
+                    )
+                }
+                androidx.compose.material3.Switch(
+                    checked = autoInstall,
+                    onCheckedChange = onSetAutoInstall,
+                    enabled = enabled
+                )
             }
         }
     }

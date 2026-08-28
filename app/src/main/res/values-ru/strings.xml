@@ -19,16 +19,24 @@
     <string name="change_file">Изменить</string>
     <string name="format_apk">Поддерживается · .apk</string>
     <string name="format_obb">Поддерживается · .obb</string>
+    <string name="output_options_title">Параметры вывода</string>
+    <string name="output_save_to">Место сохранения</string>
+    <string name="save_folder_default">Download/OBBInstaller</string>
+    <string name="output_auto_install">Автоматическая установка после обработки</string>
+    <string name="output_auto_install_hint">Если выключено, изменённый APK сохраняется только в выбранной папке.</string>
 
     <!-- Install button -->
     <string name="install_apk">Установить APK</string>
     <string name="install_apk_obb">Установить APK + OBB</string>
+    <string name="save_apk">Обработать и сохранить APK</string>
+    <string name="save_apk_obb">Обработать и сохранить APK + OBB</string>
     <string name="install_subtitle">OBB внедряется при первом запуске</string>
 
     <!-- Phases -->
     <string name="phase_staging">Чтение APK…</string>
     <string name="phase_patching">Патч + внедрение OBB…</string>
     <string name="phase_installing">Установка %1$s…</string>
+    <string name="phase_saved">Изменённый APK сохранён в %1$s</string>
     <string name="phase_done_with_obb">Готово. Запустите игру с главного экрана — первый запуск займёт несколько секунд, пока распакуется OBB.</string>
     <string name="phase_done_no_obb">APK установлен.</string>
     <string name="phase_error">Ошибка установки: %1$s</string>

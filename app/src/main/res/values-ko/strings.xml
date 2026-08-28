@@ -19,16 +19,24 @@
     <string name="change_file">변경</string>
     <string name="format_apk">지원 · .apk</string>
     <string name="format_obb">지원 · .obb</string>
+    <string name="output_options_title">출력 옵션</string>
+    <string name="output_save_to">저장 위치</string>
+    <string name="save_folder_default">Download/OBBInstaller</string>
+    <string name="output_auto_install">처리 후 자동 설치</string>
+    <string name="output_auto_install_hint">꺼져 있으면 패치된 APK가 선택한 폴더에만 저장됩니다.</string>
 
     <!-- Install button -->
     <string name="install_apk">APK 설치</string>
     <string name="install_apk_obb">APK + OBB 설치</string>
+    <string name="save_apk">처리 후 저장 (APK)</string>
+    <string name="save_apk_obb">처리 후 저장 (APK + OBB)</string>
     <string name="install_subtitle">첫 실행 시 OBB가 주입됩니다</string>
 
     <!-- Phases -->
     <string name="phase_staging">APK 읽는 중…</string>
     <string name="phase_patching">패치 적용 + OBB 주입 중…</string>
     <string name="phase_installing">%1$s 설치 중…</string>
+    <string name="phase_saved">패치된 APK가 %1$s에 저장되었습니다</string>
     <string name="phase_done_with_obb">완료. 홈 화면에서 게임을 실행하세요. 첫 실행 시 OBB를 푸는 동안 몇 초가 걸립니다.</string>
     <string name="phase_done_no_obb">APK가 설치되었습니다.</string>
     <string name="phase_error">설치 실패: %1$s</string>

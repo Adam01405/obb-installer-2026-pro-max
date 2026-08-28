@@ -66,10 +66,29 @@ object GameTools {
         return d.joinToString("") { "%02x".format(it) }
     }
 
-    fun exportApk(context: Context, src: File, packageName: String, versionName: String): String {
+    fun exportApk(
+        context: Context,
+        src: File,
+        packageName: String,
+        versionName: String,
+        folderUri: Uri? = null
+    ): String {
         val safeName = (if (versionName.isNotBlank()) versionName else "1.0")
             .replace(Regex("[^A-Za-z0-9._-]"), "_")
         val fileName = "$packageName-$safeName.apk"
+        val folderUriNonNull = folderUri
+        if (folderUriNonNull != null) {
+            val tree = androidx.documentfile.provider.DocumentFile.fromTreeUri(context, folderUriNonNull)
+                ?: error("cannot open the selected folder")
+            val target = tree.findFile(fileName)
+                ?: tree.createFile("application/vnd.android.package-archive", fileName)
+                ?: error("cannot create file in the selected folder")
+            context.contentResolver.openOutputStream(target.uri)?.use { out ->
+                src.inputStream().use { it.copyTo(out) }
+            } ?: error("cannot open output stream")
+            val folderName = tree.name ?: uriLastSegment(folderUriNonNull)
+            return "$folderName/$fileName"
+        }
         val values = ContentValues().apply {
             put(MediaStore.Downloads.DISPLAY_NAME, fileName)
             put(MediaStore.Downloads.MIME_TYPE, "application/vnd.android.package-archive")
@@ -88,6 +107,8 @@ object GameTools {
         }
         return "Download/OBBInstaller/${actualName ?: fileName}"
     }
+
+    private fun uriLastSegment(uri: Uri): String = uri.lastPathSegment ?: "Folder"
 
     fun obbDir(packageName: String): File =
         File(Environment.getExternalStorageDirectory(), "Android/obb/$packageName")

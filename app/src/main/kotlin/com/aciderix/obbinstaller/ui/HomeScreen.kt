@@ -59,6 +59,8 @@ fun HomeScreen(
     onPickApk: () -> Unit,
     onPickObb: () -> Unit,
     onPickObbPatch: () -> Unit,
+    onPickFolder: () -> Unit,
+    onSetAutoInstall: (Boolean) -> Unit,
     onStart: () -> Unit,
     onReset: () -> Unit,
     onOpenUnknownSources: () -> Unit,
@@ -69,7 +71,7 @@ fun HomeScreen(
 ) {
     val ctx = LocalContext.current
     val canStart = state.apk != null && state.canInstallUnknown &&
-        state.phase in setOf(Phase.Idle, Phase.Done, Phase.Error)
+        state.phase in setOf(Phase.Idle, Phase.Done, Phase.Saved, Phase.Error)
     val isRunning = state.phase in setOf(Phase.Staging, Phase.Patching, Phase.InstallingApk)
     val isWithObb = state.obb != null || state.obbPatch != null
 
@@ -164,11 +166,28 @@ fun HomeScreen(
         }
 
         Stagger(visible = visible, index = 3) {
+            OutputOptionsCard(
+                title = stringResource(R.string.output_options_title),
+                saveToLabel = stringResource(R.string.output_save_to),
+                folderName = state.saveFolderName
+                    ?: stringResource(R.string.save_folder_default),
+                autoInstallLabel = stringResource(R.string.output_auto_install),
+                autoInstallHint = stringResource(R.string.output_auto_install_hint),
+                changeLabel = stringResource(R.string.change_file),
+                autoInstall = state.autoInstall,
+                enabled = !isRunning,
+                onPickFolder = onPickFolder,
+                onSetAutoInstall = onSetAutoInstall
+            )
+        }
+
+        Stagger(visible = visible, index = 4) {
             InstallButton(
                 isWithObb = isWithObb,
                 phase = state.phase,
                 progress = state.progress,
                 enabled = canStart,
+                autoInstall = state.autoInstall,
                 onClick = onStart
             )
         }
@@ -181,50 +200,59 @@ fun HomeScreen(
             StatusBlock(state = state)
         }
 
-        AnimatedVisibility(visible = state.phase == Phase.Done) {
+        AnimatedVisibility(
+            visible = state.phase == Phase.Done || state.phase == Phase.Saved
+        ) {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 state.exportText?.let { t ->
                     Text(t, style = MaterialTheme.typography.bodySmall, color = HubColors.TextSecondary)
                 }
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    androidx.compose.material3.OutlinedButton(
-                        onClick = {
-                            runCatching {
-                                ctx.startActivity(GameTools.openObbDirIntent(ctx, state.apkMeta?.packageName.orEmpty()))
-                            }.onFailure {
-                                Toast.makeText(ctx, ctx.getString(R.string.obb_dir_unavailable), Toast.LENGTH_SHORT).show()
-                            }
-                        },
-                        modifier = Modifier.weight(1f)
-                    ) { Text(stringResource(R.string.open_obb_dir)) }
-                    androidx.compose.material3.OutlinedButton(
-                        onClick = {
-                            ctx.startActivity(GameTools.uninstallIntent(state.apkMeta?.packageName.orEmpty()))
-                        },
-                        modifier = Modifier.weight(1f)
-                    ) { Text(stringResource(R.string.uninstall_game)) }
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    androidx.compose.material3.OutlinedButton(
-                        onClick = onExportApk,
-                        modifier = Modifier.weight(1f)
-                    ) { Text(stringResource(R.string.export_apk)) }
+                if (state.phase == Phase.Done) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        androidx.compose.material3.OutlinedButton(
+                            onClick = {
+                                runCatching {
+                                    ctx.startActivity(GameTools.openObbDirIntent(ctx, state.apkMeta?.packageName.orEmpty()))
+                                }.onFailure {
+                                    Toast.makeText(ctx, ctx.getString(R.string.obb_dir_unavailable), Toast.LENGTH_SHORT).show()
+                                }
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) { Text(stringResource(R.string.open_obb_dir)) }
+                        androidx.compose.material3.OutlinedButton(
+                            onClick = {
+                                ctx.startActivity(GameTools.uninstallIntent(state.apkMeta?.packageName.orEmpty()))
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) { Text(stringResource(R.string.uninstall_game)) }
+                    }
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        androidx.compose.material3.OutlinedButton(
+                            onClick = onExportApk,
+                            modifier = Modifier.weight(1f)
+                        ) { Text(stringResource(R.string.export_apk)) }
+                        androidx.compose.material3.OutlinedButton(
+                            onClick = onReset,
+                            modifier = Modifier.weight(1f)
+                        ) { Text(stringResource(R.string.restart)) }
+                    }
+                } else {
                     androidx.compose.material3.OutlinedButton(
                         onClick = onReset,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.fillMaxWidth()
                     ) { Text(stringResource(R.string.restart)) }
                 }
             }
         }
 
-        Stagger(visible = visible, index = 4) {
+        Stagger(visible = visible, index = 5) {
             InfoCard(
                 title = stringResource(R.string.how_it_works_title),
                 body = stringResource(R.string.how_it_works_body),
                 icon = Icons.Outlined.Info
             )
         }
-        Stagger(visible = visible, index = 5) {
+        Stagger(visible = visible, index = 6) {
             InfoCard(
                 title = stringResource(R.string.caveat_title),
                 body = stringResource(R.string.caveat_body),
@@ -233,7 +261,7 @@ fun HomeScreen(
             )
         }
 
-        Stagger(visible = visible, index = 6) {
+        Stagger(visible = visible, index = 7) {
             HistoryCard(records = state.history, onClear = onClearHistory)
         }
         Spacer(Modifier.height(12.dp))
@@ -362,6 +390,7 @@ private fun InstallButton(
     phase: Phase,
     progress: Float,
     enabled: Boolean,
+    autoInstall: Boolean,
     onClick: () -> Unit
 ) {
     val transition = rememberInfiniteTransition(label = "btn-glow")
@@ -404,7 +433,7 @@ private fun InstallButton(
                     modifier = Modifier.size(20.dp)
                 )
                 Text(
-                    text = phaseButtonLabel(phase, isWithObb),
+                    text = phaseButtonLabel(phase, isWithObb, autoInstall),
                     style = MaterialTheme.typography.titleMedium,
                     color = HubColors.Background,
                     fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
@@ -435,16 +464,21 @@ private fun InstallButton(
 
 @Composable
 private fun phaseIcon(phase: Phase) = when (phase) {
-    Phase.Done -> Icons.Outlined.CheckCircle
+    Phase.Done, Phase.Saved -> Icons.Outlined.CheckCircle
     Phase.Error -> Icons.Outlined.ErrorOutline
     Phase.Staging, Phase.Patching, Phase.InstallingApk -> Icons.Filled.Bolt
     else -> Icons.Filled.Download
 }
 
 @Composable
-private fun phaseButtonLabel(phase: Phase, isWithObb: Boolean): String = when (phase) {
-    Phase.Idle, Phase.Done, Phase.Error ->
-        if (isWithObb) stringResource(R.string.install_apk_obb) else stringResource(R.string.install_apk)
+private fun phaseButtonLabel(phase: Phase, isWithObb: Boolean, autoInstall: Boolean): String = when (phase) {
+    Phase.Idle, Phase.Done, Phase.Saved, Phase.Error ->
+        when {
+            autoInstall && isWithObb -> stringResource(R.string.install_apk_obb)
+            autoInstall -> stringResource(R.string.install_apk)
+            isWithObb -> stringResource(R.string.save_apk_obb)
+            else -> stringResource(R.string.save_apk)
+        }
     Phase.Staging -> stringResource(R.string.phase_staging)
     Phase.Patching -> stringResource(R.string.phase_patching)
     Phase.InstallingApk -> stringResource(R.string.phase_installing, "")

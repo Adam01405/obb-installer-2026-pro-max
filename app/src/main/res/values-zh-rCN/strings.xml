@@ -19,16 +19,24 @@
     <string name="change_file">更换</string>
     <string name="format_apk">支持格式 · .apk</string>
     <string name="format_obb">支持格式 · .obb</string>
+    <string name="output_options_title">输出选项</string>
+    <string name="output_save_to">保存位置</string>
+    <string name="save_folder_default">Download/OBBInstaller</string>
+    <string name="output_auto_install">处理完成后自动安装</string>
+    <string name="output_auto_install_hint">关闭时，修补后的 APK 只会保存到所选文件夹。</string>
 
     <!-- 安装按钮 -->
     <string name="install_apk">安装 APK</string>
     <string name="install_apk_obb">安装 APK + OBB</string>
+    <string name="save_apk">处理并保存 APK</string>
+    <string name="save_apk_obb">处理并保存 APK + OBB</string>
     <string name="install_subtitle">OBB 将在游戏首次启动时注入</string>
 
     <!-- 阶段 -->
     <string name="phase_staging">正在读取 APK…</string>
     <string name="phase_patching">正在处理并注入 OBB…</string>
     <string name="phase_installing">正在安装 %1$s…</string>
+    <string name="phase_saved">修补后的 APK 已保存到 %1$s</string>
     <string name="phase_done_with_obb">完成。请从主屏幕启动游戏，首次启动需要几秒时间解压 OBB。</string>
     <string name="phase_done_no_obb">APK 安装完成。</string>
     <string name="phase_error">安装失败：%1$s</string>

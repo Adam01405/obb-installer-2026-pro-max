@@ -21,6 +21,7 @@ enum class Phase {
     Patching,
     InstallingApk,
     Done,
+    Saved,
     Error
 }
 
@@ -40,7 +41,10 @@ data class UiState(
     val installedInfo: InstalledGame? = null,
     val pendingConflict: Boolean = false,
     val history: List<InstallRecord> = emptyList(),
-    val exportText: String? = null
+    val exportText: String? = null,
+    val saveFolderUri: Uri? = null,
+    val saveFolderName: String? = null,
+    val autoInstall: Boolean = true
 )
 
 class InstallerViewModel(app: Application) : AndroidViewModel(app) {
@@ -110,6 +114,21 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
         runCatching { ctx.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
         val name = resolveDisplayName(ctx, uri)
         _state.update { it.copy(obbPatch = FileSource.UriSource(uri, name), errorText = null) }
+    }
+
+    fun setSaveFolder(uri: Uri) {
+        val ctx = getApplication<Application>()
+        runCatching {
+            ctx.contentResolver.takePersistableUriPermission(
+                uri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            )
+        }
+        val name = resolveFolderName(ctx, uri)
+        _state.update { it.copy(saveFolderUri = uri, saveFolderName = name, errorText = null) }
+    }
+
+    fun setAutoInstall(flag: Boolean) {
+        _state.update { it.copy(autoInstall = flag) }
     }
 
     fun start() {
@@ -194,6 +213,22 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
                 splitMetas.add(split.copy(cacheFile = patchedSplit))
             }
 
+            if (!s.autoInstall) {
+                val path = withContext(Dispatchers.IO) {
+                    GameTools.exportApk(
+                        ctx, patched, meta.packageName, meta.versionName, s.saveFolderUri
+                    )
+                }
+                _state.update {
+                    it.copy(
+                        phase = Phase.Saved,
+                        progress = 1f,
+                        statusText = ctx.getString(R.string.phase_saved, path)
+                    )
+                }
+                return
+            }
+
             _state.update {
                 it.copy(
                     phase = Phase.InstallingApk,
@@ -245,7 +280,9 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             try {
                 val path = withContext(Dispatchers.IO) {
-                    GameTools.exportApk(getApplication(), src, meta.packageName, meta.versionName)
+                    GameTools.exportApk(
+                        getApplication(), src, meta.packageName, meta.versionName, _state.value.saveFolderUri
+                    )
                 }
                 _state.update {
                     it.copy(exportText = getApplication<Application>().getString(R.string.export_done, path))
@@ -274,7 +311,14 @@ class InstallerViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun reset() {
-        _state.update { UiState() }
+        val keep = _state.value
+        _state.update {
+            UiState(
+                saveFolderUri = keep.saveFolderUri,
+                saveFolderName = keep.saveFolderName,
+                autoInstall = keep.autoInstall
+            )
+        }
         patchedApk = null
         detectBundledAssets()
         refreshUnknownSourcesPermission()

@@ -19,16 +19,24 @@
     <string name="change_file">Ändern</string>
     <string name="format_apk">Unterstützt · .apk</string>
     <string name="format_obb">Unterstützt · .obb</string>
+    <string name="output_options_title">Ausgabeoptionen</string>
+    <string name="output_save_to">Speicherort</string>
+    <string name="save_folder_default">Download/OBBInstaller</string>
+    <string name="output_auto_install">Nach der Verarbeitung automatisch installieren</string>
+    <string name="output_auto_install_hint">Wenn deaktiviert, wird die gepatchte APK nur im gewählten Ordner gespeichert.</string>
 
     <!-- Install button -->
     <string name="install_apk">APK installieren</string>
     <string name="install_apk_obb">APK + OBB installieren</string>
+    <string name="save_apk">APK verarbeiten und speichern</string>
+    <string name="save_apk_obb">APK + OBB verarbeiten und speichern</string>
     <string name="install_subtitle">Die OBB wird beim ersten Start eingespielt</string>
 
     <!-- Phases -->
     <string name="phase_staging">APK wird gelesen…</string>
     <string name="phase_patching">Patch + OBB-Einspielung…</string>
     <string name="phase_installing">%1$s wird installiert…</string>
+    <string name="phase_saved">Gepatchte APK gespeichert in %1$s</string>
     <string name="phase_done_with_obb">Fertig. Starte das Spiel von deinem Homescreen — der erste Start dauert ein paar Sekunden, während die OBB entpackt wird.</string>
     <string name="phase_done_no_obb">APK installiert.</string>
     <string name="phase_error">Installation fehlgeschlagen: %1$s</string>
