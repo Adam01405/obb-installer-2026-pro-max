@@ -1,9 +1,9 @@
 # 📦 OBB Installer 2026 PRO MAX
 
-### Sideload Android games (APK + OBB) without root, without a PC, without Shizuku — the OBB rides inside the APK and slips into the right folder on first launch.
+### Install Android games (APK + OBB) without root, PC or Shizuku — the OBB rides inside the APK and lands in the right folder on first launch.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Android 11+](https://img.shields.io/badge/Android-11%2B-3DDC84?logo=android&logoColor=white)](#-compatibility)
+[![Android 11+](https://img.shields.io/badge/Android-11%2B-3DDC84?logo=android&logoColor=white)](#compatibility)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org/)
 [![Jetpack Compose](https://img.shields.io/badge/Jetpack-Compose-4285F4?logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
 [![No Root](https://img.shields.io/badge/Root-Not%20Required-brightgreen)](#)
@@ -11,455 +11,108 @@
 
 ---
 
-## 🔄 Secondary development notice
-
-This repository is a **secondary development (fork) of**
-[`aciderix/APK-OBB-HELPER`](https://github.com/aciderix/APK-OBB-HELPER/),
-with the original architecture, concept and MIT license preserved. Original
-author and all credits below remain fully acknowledged.
-
-All source code in this repo (unless explicitly noted) builds on top of that
-upstream project. If you redistribute this project, please keep this notice.
-
----
-
 <p align="center">
   <strong>🇬🇧 English</strong> ·
-  <a href="#-résumé-en-français">🇫🇷 Français</a>
+  <a href="README_zh-CN.md">简体中文</a>
 </p>
 
 ---
 
-<p align="center">
-  <em>Screenshot coming soon — expect a polished dark / neon-teal install screen with stagger animations.</em>
-</p>
+## 🔄 Secondary development notice
+
+This repository is a **secondary development** of
+[`aciderix/APK-OBB-HELPER`](https://github.com/aciderix/APK-OBB-HELPER/),
+with the original architecture, concept and MIT license preserved. If you
+redistribute this project, please keep this notice.
 
 ---
 
 ## 🤔 What is this?
 
-**OBB Installer** is a tiny standalone Android app that installs games shipped as
-**APK + OBB** in a single tap, on any modern Android device — no developer mode,
-no PC, no special permissions, no third-party services.
-
-It solves the most annoying part of sideloading on Android 11+:
-
-> *"Why can't my file manager copy the OBB into `Android/obb/<package>/` anymore?"*
-
-Because Google locked that path against third-party apps. So **OBB Installer
-takes a different route entirely** — it never copies the OBB itself. Instead,
-it embeds the OBB *inside* the patched APK and lets the **game itself** unpack
-it on first launch, from inside the game's own process where Android still
+**OBB Installer** is a tiny Android app that installs games shipped as
+**APK + OBB** in one tap. On Android 11+, third-party apps can no longer copy
+files into `Android/obb/<package>/`, so this app takes a different route: it
+**embeds the OBB inside a patched copy of the APK** and lets the game itself
+unpack it on first launch — from the game's own process, where Android still
 allows writing to the OBB folder.
 
 > **One tap. APK + OBB go in. The game finds its data and runs.**
 
-### Why does this matter
-
-Older Android games (often single-player gems from 2010-2018) ship as a small
-APK plus a multi-gigabyte OBB. On Android 13+, every clean way to deliver that
-OBB to the right folder has been closed:
-
-- ❌ File managers can't write to `Android/obb` anymore.
-- ❌ The Storage Access Framework picker hides those folders entirely.
-- ❌ `MANAGE_EXTERNAL_STORAGE` doesn't grant access to other apps' OBB dirs.
-- ❌ `sharedUserId` is silently ignored on Xiaomi/HyperOS and several other OEMs.
-- ❌ Shizuku works but requires Developer Options, wireless ADB pairing, and a
-     separate app to install.
-
-**OBB Installer doesn't fight any of these restrictions** — it goes underneath
-them, by making the game its own delivery mechanism.
-
----
-
 ## ✨ Features
 
 - 🪄 **Single-tap install** — pick an APK and an OBB, hit *Install*, done.
-- 📦 **Self-contained** — no Shizuku, no ADB, no PC, no developer options.
-- 🌍 **Universal compatibility** — works on Android 11–16 across Pixel,
-     Samsung One UI, Xiaomi/HyperOS/MIUI, OnePlus, Nothing, Asus.
-- 🛠️ **Auto-fixes legacy games** — bumps `targetSdkVersion` so the install
-     passes on modern Android, patches old `.so` libraries with text
-     relocations (`libogg`, `libcrypto`, etc.) so they load on Android 7+.
-- 📐 **16 KB page alignment** — native libraries that are already 16 KB
-     aligned get their `p_align` bumped to `0x4000`, so games also run on
-     Android 15+ devices that enforce 16 KB memory pages.
-- 🗂️ **Dual OBB support** — select a `main.*.obb` *and* an optional
-     `patch.*.obb`; both are bundled and unpacked on first launch.
-- 🧩 **Split APK support** — pick the base APK plus its split APKs
-     (e.g. `config.arm64_v8a.apk`) in one go; every split is patched and
-     re-signed with the same key and installed in a single session.
-- 🌐 **Trilingual UI** — English / 简体中文 / Français, follows the system locale.
-- 🔒 **Offline-first** — nothing is sent online, no telemetry, no ads.
-- 📱 **Modern Compose UI** — dark/neon-teal theme, stagger animations,
-     bottom navigation with three sections (Home / About / Help).
-- 📦 **Bundled mode** — drop a `.apk` and a `.obb` into `app/src/main/assets/`
-     and the resulting installer becomes a one-shot installer for *that*
-     specific game (great for sharing a finished classic with the family).
-
----
+- 📦 **No root / no PC / no Shizuku / no developer mode**.
+- 📐 **16 KB page alignment** — bumps `p_align` on aligned ELF64 libs so games
+     run on Android 15+ devices that enforce 16 KB memory pages.
+- 🗂️ **Dual OBB** — bundles both `main.*.obb` and an optional `patch.*.obb`.
+- 🧩 **Split APK support** — pick base APK + split APKs together; every split
+     is patched, re-signed with the same key and installed in one session.
+- 🛠️ **Auto-fixes legacy games** — bumps `targetSdkVersion` and patches old
+     `.so` libraries (text relocations) so they install and load on modern Android.
+- 🌐 **Trilingual UI** — English / 简体中文 / Français, follows system locale.
+- 🔒 **Offline-first** — no telemetry, no ads.
+- 📦 **Bundled mode** — drop a `.apk` + `.obb` into `app/src/main/assets/` to
+     build a one-shot installer for a specific game.
 
 ## ⚡ Quick Start
 
-### 📥 1. Get the APK
-
-Download the latest **`app-release.apk`** from the
-[**Releases page**](https://github.com/Adam01405/obb-installer-2026-pro-max/releases/latest).
-
-### 🔓 2. Allow installs from unknown sources
-
-The first time, Android will ask. The app will guide you to the right setting
-in two taps.
-
-### 🎮 3. Install a game
-
-| | |
-|---|---|
-| 1 | Pick the game's `.apk` (if the game ships split APKs, select the base APK **and** all `config.*.apk` / `*.split.*` files together) |
-| 2 | Pick the matching `main.<versionCode>.<package>.obb` (optional) |
-| 3 | Pick the matching `patch.<versionCode>.<package>.obb` if the game uses one (optional) |
-| 4 | Tap **Install APK + OBB** |
-| 5 | Confirm Android's install prompt |
-| 6 | Launch the game from your home screen — **first launch unpacks the OBB** (~30 s per gigabyte), then it runs normally on every subsequent launch |
-
-That's it. There's no step 7.
-
----
+1. Download **`app-release.apk`** from the
+   [Releases page](https://github.com/Adam01405/obb-installer-2026-pro-max/releases).
+2. Allow installs from unknown sources (the app guides you).
+3. Pick the game's APK (select the split APKs too, if any), then the
+   `main.*.obb` and optionally `patch.*.obb`.
+4. Tap **Install APK + OBB** and confirm Android's prompt.
+5. Launch the game — **first launch unpacks the OBB** (~30 s per GB), later
+   launches are instant.
 
 ## 📱 Compatibility
 
-| Tested on | Status |
+| Scenario | Status |
 |---|---|
-| 📱 Xiaomi Redmi / HyperOS (Android 16) | ✅ Works |
-| 📱 Pixel (Android 14, 15) | ✅ Works |
-| 📱 Samsung Galaxy / One UI 6+ | ✅ Works |
-| 📱 OnePlus / OxygenOS | ✅ Works |
-| 📱 Nothing Phone | ✅ Works |
-
-> Anything running stock-or-OEM Android 11+ should work. The mechanism does
-> not depend on any optional Android feature an OEM might disable.
-
-### 🎮 Games
-
-| | |
-|---|---|
-| ✅ Single-player / offline games (any era) | Work out of the box |
-| ✅ Older console-style ports (libogg / OpenAL / pre-Android-7 native libs) | Auto-patched |
-| ✅ Older games targeting Android 4-6 (target SDK ≤ 23) | Auto-bumped |
-| ⚠️ Games with custom signature checks in code | Refuse to run after re-signing (rare) |
-| ❌ Online competitive games / live-service titles | Anti-cheat rejects the patched signature |
-
-> Reality check: ~90 % of legacy single-player games install and run.
-
----
+| Stock / OEM Android 11–16 | ✅ Works |
+| Single-player / offline games | ✅ Work out of the box |
+| Legacy games (target SDK ≤ 23, old `.so` libs) | ✅ Auto-patched |
+| Games with in-code signature checks | ⚠️ Refuse to run (rare) |
+| Online competitive / live-service games | ❌ Anti-cheat rejects the patched signature |
 
 ## 🏗️ How it works
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                       OBB Installer Hub                         │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌───────────┐                                                 │
-│   │ user APK  │                                                 │
-│   │  + OBB    │                                                 │
-│   └─────┬─────┘                                                 │
-│         │                                                       │
-│         ▼                                                       │
-│   ┌──────────────────────────────────────────────┐              │
-│   │  1. Patch AndroidManifest.xml (binary AXML)  │              │
-│   │     • bump targetSdkVersion to ≥ 24          │              │
-│   │     • inject <provider ObbBootstrapProvider> │              │
-│   │  2. Inject classesN.dex (bootstrap provider) │              │
-│   │  3. Inject OBB(s) as STORED asset entries    │              │
-│   │     • main.<vc>.<pkg>.obb  (+ patch, if any) │              │
-│   │  4. Patch every lib/**/*.so :                │              │
-│   │     • mark text segments PF_W                │              │
-│   │     • clear DT_TEXTREL / DF_TEXTREL          │              │
-│   │     • bump p_align to 0x4000 if 16 KB-aligned│              │
-│   │  5. Patch each split APK the same way        │              │
-│   │  6. Re-sign with apksig (v1 + v2 + v3)       │              │
-│   └──────────────────────────────────────────────┘              │
-│         │                                                       │
-│         ▼                                                       │
-│   ┌─────────────────────────────────────────────┐               │
-│   │  PackageInstaller session install           │               │
-│   └─────────────────────────────────────────────┘               │
-│         │                                                       │
-│         ▼                                                       │
-│   ┌──────────────────────────────────────────────┐              │
-│   │  First launch of the game                    │              │
-│   │  ContentProvider.onCreate() fires inside     │              │
-│   │  the game's own process — copies the OBB     │              │
-│   │  asset to /sdcard/Android/obb/<package>/     │              │
-│   │  using the game's own UID (allowed!)         │              │
-│   └──────────────────────────────────────────────┘              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-The **key insight**: the only Android process that is *always* allowed to
-write to `Android/obb/<package>/` is the package's own process. So instead
-of fighting the OS, OBB Installer turns the game into its own delivery
-mechanism.
-
----
+1. Patch the binary manifest: bump `targetSdkVersion`, inject a bootstrap
+   `<provider>`.
+2. Inject the bootstrap dex and the OBB(s) as STORED assets.
+3. Patch every `lib/**/*.so`: fix text relocations, drop RWX segments, bump
+   `p_align` to `0x4000` when already 16 KB aligned.
+4. Re-sign with `apksig` (v1+v2+v3), install via `PackageInstaller` (base +
+   splits in one session).
+5. On the game's first launch, the injected provider copies the OBB into
+   `Android/obb/<package>/` using the game's own UID.
 
 ## 🔧 Build from source
-
-### Prerequisites
-
-```bash
-java --version    # JDK 17+
-```
-
-### Build
 
 ```bash
 git clone https://github.com/Adam01405/obb-installer-2026-pro-max.git
 cd obb-installer-2026-pro-max
-
-# Use any Gradle 8.9+ on PATH (Android Studio bundles one), or:
-gradle :app:assembleDebug
+gradle :app:assembleRelease
 ```
 
-Output: `app/build/outputs/apk/debug/app-debug.apk`
+Output: `app/build/outputs/apk/release/app-release.apk`
 
-### Project layout
+Layout: `app/` (Compose UI + APK rewriter), `bootstrap/` (injected provider),
+`keys/hub.keystore` (signing key), `.github/workflows/` (CI).
 
-```
-.
-├── app/                       # Main hub app (Compose UI + APK rewriter)
-│   └── src/main/kotlin/com/aciderix/obbinstaller/
-│       ├── ApkInstaller.kt    # PackageInstaller session wrapper (base + splits)
-│       ├── ApkResigner.kt     # APK rewrite + apksig signing (dual OBB, split patch)
-│       ├── ElfAlignPatcher.kt  # 16 KB page-alignment fix for ELF64 libs
-│       ├── ElfTextrelPatcher.kt  # ELF surgery for legacy .so files
-│       ├── InstallerViewModel.kt
-│       ├── MainActivity.kt    # Compose entry + bottom navigation
-│       ├── axml/              # In-process AXML reader/writer/patcher
-│       └── ui/                # Theme, screens, components
-├── bootstrap/                 # Tiny Java module compiled to a dex blob
-│   └── src/main/java/com/aciderix/obbbootstrap/
-│       └── ObbBootstrapProvider.java   # injected into every patched APK
-├── keys/
-│   └── hub.keystore           # Stable signing key (debug-grade, MIT-licensed)
-└── .github/workflows/         # CI: build + release on tag push
-```
+## 📄 Distribution
 
----
-
-## 📡 Distribution
-
-This app cannot be published on Google Play (Play policy forbids re-signing
-third-party packages). It is distributed via:
-
-- 🐙 **[GitHub Releases](https://github.com/Adam01405/obb-installer-2026-pro-max/releases)** — primary channel
-- 📦 **F-Droid** — *coming soon (open source, MIT)*
-- 📦 **Aptoide / APKPure** — *coming soon*
-
-> The CI builds a fresh APK on every push; tagged commits (`v*`) automatically
-> create a public GitHub Release with the APK attached.
-
----
-
-## ❓ FAQ
-
-<details>
-<summary><b>Where do I get the APK and OBB of the game?</b></summary>
-<br>
-From your existing backup or a sideload archive you already own. The hub
-itself does not download anything.
-</details>
-
-<details>
-<summary><b>The game crashes on launch.</b></summary>
-<br>
-A small fraction of legacy games verify their own signature in code and
-refuse to run after re-signing. Most online competitive games will also
-reject the patched signature. There is no fix at the hub level.
-</details>
-
-<details>
-<summary><b>First launch is slow / black screen.</b></summary>
-<br>
-Normal. The injected component is unpacking the OBB into the game's private
-folder. About 30 seconds per gigabyte. Subsequent launches are instant.
-</details>
-
-<details>
-<summary><b>Will it update from Play Store?</b></summary>
-<br>
-No. Re-signed packages cannot be updated from Play Store. Reinstall through
-the hub when a new version is available.
-</details>
-
-<details>
-<summary><b>Is anything sent online?</b></summary>
-<br>
-No. Everything happens on-device. The hub does not even request the
-internet permission for its core flow.
-</details>
-
-<details>
-<summary><b>Why was my hub uninstall + reinstall required between versions?</b></summary>
-<br>
-Earlier development builds shipped with <code>android:sharedUserId</code>.
-That attribute cannot be added or removed across an update — Android refuses
-the upgrade. Recent builds no longer use it.
-</details>
-
----
-
-## 🤝 Contributing
-
-PRs welcome. The codebase is intentionally small (~3 kLoC of Kotlin + ~50 LoC
-of Java for the bootstrap). Pick an issue, branch off `main`, open a PR.
-
-Areas where help is appreciated:
-
-- 🌍 More translations (German, Spanish, Japanese, Portuguese, …)
-- 🎯 Compatibility reports on more devices and Android versions
-- 🧪 Test fixtures for the AXML and ELF patchers
-- 📦 F-Droid metadata (`metadata/` folder)
-- 🎨 UI polish and accessibility (TalkBack labels, contrast)
-
----
+This app cannot be published on Google Play (Play forbids re-signing
+third-party packages). It is distributed via GitHub Releases and (soon)
+F-Droid.
 
 ## 🙏 Credits
 
 - **Author & maintainer**: MT·xiaoyun ([@Adam01405](https://github.com/Adam01405))
-- **Original project**: [`aciderix/APK-OBB-HELPER`](https://github.com/aciderix/APK-OBB-HELPER/) — this repository is a secondary development based on it.
-- [`apksig`](https://android.googlesource.com/platform/tools/apksig/) by Google — APK signing library, runs on-device.
+- **Original project**: [`aciderix/APK-OBB-HELPER`](https://github.com/aciderix/APK-OBB-HELPER/)
+- [`apksig`](https://android.googlesource.com/platform/tools/apksig/) by Google — APK signing library.
 - The Android open-source community for documenting the binary AXML and ELF formats.
-
----
 
 ## 📄 License
 
 MIT — see [LICENSE](LICENSE).
-
----
-
-# 🇫🇷 Résumé en français
-
-### Installer des jeux Android livrés en APK + OBB sans root, sans PC, sans Shizuku — l'OBB voyage à l'intérieur de l'APK et atterrit toute seule dans le bon dossier au premier lancement.
-
-## 🤔 C'est quoi ?
-
-**OBB Installer** est une petite app Android autonome qui installe en un tap les
-jeux livrés sous forme **APK + OBB**, sur n'importe quel device Android moderne
-— sans mode développeur, sans PC, sans permission spéciale, sans service tiers.
-
-Elle résout le problème le plus pénible du sideload sur Android 11+ :
-
-> *« Pourquoi mon explorateur de fichiers ne peut plus copier l'OBB dans `Android/obb/<package>/` ? »*
-
-Parce que Google a verrouillé ce chemin pour les apps tierces. **OBB Installer
-prend une route complètement différente** : elle ne copie jamais l'OBB
-elle-même. À la place, elle l'embarque *dans* l'APK patchée et laisse **le
-jeu lui-même** la déballer au premier lancement, depuis son propre processus
-où Android autorise toujours l'écriture dans le dossier OBB.
-
-> **Un tap. APK + OBB en entrée. Le jeu trouve ses données et démarre.**
-
-## ✨ Fonctionnalités
-
-- 🪄 **Install en un tap** — choisis un APK et un OBB, tape *Installer*, fini.
-- 📦 **Autonome** — pas de Shizuku, pas d'ADB, pas de PC, pas d'options développeur.
-- 🌍 **Compatibilité universelle** — Android 11 à 16, Pixel, Samsung One UI,
-     Xiaomi/HyperOS/MIUI, OnePlus, Nothing, Asus.
-- 🛠️ **Patch automatique des vieux jeux** — bump du `targetSdkVersion` pour
-     passer la vérif d'install d'Android moderne, patch des vieilles libs
-     natives à text relocations (`libogg`, `libcrypto`, …) pour qu'elles
-     chargent sur Android 7+.
-- 📐 **Alignement 16 Ko** — les libs natives déjà alignées sur 16 Ko voient
-     leur `p_align` passé à `0x4000`, pour tourner aussi sur les devices
-     Android 15+ qui imposent les pages mémoire 16 Ko.
-- 🗂️ **Double OBB** — choisis un `main.*.obb` *et* un `patch.*.obb`
-     optionnel ; les deux sont embarqués et déballés au premier lancement.
-- 🧩 **Split APK** — sélectionne l'APK de base plus ses split APK
-     (ex. `config.arm64_v8a.apk`) en une fois ; chaque split est patché,
-     re-signé avec la même clé et installé dans une seule session.
-- 🌐 **Interface trilingue** — anglais / 简体中文 / français, suit la locale système.
-- 🔒 **Hors-ligne** — rien ne part en ligne, pas de télémétrie, pas de pub.
-- 📱 **Compose moderne** — thème sombre/néon turquoise, animations en
-     cascade, navigation à trois onglets (Accueil / À propos / Aide).
-- 📦 **Mode embarqué** — pose un `.apk` et un `.obb` dans
-     `app/src/main/assets/` et l'installeur résultant devient un installeur
-     à usage unique pour *ce* jeu précis (idéal pour partager un classique
-     avec la famille).
-
-## ⚡ Démarrage rapide
-
-1. Télécharge le dernier **`app-release.apk`** depuis la
-   [**page Releases**](https://github.com/Adam01405/obb-installer-2026-pro-max/releases/latest).
-2. Autorise l'install d'apps inconnues (l'app te guide en deux taps).
-3. Choisis l'APK du jeu (sélectionne aussi les split APK s'il y en a),
-   choisis le `main.*.obb` puis éventuellement le `patch.*.obb`, tape
-   **Installer APK + OBB**, valide le prompt système. Le premier lancement du
-   jeu déballe l'OBB (~30 s par gigaoctet), les suivants sont instantanés.
-
-## 📱 Compatibilité
-
-Tout ce qui tourne sous Android 11+ stock ou OEM passe. La mécanique ne
-dépend d'aucune fonctionnalité Android optionnelle qu'un constructeur
-pourrait désactiver.
-
-| | |
-|---|---|
-| ✅ Jeux solo / hors-ligne (toutes époques) | Marchent direct |
-| ✅ Vieux portages console (libogg / OpenAL / libs natives pré-Android-7) | Patchés auto |
-| ✅ Vieux jeux ciblant Android 4-6 (target SDK ≤ 23) | Bumpés auto |
-| ⚠️ Jeux avec vérif de signature dans leur propre code | Refusent après re-signing (rare) |
-| ❌ Jeux compétitifs en ligne / live-service | Anti-cheat rejette |
-
-## 🏗️ Comment ça marche
-
-L'idée clé : le seul processus Android qui a *toujours* le droit d'écrire
-dans `Android/obb/<package>/` est le processus du package lui-même. Au lieu
-de combattre l'OS, OBB Installer transforme le jeu en son propre mécanisme
-de livraison.
-
-À l'install : on patche le manifest binaire pour ajouter un mini
-ContentProvider, on injecte l'OBB comme asset uncompressed dans l'APK, on
-patche les vieux `.so` à text relocations, on bump le targetSdk si besoin,
-on re-signe avec `apksig`.
-
-Au premier lancement du jeu : le ContentProvider injecté tourne *dans le
-processus du jeu*, donc avec son UID. Il copie l'OBB depuis ses propres
-assets vers `/sdcard/Android/obb/<package>/`. Le jeu démarre, trouve son
-OBB là où il l'attend, c'est plié.
-
-## 📡 Distribution
-
-Cette app ne peut pas être sur le Play Store (la politique Google interdit
-le re-signing de packages tiers). Elle est distribuée via :
-
-- 🐙 **[GitHub Releases](https://github.com/Adam01405/obb-installer-2026-pro-max/releases)** — canal principal
-- 📦 **F-Droid** — *bientôt (open source, MIT)*
-- 📦 **Aptoide / APKPure** — *bientôt*
-
-## 🤝 Contribuer
-
-Les PRs sont bienvenues. Le code est volontairement compact
-(~3 000 lignes de Kotlin + ~50 lignes de Java pour le bootstrap).
-
-Sujets où l'aide est appréciée :
-
-- 🌍 Plus de traductions (allemand, espagnol, japonais, portugais, …)
-- 🎯 Rapports de compatibilité sur plus de devices et versions Android
-- 🧪 Tests pour les patchers AXML et ELF
-- 📦 Métadonnées F-Droid (dossier `metadata/`)
-- 🎨 Polish UI et accessibilité
-
-## 📄 Licence
-
-MIT — voir [LICENSE](LICENSE).
-
----
-
-<p align="center">
-  Made with ❤️ for retro Android gaming preservation<br>
-  <em>« Un OBB ne devrait jamais empêcher de jouer. »</em>
-</p>
