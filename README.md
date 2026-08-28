@@ -328,6 +328,7 @@ Areas where help is appreciated:
 
 ## 🙏 Credits
 
+- **Author & maintainer**: MT·xiaoyun ([@Adam01405](https://github.com/Adam01405))
 - **Original project**: [`aciderix/APK-OBB-HELPER`](https://github.com/aciderix/APK-OBB-HELPER/) — this repository is a secondary development based on it.
 - [`apksig`](https://android.googlesource.com/platform/tools/apksig/) by Google — APK signing library, runs on-device.
 - The Android open-source community for documenting the binary AXML and ELF formats.
