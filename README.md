@@ -29,6 +29,24 @@ redistribute this project, please keep this notice.
 
 ## 📜 Changelog
 
+### v2.2 · 2026-08-29 — Ad-remover toolbox
+
+- **Ad-remover toolbox** — the ApkAdRemover ad-removal engine is now an
+  in-app tool (Tools tab): removes ads, disables signature verification
+  (normal / original-package modes), patches Flutter `libapp.so`, and
+  optimizes DEX, with toggles for sign mode, skip re-sign, output dir and
+  pattern file.
+- **Unified output directory** — processed APKs, the `ad_patterns.json`
+  config and subscription files now default to `Download/OBBInstaller/`.
+- **Export fallback** — results are saved next to the original APK, else via
+  SAF, else through MediaStore into `Download/OBBInstaller/` when no storage
+  permission is granted.
+- **Memory & log fixes** — the processing log is capped so it cannot grow
+  without bound; invalid subscription tokens now show a clear error instead
+  of a false success.
+- **About / Help** — new collapsible toolbox, features, privacy and disclaimer
+  sections.
+
 ### v2.1 · 2026-08-28 — 34 languages & stability fixes
 
 - **34 UI languages** (was 10), following the system locale.
