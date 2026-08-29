@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">OBB-installatør</string>
     <string name="tab_home">Start</string>
+    <string name="tab_tools">Værktøjer</string>
     <string name="tab_about">Om</string>
     <string name="tab_help">Hjælp</string>
     <string name="card_apk">APK</string>

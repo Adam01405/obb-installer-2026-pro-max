@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Pemasang OBB</string>
     <string name="tab_home">Utama</string>
+    <string name="tab_tools">Alat</string>
     <string name="tab_about">Perihal</string>
     <string name="tab_help">Bantuan</string>
     <string name="card_apk">APK</string>

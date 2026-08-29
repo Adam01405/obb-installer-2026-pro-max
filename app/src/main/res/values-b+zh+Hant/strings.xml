@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">OBB 安裝程式</string>
     <string name="tab_home">首頁</string>
+    <string name="tab_tools">工具箱</string>
     <string name="tab_about">關於</string>
     <string name="tab_help">說明</string>
     <string name="card_apk">APK</string>

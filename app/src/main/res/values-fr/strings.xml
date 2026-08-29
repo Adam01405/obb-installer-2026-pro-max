@@ -3,6 +3,7 @@
     <string name="app_name">OBB Installer</string>
 
     <string name="tab_home">Accueil</string>
+    <string name="tab_tools">Outils</string>
     <string name="tab_about">À propos</string>
     <string name="tab_help">Aide</string>
 

@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Trình cài OBB</string>
     <string name="tab_home">Trang chủ</string>
+    <string name="tab_tools">Công cụ</string>
     <string name="tab_about">Giới thiệu</string>
     <string name="tab_help">Trợ giúp</string>
     <string name="card_apk">APK</string>

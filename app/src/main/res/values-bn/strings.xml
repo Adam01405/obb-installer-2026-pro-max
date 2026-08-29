@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">OBB ইনস্টলার</string>
     <string name="tab_home">হোম</string>
+    <string name="tab_tools">টুলস</string>
     <string name="tab_about">সম্পর্কে</string>
     <string name="tab_help">সহায়তা</string>
     <string name="card_apk">APK</string>

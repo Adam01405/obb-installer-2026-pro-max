@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">OBB-asennustyökalu</string>
     <string name="tab_home">Etusivu</string>
+    <string name="tab_tools">Työkalut</string>
     <string name="tab_about">Tietoja</string>
     <string name="tab_help">Ohje</string>
     <string name="card_apk">APK</string>

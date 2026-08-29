@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.HelpOutline
@@ -30,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -69,6 +71,7 @@ class MainActivity : ComponentActivity() {
 
 private enum class Tab(val labelRes: Int, val icon: ImageVector) {
     Home(R.string.tab_home, Icons.Filled.Home),
+    Tools(R.string.tab_tools, Icons.Filled.Build),
     About(R.string.tab_about, Icons.Filled.Info),
     Help(R.string.tab_help, Icons.Filled.HelpOutline)
 }
@@ -76,7 +79,6 @@ private enum class Tab(val labelRes: Int, val icon: ImageVector) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun HubApp(vm: InstallerViewModel = viewModel()) {
-    val ctx = LocalContext.current
     val state by vm.state.collectAsState()
     var current by rememberSaveable { mutableStateOf(Tab.Home) }
 
@@ -96,6 +98,12 @@ private fun HubApp(vm: InstallerViewModel = viewModel()) {
         vm.refreshUnknownSourcesPermission()
     }
 
+    // 工具箱 Tab：打开内置的 APK 去广告编辑器（Compose 页面）
+    val adrVm: AdRemoverViewModel = viewModel()
+    val pickAdrApk = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        uri?.let { adrVm.setApkUri(it) }
+    }
+
     Scaffold(
         containerColor = HubColors.Background,
         topBar = { HubTopBar() },
@@ -107,8 +115,8 @@ private fun HubApp(vm: InstallerViewModel = viewModel()) {
                 transitionSpec = { fadeIn() togetherWith fadeOut() },
                 label = "tab"
             ) { tab ->
-                when (tab) {
-                    Tab.Home -> HomeScreen(
+                val homeScreen: @Composable () -> Unit = {
+                    HomeScreen(
                         state = state,
                         onPickApk = {
                             pickApk.launch(arrayOf(
@@ -134,6 +142,18 @@ private fun HubApp(vm: InstallerViewModel = viewModel()) {
                         onCancelInstall = vm::cancelInstall,
                         onExportApk = vm::exportApk,
                         onClearHistory = vm::clearHistory
+                    )
+                }
+                when (tab) {
+                    Tab.Home -> homeScreen()
+                    Tab.Tools -> AdRemoverScreen(
+                        onPickApk = {
+                            pickAdrApk.launch(arrayOf(
+                                "application/vnd.android.package-archive",
+                                "application/octet-stream",
+                                "*/*"
+                            ))
+                        }
                     )
                     Tab.About -> AboutScreen()
                     Tab.Help -> HelpScreen()

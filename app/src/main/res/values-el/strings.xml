@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Εγκαταστάτης OBB</string>
     <string name="tab_home">Αρχική</string>
+    <string name="tab_tools">Εργαλεία</string>
     <string name="tab_about">Σχετικά</string>
     <string name="tab_help">Βοήθεια</string>
     <string name="card_apk">APK</string>

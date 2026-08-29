@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">מתקין OBB</string>
     <string name="tab_home">בית</string>
+    <string name="tab_tools">כלים</string>
     <string name="tab_about">אודות</string>
     <string name="tab_help">עזרה</string>
     <string name="card_apk">APK</string>

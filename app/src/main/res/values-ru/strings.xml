@@ -4,6 +4,7 @@
 
     <!-- Bottom navigation -->
     <string name="tab_home">Главная</string>
+    <string name="tab_tools">Инструменты</string>
     <string name="tab_about">О приложении</string>
     <string name="tab_help">Справка</string>
 

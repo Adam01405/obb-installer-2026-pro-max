@@ -61,6 +61,17 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += listOf(
+                "META-INF/*.SF",
+                "META-INF/*.DSA",
+                "META-INF/*.RSA",
+                "META-INF/INDEX.LIST",
+                "META-INF/io.netty.versions.properties",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt"
+            )
             // bundletool / bouncycastle bring duplicate META-INF entries
             pickFirsts += listOf(
                 "META-INF/DEPENDENCIES",
@@ -133,4 +144,7 @@ dependencies {
     // APK re-signing: Google's official apksig library, runs on-device.
     // (Android already bundles BouncyCastle in the framework, so we don't pull bcprov.)
     implementation("com.android.tools.build:apksig:8.5.2")
+
+    // APK 去广告工具箱（独立模块，保持其原有 View 技术栈与命名空间）
+    implementation(project(":apkadremover"))
 }

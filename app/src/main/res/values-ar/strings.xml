@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">مثبّت OBB</string>
     <string name="tab_home">الرئيسية</string>
+    <string name="tab_tools">أدوات</string>
     <string name="tab_about">حول</string>
     <string name="tab_help">مساعدة</string>
     <string name="card_apk">APK</string>

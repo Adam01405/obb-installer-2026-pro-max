@@ -4,6 +4,7 @@
 
     <!-- Bottom navigation -->
     <string name="tab_home">ホーム</string>
+    <string name="tab_tools">ツール</string>
     <string name="tab_about">概要</string>
     <string name="tab_help">ヘルプ</string>
 

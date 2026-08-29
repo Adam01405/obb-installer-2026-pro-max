@@ -1,0 +1,8 @@
+task printCompileClasspath {
+    doLast {
+        println "CP_START"
+        android.sourceSets.main.java.srcDirs.each { println "SRC=$it" }
+        configurations.compileClasspath.files.each { println "DEP=$it" }
+        println "CP_END"
+    }
+}

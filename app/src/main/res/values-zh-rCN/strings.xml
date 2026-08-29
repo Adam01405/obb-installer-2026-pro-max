@@ -4,6 +4,7 @@
 
     <!-- 底部导航栏 -->
     <string name="tab_home">首页</string>
+    <string name="tab_tools">工具箱</string>
     <string name="tab_about">关于</string>
     <string name="tab_help">帮助</string>
 
@@ -125,4 +126,70 @@
     <string name="history_with_patch">APK + OBB + patch</string>
     <string name="history_with_obb">APK + OBB</string>
     <string name="history_apk_only">仅 APK</string>
+
+    <!-- APK 去广告工具 -->
+    <string name="adr_title">APK 去广告</string>
+    <string name="adr_subtitle">直接修补 DEX / Flutter，清除广告 SDK</string>
+    <string name="adr_pick_apk">选择要处理的 APK</string>
+    <string name="adr_change">更换</string>
+    <string name="adr_start">开始处理</string>
+    <string name="adr_processing">处理中…</string>
+    <string name="adr_log_title">实时日志</string>
+    <string name="adr_log_empty">暂无日志 — 请选择 APK 并开始处理</string>
+    <string name="adr_settings">高级设置</string>
+    <string name="adr_sign_mode">签名效验去除</string>
+    <string name="adr_sign_off">关闭</string>
+    <string name="adr_sign_normal">普通去除</string>
+    <string name="adr_sign_original">原包去除</string>
+    <string name="adr_flutter">Flutter libapp.so 处理</string>
+    <string name="adr_flutter_hint">解包、去广告、回编译 Flutter 应用的 libapp.so</string>
+    <string name="adr_dex_optimize">DEX 体积优化</string>
+    <string name="adr_dex_optimize_hint">移除调试信息（行号 / 局部变量表）</string>
+    <string name="adr_skip_signing">跳过重签名</string>
+    <string name="adr_skip_signing_hint">输出未签名 APK，便于二次签名 / 加固</string>
+    <string name="adr_output_dir">输出目录</string>
+    <string name="adr_output_dir_reset">重置</string>
+    <string name="adr_config_path">特征配置文件</string>
+    <string name="adr_config_path_reset">重置</string>
+    <string name="adr_config_reset_default">恢复默认配置</string>
+    <string name="adr_categories">特征分类</string>
+    <string name="adr_subscriptions">特征订阅</string>
+    <string name="adr_subscriptions_empty">暂无订阅</string>
+    <string name="adr_add_subscription">添加订阅</string>
+    <string name="adr_subscription_token_hint">粘贴 ADSUB:… 口令</string>
+    <string name="adr_share_token">分享口令</string>
+    <string name="adr_apply_subs">应用已启用</string>
+    <string name="adr_done_title">处理完成</string>
+    <string name="adr_export_path">输出</string>
+    <string name="adr_report_path">报告</string>
+    <string name="adr_size_orig">原始</string>
+    <string name="adr_size_final">结果</string>
+    <string name="adr_saved">节省</string>
+    <string name="adr_time">耗时</string>
+    <string name="adr_close">关闭</string>
+    <string name="adr_cancel">取消</string>
+    <string name="adr_ok">确定</string>
+    <string name="adr_add">添加</string>
+    <string name="adr_add_fail">无效的订阅口令</string>
+
+    <!-- 关于：工具箱 / 整合的去广告内容 -->
+    <string name="about_toolbox_title">工具箱 · APK 去广告</string>
+    <string name="about_open_source_title">开源致谢</string>
+    <string name="about_reference_title">参考文档</string>
+    <string name="about_privacy_title">隐私政策</string>
+    <string name="about_disclaimer_title">免责声明</string>
+    <string name="about_copyright_title">版权与作者</string>
+
+    <!-- 帮助：工具箱 FAQ -->
+    <string name="help_toolbox_title">工具箱 · APK 去广告</string>
+    <string name="help_q_adr1">去广告工具是做什么的？</string>
+    <string name="help_a_adr1">解包 APK，直接修补 DEX 字节码（及 Flutter 应用的 libapp.so）清除广告 SDK，再重新打包签名——全程在本机离线完成。</string>
+    <string name="help_q_adr2">什么是签名效验去除？</string>
+    <string name="help_a_adr2">部分应用会校验自身签名，重签名后拒绝运行。签名效验去除会注入钩子中和该校验：普通模式钩住相关类方法；原包模式额外嵌入原始 APK，让校验匹配真实签名，覆盖更广。</string>
+    <string name="help_q_adr3">什么是特征订阅？</string>
+    <string name="help_a_adr3">广告特征（SDK 包名、URL、类名关键词…）存放于 JSON 配置文件中。订阅可通过 ADSUB:… 口令导入或分享规则集，在去广告前合并来自其他来源的规则。</string>
+    <string name="help_q_adr4">处理结果保存在哪里？</string>
+    <string name="help_a_adr4">优先保存在原 APK 所在目录，否则保存到 Download/OBBInstaller（或你配置的输出目录）。Markdown 报告会一并保存在结果旁边。</string>
+    <string name="help_q_adr5">清理后的 APK 还能从商店更新吗？</string>
+    <string name="help_a_adr5">不能。APK 使用新密钥重新签名，官方更新会被阻断。单机与离线应用运行正常。</string>
 </resources>

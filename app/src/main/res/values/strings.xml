@@ -4,6 +4,7 @@
 
     <!-- Bottom navigation -->
     <string name="tab_home">Home</string>
+    <string name="tab_tools">Tools</string>
     <string name="tab_about">About</string>
     <string name="tab_help">Help</string>
 
@@ -127,4 +128,70 @@
     <string name="history_with_patch">APK + OBB + patch</string>
     <string name="history_with_obb">APK + OBB</string>
     <string name="history_apk_only">APK only</string>
+
+    <!-- APK Ad Remover tool -->
+    <string name="adr_title">APK Ad Remover</string>
+    <string name="adr_subtitle">Directly patches DEX/Flutter to strip ad SDKs</string>
+    <string name="adr_pick_apk">Choose APK to clean</string>
+    <string name="adr_change">Change</string>
+    <string name="adr_start">Start cleaning</string>
+    <string name="adr_processing">Processing…</string>
+    <string name="adr_log_title">Live log</string>
+    <string name="adr_log_empty">No log yet — pick an APK and start</string>
+    <string name="adr_settings">Advanced settings</string>
+    <string name="adr_sign_mode">Signature verification removal</string>
+    <string name="adr_sign_off">Off</string>
+    <string name="adr_sign_normal">Normal</string>
+    <string name="adr_sign_original">Original package</string>
+    <string name="adr_flutter">Flutter libapp.so cleaning</string>
+    <string name="adr_flutter_hint">Unpack, patch and rebuild libapp.so of Flutter apps</string>
+    <string name="adr_dex_optimize">DEX size optimization</string>
+    <string name="adr_dex_optimize_hint">Strip debug info (line numbers, local var tables)</string>
+    <string name="adr_skip_signing">Skip re-signing</string>
+    <string name="adr_skip_signing_hint">Output an unsigned APK for later signing / hardening</string>
+    <string name="adr_output_dir">Output directory</string>
+    <string name="adr_output_dir_reset">Reset</string>
+    <string name="adr_config_path">Feature config file</string>
+    <string name="adr_config_path_reset">Reset</string>
+    <string name="adr_config_reset_default">Restore default config</string>
+    <string name="adr_categories">Feature categories</string>
+    <string name="adr_subscriptions">Feature subscriptions</string>
+    <string name="adr_subscriptions_empty">No subscriptions yet</string>
+    <string name="adr_add_subscription">Add subscription</string>
+    <string name="adr_subscription_token_hint">Paste an ADSUB:… token</string>
+    <string name="adr_share_token">Share token</string>
+    <string name="adr_apply_subs">Apply enabled</string>
+    <string name="adr_done_title">Cleaning finished</string>
+    <string name="adr_export_path">Output</string>
+    <string name="adr_report_path">Report</string>
+    <string name="adr_size_orig">Original</string>
+    <string name="adr_size_final">Result</string>
+    <string name="adr_saved">Saved</string>
+    <string name="adr_time">Time</string>
+    <string name="adr_close">Close</string>
+    <string name="adr_cancel">Cancel</string>
+    <string name="adr_ok">OK</string>
+    <string name="adr_add">Add</string>
+    <string name="adr_add_fail">Invalid subscription token</string>
+
+    <!-- About: toolbox / integrated AdRemover content -->
+    <string name="about_toolbox_title">Toolbox · APK Ad Remover</string>
+    <string name="about_open_source_title">Open source credits</string>
+    <string name="about_reference_title">References</string>
+    <string name="about_privacy_title">Privacy policy</string>
+    <string name="about_disclaimer_title">Disclaimer</string>
+    <string name="about_copyright_title">Copyright &amp; author</string>
+
+    <!-- Help: toolbox FAQ -->
+    <string name="help_toolbox_title">Toolbox · APK Ad Remover</string>
+    <string name="help_q_adr1">What does the Ad Remover do?</string>
+    <string name="help_a_adr1">It unpacks the APK, directly patches the DEX bytecode (and Flutter libapp.so) to strip ad SDKs, then repacks and signs the result — fully offline on your device.</string>
+    <string name="help_q_adr2">What is signature removal?</string>
+    <string name="help_a_adr2">Some apps check their own signature and refuse to run after re-signing. Signature removal injects a hook that neutralizes that check. Normal mode hooks the class methods; Original mode additionally embeds the original APK so the check matches the real signature.</string>
+    <string name="help_q_adr3">What are feature subscriptions?</string>
+    <string name="help_a_adr3">Ad patterns (SDK packages, URLs, class keywords…) live in a JSON config file. Subscriptions let you import or share rule sets through an ADSUB:… token, so you can merge rules from other sources before cleaning.</string>
+    <string name="help_q_adr4">Where is the result saved?</string>
+    <string name="help_a_adr4">Next to the original APK when possible, otherwise saved to Download/OBBInstaller (or your configured output directory). A Markdown report is saved beside the result.</string>
+    <string name="help_q_adr5">Will the cleaned APK still update from Play Store?</string>
+    <string name="help_a_adr5">No. The APK is re-signed with a new key, so official updates are blocked. Single-player and offline apps run normally.</string>
 </resources>

@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Instalator OBB</string>
     <string name="tab_home">Acasă</string>
+    <string name="tab_tools">Instrumente</string>
     <string name="tab_about">Despre</string>
     <string name="tab_help">Ajutor</string>
     <string name="card_apk">APK</string>

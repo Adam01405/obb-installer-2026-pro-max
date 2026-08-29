@@ -10,8 +10,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Folder
-import androidx.compose.material.icons.outlined.Android
-import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,10 +18,62 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+
+/** 共享的渐变主按钮：首页"安装 APK"与工具箱"开始处理"使用同一样式（呼吸发光）。 */
+@Composable
+fun HubGradientButton(
+    text: String,
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null
+) {
+    val transition = rememberInfiniteTransition(label = "btn-glow")
+    val glow by transition.animateFloat(
+        initialValue = 0.7f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1600, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "btn-glow"
+    )
+    val scale = if (enabled) glow * 0.02f + 0.98f else 1f
+    Box(
+        modifier = modifier
+            .scale(scale)
+            .clip(RoundedCornerShape(14.dp))
+            .background(HubColors.InstallGradient)
+            .clickable(enabled = enabled, onClick = onClick)
+            .padding(vertical = 16.dp, horizontal = 16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            if (icon != null) {
+                androidx.compose.material3.Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = androidx.compose.ui.graphics.Color(0xFF002418),
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+            Text(
+                text = text,
+                style = MaterialTheme.typography.titleMedium,
+                color = androidx.compose.ui.graphics.Color(0xFF002418),
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
 
 @Composable
 fun FileSourceCard(

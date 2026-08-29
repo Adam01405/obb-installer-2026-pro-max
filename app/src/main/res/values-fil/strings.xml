@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Installer ng OBB</string>
     <string name="tab_home">Tahanan</string>
+    <string name="tab_tools">Mga Tool</string>
     <string name="tab_about">Tungkol sa</string>
     <string name="tab_help">Tulong</string>
     <string name="card_apk">APK</string>

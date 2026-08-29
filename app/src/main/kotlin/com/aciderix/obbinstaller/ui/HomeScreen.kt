@@ -44,7 +44,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -393,16 +392,6 @@ private fun InstallButton(
     autoInstall: Boolean,
     onClick: () -> Unit
 ) {
-    val transition = rememberInfiniteTransition(label = "btn-glow")
-    val glow by transition.animateFloat(
-        initialValue = 0.7f, targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1600, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ), label = "btn-glow"
-    )
-    val scale = if (enabled) glow * 0.02f + 0.98f else 1f
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -412,34 +401,13 @@ private fun InstallButton(
             .padding(14.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .scale(scale)
-                .clip(RoundedCornerShape(14.dp))
-                .background(HubColors.InstallGradient)
-                .clickable(enabled = enabled, onClick = onClick)
-                .padding(vertical = 16.dp, horizontal = 16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                androidx.compose.material3.Icon(
-                    imageVector = phaseIcon(phase),
-                    contentDescription = null,
-                    tint = HubColors.Background,
-                    modifier = Modifier.size(20.dp)
-                )
-                Text(
-                    text = phaseButtonLabel(phase, isWithObb, autoInstall),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = HubColors.Background,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
-                )
-            }
-        }
+        HubGradientButton(
+            text = phaseButtonLabel(phase, isWithObb, autoInstall),
+            onClick = onClick,
+            enabled = enabled,
+            modifier = Modifier.fillMaxWidth(),
+            icon = phaseIcon(phase)
+        )
         if (isWithObb && phase == Phase.Idle) {
             Text(
                 stringResource(R.string.install_subtitle),

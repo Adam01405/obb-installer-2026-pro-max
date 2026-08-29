@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Penginstal OBB</string>
     <string name="tab_home">Beranda</string>
+    <string name="tab_tools">Perkakas</string>
     <string name="tab_about">Tentang</string>
     <string name="tab_help">Bantuan</string>
     <string name="card_apk">APK</string>

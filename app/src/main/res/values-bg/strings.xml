@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Инсталатор за OBB</string>
     <string name="tab_home">Начало</string>
+    <string name="tab_tools">Инструменти</string>
     <string name="tab_about">Относно</string>
     <string name="tab_help">Помощ</string>
     <string name="card_apk">APK</string>

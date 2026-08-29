@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">OBB-telepítő</string>
     <string name="tab_home">Kezdőlap</string>
+    <string name="tab_tools">Eszközök</string>
     <string name="tab_about">Névjegy</string>
     <string name="tab_help">Súgó</string>
     <string name="card_apk">APK</string>

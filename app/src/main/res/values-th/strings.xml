@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">ตัวติดตั้ง OBB</string>
     <string name="tab_home">หน้าแรก</string>
+    <string name="tab_tools">เครื่องมือ</string>
     <string name="tab_about">เกี่ยวกับ</string>
     <string name="tab_help">ช่วยเหลือ</string>
     <string name="card_apk">APK</string>

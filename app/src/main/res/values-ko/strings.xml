@@ -4,6 +4,7 @@
 
     <!-- Bottom navigation -->
     <string name="tab_home">홈</string>
+    <string name="tab_tools">도구</string>
     <string name="tab_about">정보</string>
     <string name="tab_help">도움말</string>
 

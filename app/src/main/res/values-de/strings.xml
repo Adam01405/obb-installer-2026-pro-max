@@ -4,6 +4,7 @@
 
     <!-- Bottom navigation -->
     <string name="tab_home">Start</string>
+    <string name="tab_tools">Werkzeuge</string>
     <string name="tab_about">Info</string>
     <string name="tab_help">Hilfe</string>
 

@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Instalátor OBB</string>
     <string name="tab_home">Domů</string>
+    <string name="tab_tools">Nástroje</string>
     <string name="tab_about">O aplikaci</string>
     <string name="tab_help">Nápověda</string>
     <string name="card_apk">APK</string>

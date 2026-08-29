@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">OBB Yükleyici</string>
     <string name="tab_home">Ana Sayfa</string>
+    <string name="tab_tools">Araçlar</string>
     <string name="tab_about">Hakkında</string>
     <string name="tab_help">Yardım</string>
     <string name="card_apk">APK</string>
