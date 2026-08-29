@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, आदि)। 90%+ सिंगल-प्लेयर पुराने गेम्स इंस्टॉल होकर चल जाते हैं।</string>
     <string name="about_version">संस्करण %1$s</string>
     <string name="about_changelog_title">बदलाव लॉग</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nअब 34 भाषाओं के अनुवाद के साथ; साइन पहचान, इंस्टॉल टाइमआउट और APK एक्सपोर्ट फ़ाइल नाम ठीक किए गए।</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nविज्ञापन-हटाने का टूलबॉक्स जोड़ा गया; समान आउटपुट निर्देशिका Download/OBBInstaller, MediaStore के माध्यम से बैकअप निर्यात, प्रोसेसिंग लॉग सीमित और अमान्य टोकन तय किया गया।</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nअब 34 भाषाओं के अनुवाद के साथ; साइन पहचान, इंस्टॉल टाइमआउट और APK एक्सपोर्ट फ़ाइल नाम ठीक किए गए।</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nस्प्लिट APK समर्थन, डुअल OBB (main + patch), 16 KB पेज अलाइनमेंट, और 7 नई भाषाओं के अनुवाद।</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB फ़ाइलों का नाम मानक फॉर्मेट में बदला जाता है ताकि कोई भी फ़ाइलनाम पहचाना जा सके; Android 13+ W^X के लिए नेटिव लाइब्रेरी लोडिंग ठीक की गई।</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nसिंगल-टैप APK + OBB इंस्टॉल के साथ पहला रिलीज़।</string>

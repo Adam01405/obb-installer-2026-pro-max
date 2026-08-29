@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11 以上（Xiaomi/HyperOS、OnePlus、Samsung One UI、Pixel 等）。90 %+ 的單人舊版遊戲皆可安裝並執行。</string>
     <string name="about_version">版本 %1$s</string>
     <string name="about_changelog_title">更新紀錄</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\n現支援 34 種語言翻譯；修正簽章偵測、安裝逾時與 APK 匯出檔名。</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\n新增去廣告工具箱；統一出目錄至 Download/OBBInstaller、以 MediaStore 匯出兜底、限制處理日誌長度並修正無效訂閱口令提示。</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\n現支援 34 種語言翻譯；修正簽章偵測、安裝逾時與 APK 匯出檔名。</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\n支援 Split APK、雙 OBB（main + patch）、16 KB 頁面對齊，並新增 7 種語言翻譯。</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB 檔案會重新命名為標準格式，任何檔名皆可辨識；修正 Android 13+ W^X 的原生函式庫載入。</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\n初次發布，支援一鍵安裝 APK + OBB。</string>

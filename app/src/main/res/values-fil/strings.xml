@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, atbp.). 90 %+ ng mga single-player na lumang laro ay nag-i-install at gumagana.</string>
     <string name="about_version">Bersyon %1$s</string>
     <string name="about_changelog_title">Changelog</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nNgayon ay may 34 na pagsasalin ng wika; inayos ang pag-detect ng lagda, timeout sa pag-install, at mga pangalan ng file na ini-export ng APK.</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nIsinama ang toolbox ng pag-aalis ng ad; pinag-isang direktoryo ng output Download/OBBInstaller, fallback sa pag-export sa pamamagitan ng MediaStore, nilimitang log ng pagproseso, at inayos ang di-wastong token.</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nNgayon ay may 34 na pagsasalin ng wika; inayos ang pag-detect ng lagda, timeout sa pag-install, at mga pangalan ng file na ini-export ng APK.</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nSplit APK support, dual OBB (main + patch), 16 KB page alignment, at 7 bagong pagsasalin ng wika.</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nAng mga OBB file ay pinalitan ng pangalan sa standard format upang makilala ang anumang filename; inayos ang pag-load ng native library para sa Android 13+ W^X.</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nUnang release na may one-tap na APK + OBB install.</string>

@@ -70,7 +70,8 @@
 
     <!-- Changelog -->
     <string name="about_changelog_title">Änderungsprotokoll</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nJetzt mit 34 Übersetzungen; Signaturerkennung, Installations-Timeout und APK-Exportdateinamen behoben.</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nToolbox zum Entfernen von Werbung integriert; einheitliches Ausgabeverzeichnis Download/OBBInstaller, Export-Fallback über MediaStore, begrenzte Verarbeitungslogdaten und Fehler bei ungültigem Token behoben.</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nJetzt mit 34 Übersetzungen; Signaturerkennung, Installations-Timeout und APK-Exportdateinamen behoben.</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nSplit-APK-Unterstützung, Dual-OBB (main + patch), 16-KB-Seitenausrichtung und 7 neue Sprachübersetzungen.</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB-Dateien werden in das Standardformat umbenannt, damit jeder Dateiname erkannt wird; Laden nativer Bibliotheken für Android 13+ W^X behoben.</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nErstveröffentlichung mit Ein-Tipp-APK-+OBB-Installation.</string>

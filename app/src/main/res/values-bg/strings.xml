@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel и др.). 90%+ от старите еднопотребителски игри се инсталират и работят.</string>
     <string name="about_version">Версия %1$s</string>
     <string name="about_changelog_title">Дневник на промените</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nСега с 34 езикови превода; коригирани разпознаването на подписа, изчакването при инсталация и имената на файловете при експорт на APK.</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nИнтегриран набор от инструменти за премахване на реклами; обединена изходна директория Download/OBBInstaller, резервен експорт чрез MediaStore, ограничен лог на обработката и корекция на невалиден токен.</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nСега с 34 езикови превода; коригирани разпознаването на подписа, изчакването при инсталация и имената на файловете при експорт на APK.</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nПоддръжка на split APK, двоен OBB (main + patch), подравняване на страници 16 КБ и 7 нови езикови превода.</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nФайловете OBB се преименуват в стандартен формат, за да се разпознава всяко име на файл; коригирано зареждането на нативните библиотеки за W^X в Android 13+.</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nПървоначално издание с инсталация на APK + OBB с едно докосване.</string>

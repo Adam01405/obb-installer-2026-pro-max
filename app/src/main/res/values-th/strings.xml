@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, ฯลฯ) เกมเก่าผู้เล่นคนเดียว 90%+ ติดตั้งและเล่นได้</string>
     <string name="about_version">เวอร์ชัน %1$s</string>
     <string name="about_changelog_title">บันทึกการเปลี่ยนแปลง</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nตอนนี้รองรับการแปล 34 ภาษาแล้ว; แก้ไขการตรวจจับลายเซ็น เวลาหมดเวลาการติดตั้ง และชื่อไฟล์ส่งออก APK</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nรวมชุดเครื่องมือลบโฆษณา; รวมไดเรกทอรีผลลัพธ์เป็น Download/OBBInstaller, สำรองการส่งออกผ่าน MediaStore, จำกัดล็อกการประมวลผล และแก้ไขโทเคนไม่ถูกต้อง</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nตอนนี้รองรับการแปล 34 ภาษาแล้ว; แก้ไขการตรวจจับลายเซ็น เวลาหมดเวลาการติดตั้ง และชื่อไฟล์ส่งออก APK</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nรองรับ split APK, OBB คู่ (main + patch), การจัดตำแหน่งหน้า 16 KB และคำแปลภาษาใหม่อีก 7 ภาษา</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nไฟล์ OBB ถูกเปลี่ยนชื่อเป็นรูปแบบมาตรฐานเพื่อให้รู้จักชื่อไฟล์ใดก็ได้; แก้ไขการโหลดไลบรารี native สำหรับ W^X บน Android 13+</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nเปิดตัวครั้งแรกด้วยการติดตั้ง APK + OBB ด้วยการแตะครั้งเดียว</string>

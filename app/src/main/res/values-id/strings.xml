@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, dll.). 90%+ game lawas pemain tunggal terpasang dan berjalan.</string>
     <string name="about_version">Versi %1$s</string>
     <string name="about_changelog_title">Log perubahan</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nKini dengan terjemahan 34 bahasa; memperbaiki deteksi tanda tangan, waktu tunggu pemasangan, dan nama file ekspor APK.</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nToolbox penghapus iklan terintegrasi; direktori output terpadu Download/OBBInstaller, ekspor cadangan melalui MediaStore, log pemrosesan dibatasi, dan perbaikan token tidak valid.</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nKini dengan terjemahan 34 bahasa; memperbaiki deteksi tanda tangan, waktu tunggu pemasangan, dan nama file ekspor APK.</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nDukungan split APK, OBB ganda (main + patch), penyelarasan halaman 16 KB, dan 7 terjemahan bahasa baru.</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nFile OBB diubah namanya ke format standar sehingga nama file apa pun dikenali; pemuatan pustaka native diperbaiki untuk W^X Android 13+.</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nRilis awal dengan pemasangan APK + OBB satu ketukan.</string>

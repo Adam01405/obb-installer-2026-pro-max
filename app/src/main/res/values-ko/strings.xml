@@ -70,7 +70,8 @@
 
     <!-- Changelog -->
     <string name="about_changelog_title">변경 기록</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\n이제 34개 언어 번역을 지원합니다. 서명 감지, 설치 시간 초과 및 APK 내보내기 파일 이름을 수정했습니다.</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\n광고 제거 도구함을 통합했습니다. 출력 디렉터리를 Download/OBBInstaller로 통일하고 MediaStore 내보내기 대체, 처리 로그 상한, 잘못된 토큰 수정을 적용했습니다.</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\n이제 34개 언어 번역을 지원합니다. 서명 감지, 설치 시간 초과 및 APK 내보내기 파일 이름을 수정했습니다.</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nSplit APK 지원, 이중 OBB (main + patch), 16KB 페이지 정렬, 7개 언어 번역 추가.</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB 파일을 표준 형식으로 이름을 바꿔 어떤 파일 이름도 인식; Android 13+ W^X 보안용 네이티브 라이브러리 로딩 수정.</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\n한 번의 탭으로 APK + OBB를 설치하는 초기 버전.</string>

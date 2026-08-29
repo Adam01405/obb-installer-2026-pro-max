@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel, enz.). 90 %+ van de singleplayer-liegames installeren en draaien.</string>
     <string name="about_version">Versie %1$s</string>
     <string name="about_changelog_title">Wijzigingslogboek</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nNu met 34 vertalingen; signatuurdetectie, installatie-time-out en APK-exportbestandsnamen opgelost.</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nToolbox voor het verwijderen van advertenties geïntegreerd; uniforme uitvoermap Download/OBBInstaller, exportreserve via MediaStore, beperkt verwerkingslogboek en correctie van ongeldig token.</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nNu met 34 vertalingen; signatuurdetectie, installatie-time-out en APK-exportbestandsnamen opgelost.</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nOndersteuning voor split-APK\'s, dubbele OBB (hoofd + patch), 16 KB-pagina-uitlijning en 7 nieuwe taalvertalingen.</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB-bestanden worden hernoemd naar het standaardformaat, zodat elke bestandsnaam wordt herkend; het laden van native bibliotheken is gerepareerd voor Android 13+ W^X.</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nEerste release met installatie van APK + OBB in één tik.</string>

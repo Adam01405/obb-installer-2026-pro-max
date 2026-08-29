@@ -70,7 +70,8 @@
 
     <!-- Changelog -->
     <string name="about_changelog_title">変更履歴</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\n現在 34 言語の翻訳に対応。署名検出、インストールのタイムアウト、APK エクスポートのファイル名を修正しました。</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\n広告除去ツールボックスを統合。出力ディレクトリを Download/OBBInstaller に統一、MediaStore によるエクスポートのフォールバック、処理ログの上限設定、無効なトークンの修正。</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\n現在 34 言語の翻訳に対応。署名検出、インストールのタイムアウト、APK エクスポートのファイル名を修正しました。</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nSplit APK、デュアル OBB（main + patch）、16KB ページアラインメント、7 言語の翻訳を追加。</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB ファイルを標準形式にリネームし、任意のファイル名を認識；Android 13+ の W^X 対応のネイティブライブラリ読み込みを修正。</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nワンタップでの APK + OBB インストールを備えた初期バージョン。</string>

@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel m.fl.). 90 %+ av äldre enspelarspel installeras och fungerar.</string>
     <string name="about_version">Version %1$s</string>
     <string name="about_changelog_title">Ändringslogg</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nNu med 34 översättningar; åtgärdad signaturdetektering, installationstimeout och APK-exportfilnamn.</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nVerktygslåda för borttagning av annonser integrerad; enhetlig utdatamapp Download/OBBInstaller, exportreserv via MediaStore, begränsad bearbetningslogg och korrigering av ogiltig token.</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nNu med 34 översättningar; åtgärdad signaturdetektering, installationstimeout och APK-exportfilnamn.</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nStöd för split-APK, dubbel OBB (main + patch), 16 KB-sidjustering och 7 nya språköversättningar.</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB-filer döps om till standardformatet så att alla filnamn känns igen; inläsning av inbyggda bibliotek åtgärdad för Android 13+ W^X.</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nFörsta versionen med installation av APK + OBB med ett tryck.</string>

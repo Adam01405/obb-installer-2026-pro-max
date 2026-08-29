@@ -54,7 +54,8 @@
     <string name="about_compat_body">Android 11+ (Xiaomi/HyperOS, OnePlus, Samsung One UI, Pixel vb.). Tek oyunculu eski oyunların %90\'ından fazlası kurulur ve çalışır.</string>
     <string name="about_version">Sürüm %1$s</string>
     <string name="about_changelog_title">Sürüm Geçmişi</string>
-    <string name="about_changelog_1">v2.1 · 2026-08-28\nArtık 34 dil çevirisiyle; imza algılama, kurulum zaman aşımı ve APK dışa aktarma dosya adları düzeltildi.</string>
+        <string name="about_changelog_0">v2.2 · 2026-08-29\nReklam kaldırma araç kutusu entegre edildi; birleşik çıktı dizini Download/OBBInstaller, MediaStore üzerinden yedek dışa aktarma, sınırlı işlem günlüğü ve geçersiz belirteç düzeltmesi.</string>
+<string name="about_changelog_1">v2.1 · 2026-08-28\nArtık 34 dil çevirisiyle; imza algılama, kurulum zaman aşımı ve APK dışa aktarma dosya adları düzeltildi.</string>
     <string name="about_changelog_2">v2.0 · 2026-08-28\nSplit APK desteği, çift OBB (ana + yama), 16 KB sayfa hizalaması ve 7 yeni dil çevirisi.</string>
     <string name="about_changelog_3">v1.1 · 2026-08-28\nOBB dosyaları standart biçime yeniden adlandırılır, böylece her dosya adı tanınır; Android 13+ W^X için yerel kitaplık yüklemesi düzeltildi.</string>
     <string name="about_changelog_4">v1.0 · 2026-08-27\nTek dokunuşla APK + OBB kurulumuyla ilk sürüm.</string>
