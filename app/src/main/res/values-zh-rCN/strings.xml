@@ -158,7 +158,7 @@
     <string name="adr_subscriptions">特征订阅</string>
     <string name="adr_subscriptions_empty">暂无订阅</string>
     <string name="adr_add_subscription">添加订阅</string>
-    <string name="adr_subscription_token_hint">粘贴 ADSUB:… 口令</string>
+    <string name="adr_subscription_token_hint">粘贴 ADSUB:… 口令或 JSON 链接</string>
     <string name="adr_share_token">分享口令</string>
     <string name="adr_apply_subs">应用已启用</string>
     <string name="adr_done_title">处理完成</string>

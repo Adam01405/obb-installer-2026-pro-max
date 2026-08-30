@@ -1,10 +1,6 @@
 package com.aciderix.obbinstaller.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -47,14 +43,11 @@ import androidx.compose.ui.unit.dp
 import com.aciderix.obbinstaller.R
 import com.shinegirls.apkadremovereditor.R as AdrR
 
-/** 折叠卡片展开/收起动画规格：高度与透明度使用同一 tween，保证同步不卡顿。 */
+/** 折叠卡片展开/收起动画规格：animateContentSize 使用的尺寸 tween。 */
 private val COLLAPSE_SPEC = tween<androidx.compose.ui.unit.IntSize>(
     durationMillis = 220,
     easing = FastOutSlowInEasing
 )
-
-/** 折叠卡片的透明度动画规格，与高度动画同长同步。 */
-private val FADE_SPEC = tween<Float>(durationMillis = 220, easing = FastOutSlowInEasing)
 
 /** 整合自 ApkAdRemoverEditor 关于页的功能特性文案（对应其 strings.xml 的 h_* 条目）。 */
 private val TOOLBOX_FEATURES = listOf(
@@ -291,33 +284,13 @@ fun HelpScreen() {
             FaqItem(stringResource(R.string.help_q_adr5), stringResource(R.string.help_a_adr5))
         }
 
-        // 隐私政策 / 免责声明（整合自 ApkAdRemoverEditor 关于页，折叠展示）
-        CollapsibleCard(
-            title = stringResource(R.string.about_privacy_title),
-            icon = Icons.Outlined.VerifiedUser
-        ) {
-            Text(
-                stringResource(AdrR.string.about_privacy),
-                style = MaterialTheme.typography.bodyMedium,
-                color = HubColors.TextPrimary
-            )
-        }
-        CollapsibleCard(
-            title = stringResource(R.string.about_disclaimer_title),
-            icon = Icons.Outlined.WarningAmber
-        ) {
-            Text(
-                stringResource(AdrR.string.about_disclaimer),
-                style = MaterialTheme.typography.bodyMedium,
-                color = HubColors.TextPrimary
-            )
-        }
         Spacer(Modifier.height(20.dp))
     }
 }
 
 /**
- * 统一的可折叠内容卡片：圆角卡片 + 图标标题行 + 上下箭头，展开 / 收起带垂直展开动画。
+ * 统一的可折叠内容卡片：圆角卡片 + 图标标题行 + 上下箭头。
+ * 展开 / 收起通过 animateContentSize 平滑过渡，无高度+透明度双动画带来的末尾卡顿。
  * 关于页与帮助页的所有内容区块（含 FAQ 条目）均复用此组件，保证样式一致。
  */
 @Composable
@@ -336,7 +309,7 @@ private fun CollapsibleCard(
             .border(BorderStroke(1.dp, HubColors.Border), RoundedCornerShape(18.dp))
             .padding(16.dp)
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -363,12 +336,15 @@ private fun CollapsibleCard(
                     tint = HubColors.TextSecondary
                 )
             }
-            AnimatedVisibility(
-                visible = expanded,
-                enter = expandVertically(COLLAPSE_SPEC) + fadeIn(FADE_SPEC),
-                exit = shrinkVertically(COLLAPSE_SPEC) + fadeOut(FADE_SPEC)
+            Column(
+                modifier = Modifier.animateContentSize(animationSpec = COLLAPSE_SPEC)
             ) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) { body() }
+                if (expanded) {
+                    Column(
+                        modifier = Modifier.padding(top = 10.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) { body() }
+                }
             }
         }
     }

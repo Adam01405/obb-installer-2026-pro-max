@@ -170,19 +170,53 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
 
     // ==================== 订阅管理 ====================
 
-    fun addSubscription(token: String): Boolean {
+    fun addSubscription(input: String): Boolean {
         val ctx = getApplication<Application>()
-        val decoded = SubscriptionManager.decodeToken(token) ?: return false
-        val sub = SubscriptionManager.Subscription(
-            id = java.util.UUID.randomUUID().toString(),
-            name = decoded.name,
-            type = decoded.type,
-            url = decoded.url,
-            contentJson = decoded.contentJson
-        )
-        val ok = SubscriptionManager.addSubscription(sub, ctx)
-        if (ok) _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
-        return ok
+        val token = input.trim()
+        val decoded = SubscriptionManager.decodeToken(token)
+        if (decoded != null) {
+            val sub = SubscriptionManager.Subscription(
+                id = java.util.UUID.randomUUID().toString(),
+                name = decoded.name,
+                type = decoded.type,
+                url = decoded.url,
+                contentJson = decoded.contentJson
+            )
+            val ok = SubscriptionManager.addSubscription(sub, ctx)
+            if (ok) _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
+            return ok
+        }
+        if (token.startsWith("http://") || token.startsWith("https://")) {
+            val name = runCatching { java.net.URI(token).host }
+                .getOrNull()
+                ?.removePrefix("www.")
+                ?.takeIf { it.isNotBlank() }
+                ?: "Subscription"
+            val sub = SubscriptionManager.Subscription(
+                id = java.util.UUID.randomUUID().toString(),
+                name = name,
+                type = SubscriptionManager.Type.URL,
+                url = token
+            )
+            val ok = SubscriptionManager.addSubscription(sub, ctx)
+            if (ok) {
+                _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
+                validateRemoteSubscription(sub, ctx)
+            }
+            return ok
+        }
+        return false
+    }
+
+    private fun validateRemoteSubscription(sub: SubscriptionManager.Subscription, ctx: Context) {
+        viewModelScope.launch {
+            val json = withContext(Dispatchers.IO) { SubscriptionManager.fetchRemoteConfig(sub.url) }
+            if (json != null && SubscriptionManager.isValidConfigJson(json)) {
+                log("订阅校验成功: ${sub.name}")
+            } else {
+                log("订阅校验失败(无效配置): ${sub.name}")
+            }
+        }
     }
 
     fun updateSubscription(sub: SubscriptionManager.Subscription) {

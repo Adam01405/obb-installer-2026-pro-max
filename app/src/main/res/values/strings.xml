@@ -160,7 +160,7 @@
     <string name="adr_subscriptions">Feature subscriptions</string>
     <string name="adr_subscriptions_empty">No subscriptions yet</string>
     <string name="adr_add_subscription">Add subscription</string>
-    <string name="adr_subscription_token_hint">Paste an ADSUB:… token</string>
+    <string name="adr_subscription_token_hint">Paste an ADSUB:… token or a JSON URL</string>
     <string name="adr_share_token">Share token</string>
     <string name="adr_apply_subs">Apply enabled</string>
     <string name="adr_done_title">Cleaning finished</string>
