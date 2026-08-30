@@ -172,7 +172,7 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
 
     fun addSubscription(input: String): Boolean {
         val ctx = getApplication<Application>()
-        val token = input.trim()
+        val token = input.trim().trim('\uFEFF').trim('\u3000')
         val decoded = SubscriptionManager.decodeToken(token)
         if (decoded != null) {
             val sub = SubscriptionManager.Subscription(
@@ -188,11 +188,17 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
                 _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
                 applyEnabledSubscriptions()
                 validateRemoteSubscription(sub, ctx)
+            } else {
+                log("添加订阅失败: 无法写入订阅列表文件")
             }
             return ok
         }
-        if (token.startsWith("http://") || token.startsWith("https://")) {
-            val name = runCatching { java.net.URI(token).host }
+        val lower = token.lowercase()
+        val isUrl = token.startsWith("http://") || token.startsWith("https://") ||
+            lower.startsWith("http://") || lower.startsWith("https://")
+        if (isUrl) {
+            val normalized = if (token.startsWith("http://") || token.startsWith("https://")) token else "https://$token"
+            val name = runCatching { java.net.URI(normalized).host }
                 .getOrNull()
                 ?.removePrefix("www.")
                 ?.takeIf { it.isNotBlank() }
@@ -201,7 +207,7 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
                 id = java.util.UUID.randomUUID().toString(),
                 name = name,
                 type = SubscriptionManager.Type.URL,
-                url = token
+                url = normalized
             )
             val ok = SubscriptionManager.addSubscription(sub, ctx)
             if (ok) {
@@ -209,9 +215,12 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
                 _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
                 applyEnabledSubscriptions()
                 validateRemoteSubscription(sub, ctx)
+            } else {
+                log("添加订阅失败: 无法写入订阅列表文件")
             }
             return ok
         }
+        log("添加订阅失败: 未识别为 ADSUB 口令或 http(s) URL")
         return false
     }
 
