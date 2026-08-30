@@ -5,6 +5,8 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,6 +23,7 @@ import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Devices
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.QuestionAnswer
 import androidx.compose.material.icons.outlined.Update
 import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material.icons.outlined.WarningAmber
@@ -43,6 +46,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.aciderix.obbinstaller.R
 import com.shinegirls.apkadremovereditor.R as AdrR
+
+/** 折叠卡片展开/收起动画规格：高度与透明度使用同一 tween，保证同步不卡顿。 */
+private val COLLAPSE_SPEC = tween<androidx.compose.ui.unit.IntSize>(
+    durationMillis = 220,
+    easing = FastOutSlowInEasing
+)
+
+/** 折叠卡片的透明度动画规格，与高度动画同长同步。 */
+private val FADE_SPEC = tween<Float>(durationMillis = 220, easing = FastOutSlowInEasing)
 
 /** 整合自 ApkAdRemoverEditor 关于页的功能特性文案（对应其 strings.xml 的 h_* 条目）。 */
 private val TOOLBOX_FEATURES = listOf(
@@ -115,18 +127,23 @@ fun AboutScreen() {
             }
         }
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(18.dp))
-                .background(HubColors.Surface)
-                .border(BorderStroke(1.dp, HubColors.Border), RoundedCornerShape(18.dp))
-                .padding(16.dp)
+        CollapsibleCard(
+            title = stringResource(R.string.about_intro_title),
+            icon = Icons.Outlined.Info,
+            initiallyExpanded = true
         ) {
-            Text(stringResource(R.string.about_intro), style = MaterialTheme.typography.bodyLarge)
+            Text(
+                stringResource(R.string.about_intro),
+                style = MaterialTheme.typography.bodyLarge,
+                color = HubColors.TextPrimary
+            )
         }
 
-        SectionCard(title = stringResource(R.string.about_features_title), icon = Icons.Outlined.AutoAwesome) {
+        CollapsibleCard(
+            title = stringResource(R.string.about_features_title),
+            icon = Icons.Outlined.AutoAwesome,
+            initiallyExpanded = true
+        ) {
             BulletItem(stringResource(R.string.about_feature_1))
             BulletItem(stringResource(R.string.about_feature_2))
             BulletItem(stringResource(R.string.about_feature_3))
@@ -135,21 +152,30 @@ fun AboutScreen() {
         }
 
         // 工具箱 · APK 去广告（整合自 ApkAdRemoverEditor 关于页功能清单，折叠展示）
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.about_toolbox_title),
-            icon = Icons.Outlined.AutoAwesome,
-            initiallyExpanded = false
+            icon = Icons.Outlined.AutoAwesome
         ) {
             TOOLBOX_FEATURES.forEach { resId ->
                 BulletItem(stringResource(resId))
             }
         }
 
-        SectionCard(title = stringResource(R.string.about_compat_title), icon = Icons.Outlined.Devices) {
-            Text(stringResource(R.string.about_compat_body), style = MaterialTheme.typography.bodyMedium)
+        CollapsibleCard(
+            title = stringResource(R.string.about_compat_title),
+            icon = Icons.Outlined.Devices
+        ) {
+            Text(
+                stringResource(R.string.about_compat_body),
+                style = MaterialTheme.typography.bodyMedium,
+                color = HubColors.TextPrimary
+            )
         }
 
-        SectionCard(title = stringResource(R.string.about_changelog_title), icon = Icons.Outlined.Update) {
+        CollapsibleCard(
+            title = stringResource(R.string.about_changelog_title),
+            icon = Icons.Outlined.Update
+        ) {
             BulletItem(stringResource(R.string.about_changelog_0))
             BulletItem(stringResource(R.string.about_changelog_1))
             BulletItem(stringResource(R.string.about_changelog_2))
@@ -158,39 +184,50 @@ fun AboutScreen() {
         }
 
         // 开源致谢 / 参考文档 / 隐私 / 免责 / 版权（整合自 ApkAdRemoverEditor 关于页，折叠展示）
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.about_open_source_title),
-            icon = Icons.Outlined.Code,
-            initiallyExpanded = false
+            icon = Icons.Outlined.Code
         ) {
-            Text(stringResource(AdrR.string.about_open_source), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                stringResource(AdrR.string.about_open_source),
+                style = MaterialTheme.typography.bodyMedium,
+                color = HubColors.TextPrimary
+            )
         }
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.about_reference_title),
-            icon = Icons.Outlined.Info,
-            initiallyExpanded = false
+            icon = Icons.Outlined.Info
         ) {
-            Text(stringResource(AdrR.string.about_reference), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                stringResource(AdrR.string.about_reference),
+                style = MaterialTheme.typography.bodyMedium,
+                color = HubColors.TextPrimary
+            )
         }
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.about_privacy_title),
-            icon = Icons.Outlined.VerifiedUser,
-            initiallyExpanded = false
+            icon = Icons.Outlined.VerifiedUser
         ) {
-            Text(stringResource(AdrR.string.about_privacy), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                stringResource(AdrR.string.about_privacy),
+                style = MaterialTheme.typography.bodyMedium,
+                color = HubColors.TextPrimary
+            )
         }
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.about_disclaimer_title),
-            icon = Icons.Outlined.WarningAmber,
-            initiallyExpanded = false
+            icon = Icons.Outlined.WarningAmber
         ) {
-            Text(stringResource(AdrR.string.about_disclaimer), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                stringResource(AdrR.string.about_disclaimer),
+                style = MaterialTheme.typography.bodyMedium,
+                color = HubColors.TextPrimary
+            )
         }
 
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.about_copyright_title),
-            icon = Icons.Outlined.Code,
-            initiallyExpanded = false
+            icon = Icons.Outlined.Code
         ) {
             BulletItem(stringResource(AdrR.string.about_copyright))
             BulletItem(stringResource(R.string.about_dev_author))
@@ -243,10 +280,9 @@ fun HelpScreen() {
         FaqItem(stringResource(R.string.help_q5), stringResource(R.string.help_a5))
 
         // 工具箱 · APK 去广告使用说明（折叠展示）
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.help_toolbox_title),
-            icon = Icons.Outlined.Info,
-            initiallyExpanded = false
+            icon = Icons.Outlined.Info
         ) {
             FaqItem(stringResource(R.string.help_q_adr1), stringResource(R.string.help_a_adr1))
             FaqItem(stringResource(R.string.help_q_adr2), stringResource(R.string.help_a_adr2))
@@ -256,59 +292,36 @@ fun HelpScreen() {
         }
 
         // 隐私政策 / 免责声明（整合自 ApkAdRemoverEditor 关于页，折叠展示）
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.about_privacy_title),
-            icon = Icons.Outlined.VerifiedUser,
-            initiallyExpanded = false
+            icon = Icons.Outlined.VerifiedUser
         ) {
-            Text(stringResource(AdrR.string.about_privacy), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                stringResource(AdrR.string.about_privacy),
+                style = MaterialTheme.typography.bodyMedium,
+                color = HubColors.TextPrimary
+            )
         }
-        CollapsibleSection(
+        CollapsibleCard(
             title = stringResource(R.string.about_disclaimer_title),
-            icon = Icons.Outlined.WarningAmber,
-            initiallyExpanded = false
+            icon = Icons.Outlined.WarningAmber
         ) {
-            Text(stringResource(AdrR.string.about_disclaimer), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                stringResource(AdrR.string.about_disclaimer),
+                style = MaterialTheme.typography.bodyMedium,
+                color = HubColors.TextPrimary
+            )
         }
         Spacer(Modifier.height(20.dp))
     }
 }
 
-@Composable
-private fun SectionCard(
-    title: String,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    body: @Composable ColumnScope.() -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(18.dp))
-            .background(HubColors.Surface)
-            .border(BorderStroke(1.dp, HubColors.Border), RoundedCornerShape(18.dp))
-            .padding(16.dp)
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Box(
-                    modifier = Modifier.size(28.dp).clip(CircleShape)
-                        .background(HubColors.Primary.copy(alpha = 0.12f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(icon, null, tint = HubColors.Primary, modifier = Modifier.size(16.dp))
-                }
-                Text(title, style = MaterialTheme.typography.titleSmall, color = HubColors.Primary)
-            }
-            body()
-        }
-    }
-}
-
 /**
- * 可折叠内容卡片，展开 / 收起带垂直展开动画。
+ * 统一的可折叠内容卡片：圆角卡片 + 图标标题行 + 上下箭头，展开 / 收起带垂直展开动画。
+ * 关于页与帮助页的所有内容区块（含 FAQ 条目）均复用此组件，保证样式一致。
  */
 @Composable
-private fun CollapsibleSection(
+private fun CollapsibleCard(
     title: String,
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     initiallyExpanded: Boolean = false,
@@ -352,8 +365,8 @@ private fun CollapsibleSection(
             }
             AnimatedVisibility(
                 visible = expanded,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut()
+                enter = expandVertically(COLLAPSE_SPEC) + fadeIn(FADE_SPEC),
+                exit = shrinkVertically(COLLAPSE_SPEC) + fadeOut(FADE_SPEC)
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) { body() }
             }
@@ -374,33 +387,8 @@ private fun BulletItem(text: String) {
 
 @Composable
 private fun FaqItem(question: String, answer: String) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(HubColors.Surface)
-            .border(BorderStroke(1.dp, HubColors.Border), RoundedCornerShape(16.dp))
-            .clickable { expanded = !expanded }
-            .padding(14.dp)
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(if (expanded) 8.dp else 0.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(question, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
-                Icon(
-                    if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                    contentDescription = null,
-                    tint = HubColors.TextSecondary
-                )
-            }
-            AnimatedVisibility(
-                visible = expanded,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut()
-            ) {
-                Text(answer, style = MaterialTheme.typography.bodyMedium)
-            }
-        }
+    CollapsibleCard(title = question, icon = Icons.Outlined.QuestionAnswer) {
+        Text(answer, style = MaterialTheme.typography.bodyMedium, color = HubColors.TextPrimary)
     }
 }
 

@@ -58,6 +58,7 @@
     <!-- 关于 -->
     <string name="about_title">关于</string>
     <string name="about_intro">面向以 APK + OBB 形式发布的 Android 游戏的独立安装工具。</string>
+    <string name="about_intro_title">关于本应用</string>
     <string name="about_features_title">功能特性</string>
     <string name="about_feature_1">一键安装 APK。</string>
     <string name="about_feature_2">将 OBB 嵌入 APK，游戏启动后即可自动识别。</string>

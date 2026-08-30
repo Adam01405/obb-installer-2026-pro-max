@@ -60,6 +60,7 @@
     <!-- About -->
     <string name="about_title">About</string>
     <string name="about_intro">A standalone installer for Android games that ship as APK + OBB.</string>
+    <string name="about_intro_title">About this app</string>
     <string name="about_features_title">What it does</string>
     <string name="about_feature_1">Installs the APK with one tap.</string>
     <string name="about_feature_2">Embeds the OBB inside the APK so the game finds it on its own.</string>
