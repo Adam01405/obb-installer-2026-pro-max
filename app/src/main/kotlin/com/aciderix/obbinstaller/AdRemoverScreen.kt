@@ -26,7 +26,9 @@ import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
@@ -68,6 +70,7 @@ fun AdRemoverScreen(
     var showSubs by remember { mutableStateOf(false) }
     var showAddSub by remember { mutableStateOf(false) }
     var showEditSub by remember { mutableStateOf<SubscriptionManager.Subscription?>(null) }
+    var previewSub by remember { mutableStateOf<SubscriptionManager.Subscription?>(null) }
     var showDone by remember { mutableStateOf(false) }
     var showError by remember { mutableStateOf(false) }
 
@@ -222,12 +225,31 @@ fun AdRemoverScreen(
                 showEditSub = sub
             },
             onApply = vm::applyEnabledSubscriptions,
+            onPreview = { sub ->
+                previewSub = sub
+            },
+            onRestore = { sub ->
+                vm.restoreSubscriptionConfig(sub) { ok ->
+                    if (ok) {
+                        Toast.makeText(ctx, ctx.getString(R.string.adr_restored), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(ctx, ctx.getString(R.string.adr_add_fail), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            },
             onShare = { sub ->
                 val token = vm.shareSubscriptionToken(sub)
                 val clip = ctx.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as ClipboardManager
                 clip.setPrimaryClip(ClipData.newPlainText("subscription", token))
                 Toast.makeText(ctx, ctx.getString(R.string.adr_share_token), Toast.LENGTH_SHORT).show()
             }
+        )
+    }
+    previewSub?.let { sub ->
+        SubscriptionPreviewDialog(
+            sub = sub,
+            vm = vm,
+            onDismiss = { previewSub = null }
         )
     }
     if (showAddSub) {
@@ -492,6 +514,8 @@ private fun SubscriptionsDialog(
     onDelete: (String) -> Unit,
     onEdit: (SubscriptionManager.Subscription) -> Unit,
     onApply: () -> Unit,
+    onPreview: (SubscriptionManager.Subscription) -> Unit,
+    onRestore: (SubscriptionManager.Subscription) -> Unit,
     onShare: (SubscriptionManager.Subscription) -> Unit
 ) {
     AlertDialog(
@@ -510,12 +534,23 @@ private fun SubscriptionsDialog(
                         Switch(checked = sub.enabled, onCheckedChange = { onToggle(sub.id, it) })
                         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                             Text(sub.name, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
-                            Text(
-                                if (sub.type == SubscriptionManager.Type.URL) "URL" else "CONTENT",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = HubColors.TextMuted
-                            )
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Text(
+                                    if (sub.type == SubscriptionManager.Type.URL) "URL" else "CONTENT",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = HubColors.TextMuted
+                                )
+                                sub.createdAt.takeIf { it > 0 }?.let { ts ->
+                                    Text(
+                                        stringResource(R.string.adr_sub_added_at, formatSubDate(ts)),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = HubColors.TextMuted
+                                    )
+                                }
+                            }
                         }
+                        IconButtonSmall(Icons.Outlined.Visibility) { onPreview(sub) }
+                        IconButtonSmall(Icons.Outlined.Restore) { onRestore(sub) }
                         IconButtonSmall(Icons.Outlined.Edit) { onEdit(sub) }
                         IconButtonSmall(Icons.Outlined.Share) { onShare(sub) }
                         IconButtonSmall(Icons.Outlined.Delete) { onDelete(sub.id) }
@@ -530,6 +565,75 @@ private fun SubscriptionsDialog(
                 TextButton(onClick = onAdd) { Text(stringResource(R.string.adr_add_subscription)) }
                 TextButton(onClick = onDismiss) { Text(stringResource(R.string.adr_close)) }
             }
+        }
+    )
+}
+
+/** 将订阅创建时间戳格式化为 yyyy-MM-dd HH:mm。 */
+private fun formatSubDate(ts: Long): String =
+    try {
+        java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(java.util.Date(ts))
+    } catch (_: Exception) {
+        ts.toString()
+    }
+
+@Composable
+private fun SubscriptionPreviewDialog(
+    sub: SubscriptionManager.Subscription,
+    vm: AdRemoverViewModel,
+    onDismiss: () -> Unit
+) {
+    var content by remember { mutableStateOf<String?>(null) }
+    var loading by remember { mutableStateOf(true) }
+    LaunchedEffect(sub.id) {
+        loading = true
+        vm.previewSubscriptionContent(sub) { result ->
+            content = result
+            loading = false
+        }
+    }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.adr_preview_title)) },
+        text = {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    sub.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                )
+                Spacer(Modifier.height(8.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 320.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(HubColors.SurfaceMuted)
+                        .padding(10.dp)
+                ) {
+                    when {
+                        loading -> LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                        content == null -> Text(
+                            stringResource(R.string.adr_add_fail),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = HubColors.TextMuted
+                        )
+                        else -> SelectionContainer {
+                            Text(
+                                content!!,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = HubColors.TextSecondary,
+                                fontFamily = FontFamily.Monospace,
+                                modifier = Modifier.verticalScroll(rememberScrollState())
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.adr_close)) }
         }
     )
 }

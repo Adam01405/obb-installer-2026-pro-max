@@ -183,7 +183,12 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
                 contentJson = decoded.contentJson
             )
             val ok = SubscriptionManager.addSubscription(sub, ctx)
-            if (ok) _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
+            if (ok) {
+                SubscriptionManager.setSubscriptionEnabled(sub.id, true, ctx)
+                _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
+                applyEnabledSubscriptions()
+                validateRemoteSubscription(sub, ctx)
+            }
             return ok
         }
         if (token.startsWith("http://") || token.startsWith("https://")) {
@@ -200,7 +205,9 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
             )
             val ok = SubscriptionManager.addSubscription(sub, ctx)
             if (ok) {
+                SubscriptionManager.setSubscriptionEnabled(sub.id, true, ctx)
                 _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
+                applyEnabledSubscriptions()
                 validateRemoteSubscription(sub, ctx)
             }
             return ok
@@ -223,6 +230,7 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
         val ctx = getApplication<Application>()
         SubscriptionManager.updateSubscription(sub, ctx)
         _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
+        applyEnabledSubscriptions()
     }
 
     fun deleteSubscription(id: String) {
@@ -235,6 +243,7 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
         val ctx = getApplication<Application>()
         SubscriptionManager.setSubscriptionEnabled(id, enabled, ctx)
         _state.update { it.copy(subscriptions = SubscriptionManager.loadSubscriptions(ctx)) }
+        applyEnabledSubscriptions()
     }
 
     fun shareSubscriptionToken(sub: SubscriptionManager.Subscription): String =
@@ -271,6 +280,57 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
                 val merged = AdPatternConfig.merge(configs)
                 AdPatternConfig.saveConfig(merged, ctx)
             }
+        }
+    }
+
+    /**
+     * 获取订阅的完整配置内容（用于预览）。
+     * CONTENT 型直接返回内嵌 JSON，URL 型异步拉取远程配置。
+     * @param onResult 结果回调（拉取失败或非法时传 null）。
+     */
+    fun previewSubscriptionContent(sub: SubscriptionManager.Subscription, onResult: (String?) -> Unit) {
+        val ctx = getApplication<Application>()
+        viewModelScope.launch {
+            when (sub.type) {
+                SubscriptionManager.Type.CONTENT ->
+                    onResult(
+                        if (sub.contentJson.isNotBlank()) {
+                            runCatching { JSONObject(sub.contentJson).toString(2) }.getOrNull() ?: sub.contentJson
+                        } else null
+                    )
+                SubscriptionManager.Type.URL -> {
+                    val jsonStr = withContext(Dispatchers.IO) { SubscriptionManager.fetchRemoteConfig(sub.url) }
+                    onResult(
+                        if (jsonStr != null && SubscriptionManager.isValidConfigJson(jsonStr)) {
+                            runCatching { JSONObject(jsonStr).toString(2) }.getOrNull() ?: jsonStr
+                        } else null
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * 将该订阅的配置恢复为当前生效配置文件（覆盖合并结果），并同步已启用订阅列表。
+     */
+    fun restoreSubscriptionConfig(sub: SubscriptionManager.Subscription, onDone: (Boolean) -> Unit = {}) {
+        val ctx = getApplication<Application>()
+        viewModelScope.launch {
+            val ok = when (sub.type) {
+                SubscriptionManager.Type.CONTENT -> runCatching {
+                    AdPatternConfig.saveConfig(AdPatternConfig.fromJson(JSONObject(sub.contentJson), ctx), ctx)
+                }.getOrDefault(false)
+                SubscriptionManager.Type.URL -> {
+                    val jsonStr = withContext(Dispatchers.IO) { SubscriptionManager.fetchRemoteConfig(sub.url) }
+                    if (jsonStr != null && SubscriptionManager.isValidConfigJson(jsonStr)) {
+                        runCatching {
+                            AdPatternConfig.saveConfig(AdPatternConfig.fromJson(JSONObject(jsonStr), ctx), ctx)
+                        }.getOrDefault(false)
+                    } else false
+                }
+            }
+            if (ok) log("已恢复订阅配置: ${sub.name}")
+            onDone(ok)
         }
     }
 

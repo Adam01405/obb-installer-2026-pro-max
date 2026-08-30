@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_copyright" formatted="false">© 2026 小奶瓶 · 保留所有權利\nPowered by dexlib2 / apksig / AndroidX</string>
+    
     <string name="about_disclaimer" formatted="false">請在使用本應用前仔細閱讀以下免責聲明：\n\n1. 合法用途限制：本應用僅供學習、研究與個人合法用途使用。請勿對您不擁有版權、未獲授權或受法律保護的應用進行修改與分發。\n\n2. 使用風險自擔：使用本應用處理 APK 所產生的任何後果（包括但不限於：應用無法安裝、閃退、功能異常、帳號風險、數據丟失等）均由使用者自行承擔。\n\n3. 商業使用責任：修改後的 APK 若用於商業用途或對外分發，請確保遵守相關應用的所有權、版權、商標及所在國家或地區的法律法規，由此產生的法律責任由使用者自擔。\n\n4. 無擔保聲明：本應用按其現狀提供，不附帶任何形式的明示或默示擔保。作者不對因使用或無法使用本應用而造成的任何直接或間接損失承擔責任。\n\n5. 第三方內容：本應用引用的開源項目與廣告特徵規則均來自公開渠道，僅供技術參考，其版權歸原作者所有。\n\n6. 條款變更：作者保留隨時修改本免責聲明的權利，更新後的內容將在新版本中生效。\n\n7. 使用本應用即視為您已閱讀、理解並同意以上全部條款。若不同意，請停止使用本應用。</string>
     <string name="about_open_source" formatted="false">本應用基於以下開源項目構建並調用，在此向各位作者表示誠摯感謝與敬意：\n\n1. ApkDataMultiplexing (L-JINBIN)\n   APK 數據復用優化：通過中央目錄數據偏移復用原包數據段，刪除重複數據段，\n   顯著減小過籤包體積（最多約 50%），並配套 V2V3SchemeSigner 籤名方案\n   - 主頁: https://github.com/L-JINBIN/ApkDataMultiplexing\n   - 協議: 未標註許可證，僅供學習參考\n\n2. dexlib2 / smali / baksmali (JesusFreke)\n   DEX 文件讀寫與 smali 反彙編 / 彙編工具鏈，去廣告核心引擎\n   - 主頁: https://github.com/JesusFreke/smali\n   - 協議: BSD 3-Clause\n\n3. apksig (Android Open Source Project)\n   APK v1 / v2 / v3 籤名實現，保證處理結果可安裝\n   - 主頁: https://android.googlesource.com/platform/tools/apksig\n   - 協議: Apache License 2.0\n\n4. BouncyCastle : bcprov / bcpkix\n   Java 加解密與證書生成庫，用於生成籤名證書\n   - 主頁: https://www.bouncycastle.org/\n   - 協議: MIT License\n\n5. Guava (Google)\n   Java 集合與工具庫，提供 dexlib2 所需的不可變集合\n   - 主頁: https://github.com/google/guava\n   - 協議: Apache License 2.0\n\n6. AndroidX (Android Open Source Project)\n   core-ktx / appcompat / constraintlayout / recyclerview / lifecycle / coordinatorlayout\n   Android 官方 Jetpack 支持庫\n   - 主頁: https://developer.android.com/jetpack\n   - 協議: Apache License 2.0\n\n7. Material Components (Google)\n   Material Design 組件庫，提供卡片、按鈕、對話框等 UI 組件\n   - 主頁: https://github.com/material-components/material-components-android\n   - 協議: Apache License 2.0\n\n8. Kotlin 標準庫 (JetBrains)\n   Kotlin 程式語言與標準庫\n   - 主頁: https://kotlinlang.org/\n   - 協議: Apache License 2.0\n\n9. DTL-X (Gameye98)\n   廣告類名 / 方法名 / URL 特徵規則參考來源\n   - 主頁: https://github.com/Gameye98/DTL-X\n   - 僅供特徵參考與學習，未修改其二進位\n\n10. Android Asset Packaging Tool (AAPT2)\n    Android 資源編譯與打包工具，用於 AXML / 資源處理\n    - 主頁: https://developer.android.com/tools/aapt2\n    - 協議: Apache License 2.0\n\n11. MT 管理器 ApkSignatureKillerEx 樣本 (Bin.MT)\n    籤名效驗去除鉤子類（bin.mt.signature.KillerApplication）與原生庫思路來源\n    - 主頁: https://mt2.cn/\n    - 僅供學習參考，鉤子類與原生庫為樣本內置資源，未修改其二進位\n\n12. dexlib2 DexRewriter (JesusFreke)\n    基於 RewriterModule / TypeRewriter 的 DEX 類重命名方案，用於自定義鉤子類名\n    - 主頁: https://github.com/JesusFreke/smali\n    - 協議: BSD 3-Clause\n\n以上項目的完整版權與許可文本，請訪問對應主頁查看。</string>
     <string name="about_privacy" formatted="false">本應用遵守最小化收集原則，高度重視並保護您的個人隱私：\n\n1. 本地離線處理：所有 APK 的解包、去廣告、打包、籤名均在您的設備本地完成，應用不會上傳任何 APK 文件或內部數據到伺服器。\n\n2. 聯網行為透明：本應用僅在您主動點擊&quot;檢查更新&quot;時聯網請求版本信息，其餘時間不會在後臺聯網、收集或上傳任何個人信息。\n\n3. 權限最小化：本應用不讀取、不存儲、不訪問您的通訊錄、相冊、定位、簡訊、通話記錄等敏感信息。\n\n4. 數據本地存儲：應用的配置、處理特徵等數據僅保存在您的設備本地，應用卸載後即被清除，不會留存任何雲端記錄。\n\n5. 第三方連結：關於與更新頁面可能包含外部連結，點擊後由第三方平臺處理您的訪問行為，建議您查閱相關第三方的隱私政策。\n\n6. 若您在使用過程中有任何隱私疑問、建議或顧慮，歡迎通過作者聯繫方式與我們溝通，我們將盡力解答。</string>
@@ -10,9 +10,9 @@
     <string name="app_subtitle_settings">自訂去廣告特徵</string>
     <string name="app_title_download">下載中心</string>
     <string name="app_title_local">本地 APK 一鍵去廣告 · 解包 / 修補 / 打包 / 簽名</string>
-    <string name="author_email">3679265780@qq.com</string>
-    <string name="author_name">小奶瓶</string>
-    <string name="author_qq_note">3679265780</string>
+    
+    
+    
     <string name="file_item_icon">檔案圖示</string>
     <string name="h_00110af8">日本語</string>
     <string name="h_0046342a">  · 未找到 DEX 文件</string>
@@ -441,7 +441,7 @@
     <string name="h_80928937">已檢測到 Flutter 應用，但未生成處理明細。</string>
     <string name="h_80943b1f">寫入 $HELP_CONFIG_NAME 的 &quot;ad_services&quot; 欄位。\n由 core/DexPatcher.kt（類識別）與 core/AxmlAdRemover.kt（清單組件移除）讀取。</string>
     <string name="h_80d72d4c">   參考 Facebook 曾開源的 android-dexdump 思路，以及 dexlib2 官方示例\n</string>
-    <string name="h_81cbed17">© 2026 小奶瓶 · 保留所有權利\nPowered by dexlib2 / apksig / AndroidX</string>
+    
     <string name="h_827cfb79">隱藏布局文件中的廣告視圖區域</string>
     <string name="h_8286533b">運行時由 core/DexPatcher.kt 的強制返回 true 邏輯處理（僅 boolean/int 返回類型）。</string>
     <string name="h_839ae19b">下載的更新包無效，請重試</string>

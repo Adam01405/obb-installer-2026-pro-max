@@ -173,6 +173,11 @@
     <string name="adr_ok">确定</string>
     <string name="adr_add">添加</string>
     <string name="adr_add_fail">无效的订阅口令</string>
+    <string name="adr_preview">预览配置</string>
+    <string name="adr_restore">恢复配置</string>
+    <string name="adr_restored">配置已恢复</string>
+    <string name="adr_preview_title">订阅配置内容</string>
+    <string name="adr_sub_added_at">添加于 %1$s</string>
 
     <!-- 关于：工具箱 / 整合的去广告内容 -->
     <string name="about_toolbox_title">工具箱 · APK 去广告</string>

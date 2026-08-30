@@ -175,6 +175,11 @@
     <string name="adr_ok">OK</string>
     <string name="adr_add">Add</string>
     <string name="adr_add_fail">Invalid subscription token</string>
+    <string name="adr_preview">Preview config</string>
+    <string name="adr_restore">Restore config</string>
+    <string name="adr_restored">Config restored</string>
+    <string name="adr_preview_title">Subscription config</string>
+    <string name="adr_sub_added_at">Added %1$s</string>
 
     <!-- About: toolbox / integrated AdRemover content -->
     <string name="about_toolbox_title">Toolbox · APK Ad Remover</string>

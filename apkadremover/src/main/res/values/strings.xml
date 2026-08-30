@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="adr_app_name">APK去广告编辑器</string>
-    <string name="author_email">3679265780@qq.com</string>
-    <string name="author_name">小奶瓶</string>
-    <string name="author_qq_note">3679265780</string>
+    
+    
+    
     <string name="file_item_icon">文件图标</string>
     <string name="s_01769a6e">远程配置 URL（https://...）</string>
     <string name="s_02d9819d">提示</string>
@@ -627,8 +627,7 @@
     <string name="h_01ee9186" formatted="false">| 跳过 DEX 数 | %1$s |</string>
     <string name="h_fe1aa884">| 阶段 | 明细 | 耗时 |</string>
     <string name="h_74f74cf4">| 项目 | 原始 | 处理后 | 变化 |</string>
-    <string name="h_81cbed17">© 2026 小奶瓶 · 保留所有权利
-Powered by dexlib2 / apksig / AndroidX</string>
+    
     <string name="h_1cdb9d2e">→ 在输入框输入广告 SDK 的完整包名 → 点\</string>
     <string name="h_51c8f936">→ 输入 .so 库名关键词 → 点\</string>
     <string name="h_3b98359d">→ 输入与代码中完全一致的方法名 → 点\</string>
@@ -1074,7 +1073,7 @@ Powered by dexlib2 / apksig / AndroidX</string>
     <string name="about_reference" formatted="false">本应用的实现过程中参考了以下公开的技术文档、开源教程与社区逆向资料，在此一并致谢，并说明出处：\n\n1. DEX 直接修补方案 (基于 dexlib2)\n   参考 Facebook 曾开源的 android-dexdump 思路，以及 dexlib2 官方示例\n   - dexlib2 主页: https://github.com/JesusFreke/smali\n   - 借鉴其 API 文档与示例用法，自行实现广告类/方法/字符串的定位与改写\n\n2. AXML 二进制格式解析 (Android Asset Packaging)\n   参考 AOSP 的 XmlPullParser 与 AXML 二进制格式说明\n   - 出处: https://android.googlesource.com/platform/frameworks/base/ (core/res)\n   - 依据 AXML chunk 头、资源表 StringPool/ResourceMap 结构与公共逆向资料编写\n\n3. Dart AOT 快照解析 (Flutter libapp.so)\n   参考 Dart VM 源码 snapshot.h 与社区 Flutter 逆向资料\n   - snapshot.h 出处: https://github.com/dart-lang/sdk/blob/main/runtime/vm/snapshot.h\n   - 用于定位 libapp.so 内 Dart 快照头并提取/抹除广告字符串\n\n4. 广告特征规则整理\n   广告 SDK 包名 / 域名 / 类名关键词参考开源项目 DTL-X 的规则整理扩充\n   - 主页: https://github.com/Gameye98/DTL-X\n   - 参考其 adloader / 域名黑名单 / 方法关键词思路，结合主流广告 SDK 自行整理\n\n5. APK v1 / v2 签名与对齐\n   参考 apksig 官方实现与 Android 文档中关于 ZIP alignment 的说明\n   - apksig: https://android.googlesource.com/platform/tools/apksig\n   - ZIP alignment: https://developer.android.com/studio/command-line/zipalign\n\n6. 数据复用优化（过签包体积优化）\n   参考 L-JINBIN 的 ApkDataMultiplexing 项目与 LSPatch 过签包结构\n   - 主页: https://github.com/L-JINBIN/ApkDataMultiplexing\n   - 思路来源: LSP 技术团队（过签包 + IO 重定向对抗整包校验）\n   - 原理: 通过中央目录数据偏移复用原包数据段，删除重复数据段实现体积优化\n   - 已移植其 DataMultiplexing / ZipMaker / ZipFile / V2V3SchemeSigner 实现\n\n7. 界面主题与排版\n   基于 Material Design 规范与 Material Components 组件库示例编写\n   - 规范: https://m3.material.io/\n   - 组件: https://github.com/material-components/material-components-android\n\n8. 签名效验去除（过签）\n   参考 MT 管理器 ApkSignatureKillerEx 的钩子注入思路：\n   - 注入 KillerApplication 钩子类并改写 manifest 的 Application 指向\n   - 钩子 &lt;clinit&gt; 中通过 PackageManager 读取签名并缓存，覆盖 getPackageInfo / 原生校验\n   - 原包模式：嵌入原始 APK 与过签 SO，读取原始签名参与匹配，覆盖更广\n   - 出处: https://mt2.cn/ （仅供学习参考）\n\n9. DEX 类重命名（自定义钩子类名）\n   参考 dexlib2 官方 RewriterModule / TypeRewriter 示例，实现类定义与全部引用的一并改写\n   - 出处: https://github.com/JesusFreke/smali\n   - 依据类型描述符前缀匹配重写，兼容点号 / 斜杠 / L...; 三种输入写法\n\n以上内容仅作技术学习参考，最终实现均为本项目自研；涉及版权归原作者与作者所属机构所有。</string>
     <string name="about_privacy" formatted="false">本应用遵守最小化收集原则，高度重视并保护您的个人隐私：\n\n1. 本地离线处理：所有 APK 的解包、去广告、打包、签名均在您的设备本地完成，应用不会上传任何 APK 文件或内部数据到服务器。\n\n2. 联网行为透明：本应用仅在您主动点击&quot;检查更新&quot;时联网请求版本信息，其余时间不会在后台联网、收集或上传任何个人信息。\n\n3. 权限最小化：本应用不读取、不存储、不访问您的通讯录、相册、定位、短信、通话记录等敏感信息。\n\n4. 数据本地存储：应用的配置、处理特征等数据仅保存在您的设备本地，应用卸载后即被清除，不会留存任何云端记录。\n\n5. 第三方链接：关于与更新页面可能包含外部链接，点击后由第三方平台处理您的访问行为，建议您查阅相关第三方的隐私政策。\n\n6. 若您在使用过程中有任何隐私疑问、建议或顾虑，欢迎通过作者联系方式与我们沟通，我们将尽力解答。</string>
     <string name="about_disclaimer" formatted="false">请在使用本应用前仔细阅读以下免责声明：\n\n1. 合法用途限制：本应用仅供学习、研究与个人合法用途使用。请勿对您不拥有版权、未获授权或受法律保护的应用进行修改与分发。\n\n2. 使用风险自担：使用本应用处理 APK 所产生的任何后果（包括但不限于：应用无法安装、闪退、功能异常、账号风险、数据丢失等）均由使用者自行承担。\n\n3. 商业使用责任：修改后的 APK 若用于商业用途或对外分发，请确保遵守相关应用的所有权、版权、商标及所在国家或地区的法律法规，由此产生的法律责任由使用者自担。\n\n4. 无担保声明：本应用按其现状提供，不附带任何形式的明示或默示担保。作者不对因使用或无法使用本应用而造成的任何直接或间接损失承担责任。\n\n5. 第三方内容：本应用引用的开源项目与广告特征规则均来自公开渠道，仅供技术参考，其版权归原作者所有。\n\n6. 条款变更：作者保留随时修改本免责声明的权利，更新后的内容将在新版本中生效。\n\n7. 使用本应用即视为您已阅读、理解并同意以上全部条款。若不同意，请停止使用本应用。</string>
-    <string name="about_copyright" formatted="false">© 2026 小奶瓶 · 保留所有权利\nPowered by dexlib2 / apksig / AndroidX</string>
+    
     <string name="h_00a68483">com.google.android.gms.ads\ncom.bytedance.sdk.openadsdk\ncom.qq.e.ads\ncom.mbridge.msdk</string>
     <string name="h_01be0fd6">与&quot;广告 SDK 包名&quot;&quot;广告 Activity / Service / Receiver&quot;配合使用，用于清理广告 SDK 在清单中的权限声明。</string>
     <string name="h_03277167">isVip\nisPro\nisPremium\nisMember\nisPaid</string>

@@ -222,7 +222,6 @@ fun AboutScreen() {
             title = stringResource(R.string.about_copyright_title),
             icon = Icons.Outlined.Code
         ) {
-            BulletItem(stringResource(AdrR.string.about_copyright))
             BulletItem(stringResource(R.string.about_dev_author))
             val uriHandler = LocalUriHandler.current
             val repoUrl = stringResource(R.string.about_dev_repo_url)

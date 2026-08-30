@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_copyright" formatted="false">© 2026年 シャオナイピン ·無断転載\nDexlib2 / apksig / AndroidXによるサポート</string>
+    
     <string name="about_disclaimer" formatted="false">このアプリを使用する前に、以下の免責事項をよくお読みください。\n\n1. 合法使用制限:このアプリは学習、研究、個人の合法利用のみを目的としています。所有していない、許可されていない、または法的に保護されているアプリを改変または再配布しないでください。\n\n2. 使用は自己責任で:このアプリでAPKを処理する場合(アプリのインストール失敗、クラッシュ、故障、アカウントリスク、データ損失など)はユーザーが自己負担します。\n\n3. 商業利用責任:修正されたAPKが商業または配布に使用される場合、関連する所有権、著作権、商標および現地法の遵守を必ず確認してください。すべての法的責任はユーザーにあります。\n\n4. 保証なし:このアプリは明示的または黙示的な保証を一切含み、現状を保たずに提供されます。著者は、このアプリの使用または使用不能に起因する直接的または間接的な損失について責任を負いません。\n\n5. サードパーティコンテンツ:このアプリで参照されるオープンソースプロジェクトや広告パターンルールは、技術的な参照目的で公開チャネルから提供されています。著作権は原作者に帰属します。\n\n6. 条件の変更:著者は本免責事項をいつでも修正する権利を有します。更新された条項は新しいバージョンで適用されます。\n\n7. このアプリを利用するということは、上記のすべての条件を読み、理解し、同意したことを意味します。もし同意しない方は、このアプリの使用をやめてください。</string>
     <string name="about_open_source" formatted="false">このアプリは以下のオープンソースプロジェクトを基に構築され、呼び出しも可能です。著者の皆様に心から感謝と敬意を表します:\n\n1. ApkDataMultiplexing(L-JINBIN)\n   V2V3SchemeSigner署名方式により、元のパッケージデータセグメントを中央ディレクトリオフで再利用し、重複データを除去することで署名済みパッケージを大幅に縮小(最大~50%)します\n   - ホーム:https://github.com/L-JINBIN/ApkDataMultiplexing\n   - ライセンス:特定なし、学習のみ用\n\n2. dexlib2 / smali / baksmali(JesusFreke)\n   DEX読み書きおよびSmali分解/アセンブリツールチェーン、広告除去エンジンのコア\n   - ホーム:https://github.com/JesusFreke/smali\n   - ライセンス:BSD 3条項\n\n3. apksig (Android Open Source Project)\n   APK v1 / v2 / v3の署名が成功しているので、結果は正常にインストールされます\n   - ホーム:https://android.googlesource.com/platform/tools/apksig\n   - ライセンス:Apache License 2.0\n\n4. バウンシーキャッスル : bcprov / bcpkix\n   Java暗号および証明書生成ライブラリによる証明書署名用\n   - ホーム:https://www.bouncycastle.org/\n   - ライセンス:MITライセンス\n\n5. グアバ(Google)\n   Javaコレクションとユーティリティ:dexlib2に必要な不変コレクションを提供します\n   - ホーム:https://github.com/google/guava\n   - ライセンス:Apache License 2.0\n\n6. AndroidX(Androidオープンソースプロジェクト)\n   core-ktx / appcompat / constraintlayout / recyclerview / lifecycle / coordinatorlayout\n   Androidの公式Jetpackサポートライブラリ\n   - ホーム:https://developer.android.com/jetpack\n   - ライセンス:Apache License 2.0\n\n7. マテリアルコンポーネント(Google)\n   マテリアルデザインコンポーネントライブラリ:カード、ボタン、ダイアログ、その他のUIコンポーネントを提供します\n   - ホーム:https://github.com/material-components/material-components-android\n   - ライセンス:Apache License 2.0\n\n8. Kotlin標準ライブラリ(JetBrains)\n   Kotlinプログラミング言語と標準ライブラリ\n   - ホーム:https://kotlinlang.org/\n   - ライセンス:Apache License 2.0\n\n9. DTL-X(Gameye98)\n   ad class / method / URL pattern rules の参照\n   - ホーム:https://github.com/Gameye98/DTL-X\n   - パターン参照と学習のみのため;そのバイナリは修正されていません\n\n10. Androidアセットパッケージングツール(AAPT2)\n    AXML/リソース処理用のAndroidリソースコンパイルおよびパッケージングツール\n    - ホーム:https://developer.android.com/tools/aapt2\n    - ライセンス:Apache License 2.0\n\n11. MT Manager ApkSignatureKillerEx サンプル(Bin.MT)\n    署名検証・除去フッククラス(bin.mt.signature.KillerApplication)とネイティブライブラリのアイデアの出典\n    - ホーム:https://mt2.cn/\n    - 学習のみのため;フッククラスとネイティブライブラリはサンプルの組み込みリソースであり、変更されていません\n\n12. dexlib2 DexRewriter(JesusFreke)\n    RewriterModule / TypeRewriter ベースのカスタムフッククラス名のための DEX クラス名変更スキーム\n    - ホーム:https://github.com/JesusFreke/smali\n    - ライセンス:BSD 3条項\n\n上記のプロジェクトの著作権およびライセンス全文をご覧になりたい方は、各プロジェクトのホームページをご覧ください。</string>
     <string name="about_privacy" formatted="false">このアプリは最小限の収集の原則に従い、プライバシーを非常に重視し保護しています:\n\n1. 完全オフライン:すべてのAPKの解読、広告削除、再梱包、署名はあなたのデバイス上でローカルで行われます。アプリはAPKファイルや内部データをサーバーにアップロードしません。\n\n2. 透明なネットワーク:アプリは「アップデートを確認する」をタップしたときにのみネットワークに連絡し、バージョン情報を要求します。それ以外の時間帯にはネットワークを結び、個人情報を収集したりアップロードしたりすることは一切ありません。\n\n3. 最小限の権限:アプリは連絡先、ギャラリー、位置情報、SMS、通話履歴などの機密データを読み取ったり保存したりアクセスしたりしません。\n\n4. ローカルデータストレージ:設定とパターンはデバイスにのみ保存され、アプリをアンインストールすると削除され、クラウド記録は保持されません。\n\n5. 第三者リンク:Aboutページや更新ページには外部リンクが含まれている場合があります。クリックすると第三者プラットフォームがアクセス処理を行うため、プライバシーポリシーを必ずご確認ください。\n\n6. プライバシーに関する質問や提案、ご懸念があれば、著者の連絡先からお気軽にご連絡ください。できる限りお手伝いいたします。</string>
@@ -10,9 +10,9 @@
     <string name="app_subtitle_settings">広告パターンをカスタム</string>
     <string name="app_title_download">ダウンロードセンター</string>
     <string name="app_title_local">APKワンタップ広告除去 · 解凍/修正/再パック/署名</string>
-    <string name="author_email">3679265780@qq.com</string>
-    <string name="author_name">XiaoNaiPing</string>
-    <string name="author_qq_note">3679265780</string>
+    
+    
+    
     <string name="file_item_icon">ファイルアイコン</string>
     <string name="h_00110af8">日本語</string>
     <string name="h_0046342a">·DEXファイルは見つかりませんでした</string>
@@ -441,7 +441,7 @@
     <string name="h_80928937">Flutterアプリは検出されましたが、処理の詳細は生成されませんでした。</string>
     <string name="h_80943b1f">$HELP_CONFIG_NAMEの\&quot;ad_services\&quot;フィールドに書き込まれました。\nこれはcore/DexPatcher.kt(クラス識別)およびcore/AxmlAdRemover.kt(マニフェストコンポーネント除去)で読み取られます。</string>
     <string name="h_80d72d4c">FacebookのオープンソースのAndroid-dexdumpアプローチや公式のdexlib2例を参照\n</string>
-    <string name="h_81cbed17">© 2026年 シャオナイピン ·無断転載\nDexlib2 / apksig / AndroidXによるサポート</string>
+    
     <string name="h_827cfb79">レイアウトファイル内の広告ビュー領域を非表示にする</string>
     <string name="h_8286533b">実行時には、core/DexPatcher.kt\のforce-return-trueロジック(ブールリターン/整数リターン型のみ)で処理されます。</string>
     <string name="h_839ae19b">ダウンロードしたアップデートパッケージが無効です。再試行</string>
