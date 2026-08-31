@@ -56,7 +56,8 @@ data class AdRemoverUiState(
     val outputDir: String = "",
     val configPath: String = "",
     val categories: List<Pair<AdPatternConfig.Category, Boolean>> = emptyList(),
-    val subscriptions: List<SubscriptionManager.Subscription> = emptyList()
+    val subscriptions: List<SubscriptionManager.Subscription> = emptyList(),
+    val canAccessAllFiles: Boolean = false
 )
 
 class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
@@ -79,7 +80,29 @@ class AdRemoverViewModel(app: Application) : AndroidViewModel(app) {
         val ctx = getApplication<Application>()
         runCatching { LanguageManager.init(ctx) }
         refreshSettings()
+        refreshAllFilesPermission()
     }
+
+    /**
+     * 检查是否已授予"所有文件访问"权限（Android 11+ 访问公共 Download 目录必需）。
+     */
+    fun refreshAllFilesPermission() {
+        val ctx = getApplication<Application>()
+        val granted = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            android.os.Environment.isExternalStorageManager()
+        } else {
+            true
+        }
+        _state.update { it.copy(canAccessAllFiles = granted) }
+    }
+
+    /**
+     * 跳转到系统"所有文件访问权限"设置页。
+     */
+    fun allFilesPermissionIntent(): android.content.Intent =
+        android.content.Intent(android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+            data = android.net.Uri.parse("package:${getApplication<Application>().packageName}")
+        }
 
     private fun refreshSettings() {
         val ctx = getApplication<Application>()

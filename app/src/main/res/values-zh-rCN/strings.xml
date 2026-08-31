@@ -48,6 +48,8 @@
     <string name="unknown_sources_required">需要权限</string>
     <string name="unknown_sources_subtitle">允许 OBB Installer 安装未知应用。</string>
     <string name="open_settings">打开设置</string>
+    <string name="storage_permission_required">需要存储权限</string>
+    <string name="storage_permission_subtitle">允许访问所有文件，以便保存去广告配置和订阅。</string>
 
     <!-- 工作原理 -->
     <string name="how_it_works_title">工作原理</string>

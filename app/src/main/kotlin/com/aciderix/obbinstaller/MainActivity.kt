@@ -103,6 +103,9 @@ private fun HubApp(vm: InstallerViewModel = viewModel()) {
     val pickAdrApk = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let { adrVm.setApkUri(it) }
     }
+    val allFilesLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        adrVm.refreshAllFilesPermission()
+    }
 
     Scaffold(
         containerColor = HubColors.Background,
@@ -153,6 +156,9 @@ private fun HubApp(vm: InstallerViewModel = viewModel()) {
                                 "application/octet-stream",
                                 "*/*"
                             ))
+                        },
+                        onOpenStoragePermission = {
+                            allFilesLauncher.launch(adrVm.allFilesPermissionIntent())
                         }
                     )
                     Tab.About -> AboutScreen()

@@ -29,6 +29,7 @@ import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
@@ -59,6 +60,7 @@ import com.shinegirls.apkadremovereditor.utils.Format
 @Composable
 fun AdRemoverScreen(
     onPickApk: () -> Unit,
+    onOpenStoragePermission: () -> Unit = {},
     vm: AdRemoverViewModel = viewModel()
 ) {
     val ctx = LocalContext.current
@@ -91,6 +93,14 @@ fun AdRemoverScreen(
             .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
+        AnimatedVisibility(
+            visible = !state.canAccessAllFiles,
+            enter = expandVertically() + fadeIn(),
+            exit = shrinkVertically() + fadeOut()
+        ) {
+            StoragePermissionCard(onOpenSettings = onOpenStoragePermission)
+        }
+
         FileSourceCard(
             title = stringResource(R.string.adr_title),
             statusLabel = state.apk?.let {
@@ -743,5 +753,33 @@ private fun StatRow(label: String, value: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(label, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
         Text(value, style = MaterialTheme.typography.bodyMedium, color = HubColors.Primary)
+    }
+}
+
+@Composable
+private fun StoragePermissionCard(onOpenSettings: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(18.dp))
+            .background(HubColors.Surface)
+            .border(BorderStroke(1.dp, HubColors.Warn.copy(alpha = 0.5f)), RoundedCornerShape(18.dp))
+            .padding(14.dp)
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                androidx.compose.material3.Icon(
+                    imageVector = Icons.Outlined.WarningAmber,
+                    contentDescription = null,
+                    tint = HubColors.Warn,
+                    modifier = Modifier.size(18.dp)
+                )
+                Text(stringResource(R.string.storage_permission_required), style = MaterialTheme.typography.titleSmall, color = HubColors.Warn)
+            }
+            Text(stringResource(R.string.storage_permission_subtitle), style = MaterialTheme.typography.bodyMedium)
+            OutlinedButton(onClick = onOpenSettings) {
+                Text(stringResource(R.string.open_settings))
+            }
+        }
     }
 }

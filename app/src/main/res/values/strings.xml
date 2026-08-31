@@ -50,6 +50,8 @@
     <string name="unknown_sources_required">Permission needed</string>
     <string name="unknown_sources_subtitle">Allow installing unknown apps for OBB Installer.</string>
     <string name="open_settings">Open settings</string>
+    <string name="storage_permission_required">Storage access needed</string>
+    <string name="storage_permission_subtitle">Allow access to all files to save ad-removal configs and subscriptions.</string>
 
     <!-- How it works -->
     <string name="how_it_works_title">How it works</string>
