@@ -4,6 +4,9 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -365,88 +368,92 @@ private fun SettingsCard(
                 )
             }
 
-            AnimatedVisibility(visible = showSettings, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
-                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                    // 签名效验去除模式
-                    SectionTitle(stringResource(R.string.adr_sign_mode))
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        ModeChip(
-                            label = stringResource(R.string.adr_sign_off),
-                            selected = state.signMode == 0,
-                            onClick = { onSetSignMode(0) }
-                        )
-                        ModeChip(
-                            label = stringResource(R.string.adr_sign_normal),
-                            selected = state.signMode == 1,
-                            onClick = { onSetSignMode(1) }
-                        )
-                        ModeChip(
-                            label = stringResource(R.string.adr_sign_original),
-                            selected = state.signMode == 2,
-                            onClick = { onSetSignMode(2) }
-                        )
-                    }
+            Column(
+                modifier = Modifier.animateContentSize(animationSpec = COLLAPSE_SPEC)
+            ) {
+                if (showSettings) {
+                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        // 签名效验去除模式
+                        SectionTitle(stringResource(R.string.adr_sign_mode))
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            ModeChip(
+                                label = stringResource(R.string.adr_sign_off),
+                                selected = state.signMode == 0,
+                                onClick = { onSetSignMode(0) }
+                            )
+                            ModeChip(
+                                label = stringResource(R.string.adr_sign_normal),
+                                selected = state.signMode == 1,
+                                onClick = { onSetSignMode(1) }
+                            )
+                            ModeChip(
+                                label = stringResource(R.string.adr_sign_original),
+                                selected = state.signMode == 2,
+                                onClick = { onSetSignMode(2) }
+                            )
+                        }
 
-                    // Flutter / DEX / 跳过签名
-                    SwitchRow(
-                        label = stringResource(R.string.adr_flutter),
-                        hint = stringResource(R.string.adr_flutter_hint),
-                        checked = state.flutterEnabled,
-                        onCheckedChange = onSetFlutter
-                    )
-                    SwitchRow(
-                        label = stringResource(R.string.adr_dex_optimize),
-                        hint = stringResource(R.string.adr_dex_optimize_hint),
-                        checked = state.dexOptimizeEnabled,
-                        onCheckedChange = onSetDexOptimize
-                    )
-                    SwitchRow(
-                        label = stringResource(R.string.adr_skip_signing),
-                        hint = stringResource(R.string.adr_skip_signing_hint),
-                        checked = state.skipSigning,
-                        onCheckedChange = onSetSkipSigning
-                    )
-
-                    // 路径设置
-                    PathField(
-                        label = stringResource(R.string.adr_output_dir),
-                        value = state.outputDir,
-                        resetLabel = stringResource(R.string.adr_output_dir_reset),
-                        onValueChange = onSetOutputDir,
-                        onReset = onResetOutputDir
-                    )
-                    PathField(
-                        label = stringResource(R.string.adr_config_path),
-                        value = state.configPath,
-                        resetLabel = stringResource(R.string.adr_config_path_reset),
-                        onValueChange = onSetConfigPath,
-                        onReset = onResetConfigPath
-                    )
-                    OutlinedButton(
-                        onClick = {
-                            onResetConfigToDefault()
-                            Toast.makeText(ctx, ctx.getString(R.string.adr_config_reset_default), Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    ) { Text(stringResource(R.string.adr_config_reset_default)) }
-
-                    // 分类开关
-                    SectionTitle(stringResource(R.string.adr_categories))
-                    state.categories.forEach { (category, enabled) ->
+                        // Flutter / DEX / 跳过签名
                         SwitchRow(
-                            label = ctx.getString(category.titleRes),
-                            hint = category.key,
-                            checked = enabled,
-                            onCheckedChange = { onSetCategory(category, it) }
+                            label = stringResource(R.string.adr_flutter),
+                            hint = stringResource(R.string.adr_flutter_hint),
+                            checked = state.flutterEnabled,
+                            onCheckedChange = onSetFlutter
                         )
-                    }
+                        SwitchRow(
+                            label = stringResource(R.string.adr_dex_optimize),
+                            hint = stringResource(R.string.adr_dex_optimize_hint),
+                            checked = state.dexOptimizeEnabled,
+                            onCheckedChange = onSetDexOptimize
+                        )
+                        SwitchRow(
+                            label = stringResource(R.string.adr_skip_signing),
+                            hint = stringResource(R.string.adr_skip_signing_hint),
+                            checked = state.skipSigning,
+                            onCheckedChange = onSetSkipSigning
+                        )
 
-                    // 订阅
-                    SectionTitle(stringResource(R.string.adr_subscriptions))
-                    OutlinedButton(
-                        onClick = onShowSubscriptions,
-                        modifier = Modifier.fillMaxWidth()
-                    ) { Text(stringResource(R.string.adr_subscriptions)) }
+                        // 路径设置
+                        PathField(
+                            label = stringResource(R.string.adr_output_dir),
+                            value = state.outputDir,
+                            resetLabel = stringResource(R.string.adr_output_dir_reset),
+                            onValueChange = onSetOutputDir,
+                            onReset = onResetOutputDir
+                        )
+                        PathField(
+                            label = stringResource(R.string.adr_config_path),
+                            value = state.configPath,
+                            resetLabel = stringResource(R.string.adr_config_path_reset),
+                            onValueChange = onSetConfigPath,
+                            onReset = onResetConfigPath
+                        )
+                        OutlinedButton(
+                            onClick = {
+                                onResetConfigToDefault()
+                                Toast.makeText(ctx, ctx.getString(R.string.adr_config_reset_default), Toast.LENGTH_SHORT).show()
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) { Text(stringResource(R.string.adr_config_reset_default)) }
+
+                        // 分类开关
+                        SectionTitle(stringResource(R.string.adr_categories))
+                        state.categories.forEach { (category, enabled) ->
+                            SwitchRow(
+                                label = ctx.getString(category.titleRes),
+                                hint = category.key,
+                                checked = enabled,
+                                onCheckedChange = { onSetCategory(category, it) }
+                            )
+                        }
+
+                        // 订阅
+                        SectionTitle(stringResource(R.string.adr_subscriptions))
+                        OutlinedButton(
+                            onClick = onShowSubscriptions,
+                            modifier = Modifier.fillMaxWidth()
+                        ) { Text(stringResource(R.string.adr_subscriptions)) }
+                    }
                 }
             }
         }
@@ -756,6 +763,12 @@ private fun StatRow(label: String, value: String) {
     }
 }
 
+/** 折叠卡片展开/收起动画规格：animateContentSize 使用的尺寸 tween。 */
+private val COLLAPSE_SPEC = tween<androidx.compose.ui.unit.IntSize>(
+    durationMillis = 220,
+    easing = FastOutSlowInEasing
+)
+
 @Composable
 private fun StoragePermissionCard(onOpenSettings: () -> Unit) {
     Box(
@@ -777,7 +790,7 @@ private fun StoragePermissionCard(onOpenSettings: () -> Unit) {
                 Text(stringResource(R.string.storage_permission_required), style = MaterialTheme.typography.titleSmall, color = HubColors.Warn)
             }
             Text(stringResource(R.string.storage_permission_subtitle), style = MaterialTheme.typography.bodyMedium)
-            OutlinedButton(onClick = onOpenSettings) {
+            androidx.compose.material3.Button(onClick = onOpenSettings) {
                 Text(stringResource(R.string.open_settings))
             }
         }
