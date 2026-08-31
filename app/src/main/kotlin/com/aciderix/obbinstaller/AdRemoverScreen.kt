@@ -547,32 +547,42 @@ private fun SubscriptionsDialog(
                     Text(stringResource(R.string.adr_subscriptions_empty), style = MaterialTheme.typography.bodySmall, color = HubColors.TextMuted)
                 }
                 subs.forEach { sub ->
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Switch(checked = sub.enabled, onCheckedChange = { onToggle(sub.id, it) })
-                        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                            Text(sub.name, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
-                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                Text(
-                                    if (sub.type == SubscriptionManager.Type.URL) "URL" else "CONTENT",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = HubColors.TextMuted
-                                )
-                                sub.createdAt.takeIf { it > 0 }?.let { ts ->
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(14.dp))
+                            .background(HubColors.SurfaceMuted)
+                            .padding(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Switch(checked = sub.enabled, onCheckedChange = { onToggle(sub.id, it) })
+                            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                Text(sub.name, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                     Text(
-                                        stringResource(R.string.adr_sub_added_at, formatSubDate(ts)),
+                                        if (sub.type == SubscriptionManager.Type.URL) "URL" else "CONTENT",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = HubColors.TextMuted
                                     )
+                                    sub.createdAt.takeIf { it > 0 }?.let { ts ->
+                                        Text(
+                                            stringResource(R.string.adr_sub_added_at, formatSubDate(ts)),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = HubColors.TextMuted
+                                        )
+                                    }
                                 }
                             }
                         }
-                        IconButtonSmall(Icons.Outlined.Visibility) { onPreview(sub) }
-                        IconButtonSmall(Icons.Outlined.Restore) { onRestore(sub) }
-                        IconButtonSmall(Icons.Outlined.Edit) { onEdit(sub) }
-                        IconButtonSmall(Icons.Outlined.Share) { onShare(sub) }
-                        IconButtonSmall(Icons.Outlined.Delete) { onDelete(sub.id) }
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                            IconButtonSmall(Icons.Outlined.Visibility) { onPreview(sub) }
+                            IconButtonSmall(Icons.Outlined.Restore) { onRestore(sub) }
+                            IconButtonSmall(Icons.Outlined.Edit) { onEdit(sub) }
+                            IconButtonSmall(Icons.Outlined.Share) { onShare(sub) }
+                            IconButtonSmall(Icons.Outlined.Delete) { onDelete(sub.id) }
+                        }
                     }
-                    HorizontalDivider(color = HubColors.Border.copy(alpha = 0.5f))
                 }
             }
         },
